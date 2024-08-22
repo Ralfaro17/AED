@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|c:\\users\\abel\\documents\\github\\aed\\clasepractica1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|c:\\users\\abel\\documents\\github\\aed\\clasepractica1\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|c:\\users\\abel\\documents\\github\\aed\\clasepractica1\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|c:\\users\\abel\\documents\\github\\aed\\clasepractica1\\persona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\persona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|solutionrelative:persona.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CDDD698D-B027-4D27-AC88-AED59F6A0959}|ClasePractica1.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,34 +26,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Form1.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\Form1.Designer.cs",
-              "RelativeDocumentMoniker": "Form1.Designer.cs",
-              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\Form1.Designer.cs",
-              "RelativeToolTip": "Form1.Designer.cs",
-              "ViewState": "AgIAAJ0AAAAAAAAAAAD4v7EAAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-22T10:44:49.386Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAgwDsAAAAaAAAAAAAAAA==",
+              "ViewState": "AQIAACcAAAAAAAAAAAAAACkAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-22T10:41:48.363Z",
               "EditorCaption": ""
@@ -61,19 +44,31 @@
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\Form1.Designer.cs",
+              "RelativeToolTip": "Form1.Designer.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-22T10:44:49.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Persona.cs",
               "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\Persona.cs",
               "RelativeDocumentMoniker": "Persona.cs",
               "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\Persona.cs",
               "RelativeToolTip": "Persona.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAuwBYAAAA/AAAAAAAAAA==",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-22T10:29:50.513Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\ClasePractica1\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",

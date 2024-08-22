@@ -48,9 +48,10 @@
             // 
             this.labelCantidad.AutoSize = true;
             this.labelCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F);
-            this.labelCantidad.Location = new System.Drawing.Point(12, 23);
+            this.labelCantidad.Location = new System.Drawing.Point(9, 19);
+            this.labelCantidad.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelCantidad.Name = "labelCantidad";
-            this.labelCantidad.Size = new System.Drawing.Size(550, 42);
+            this.labelCantidad.Size = new System.Drawing.Size(438, 36);
             this.labelCantidad.TabIndex = 0;
             this.labelCantidad.Text = "Ingrese la cantidad de personas";
             // 
@@ -58,9 +59,10 @@
             // 
             this.labelNombres.AutoSize = true;
             this.labelNombres.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F);
-            this.labelNombres.Location = new System.Drawing.Point(12, 96);
+            this.labelNombres.Location = new System.Drawing.Point(9, 78);
+            this.labelNombres.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelNombres.Name = "labelNombres";
-            this.labelNombres.Size = new System.Drawing.Size(169, 42);
+            this.labelNombres.Size = new System.Drawing.Size(135, 36);
             this.labelNombres.TabIndex = 0;
             this.labelNombres.Text = "Nombres";
             // 
@@ -68,9 +70,10 @@
             // 
             this.labelApellidos.AutoSize = true;
             this.labelApellidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F);
-            this.labelApellidos.Location = new System.Drawing.Point(12, 174);
+            this.labelApellidos.Location = new System.Drawing.Point(9, 141);
+            this.labelApellidos.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelApellidos.Name = "labelApellidos";
-            this.labelApellidos.Size = new System.Drawing.Size(170, 42);
+            this.labelApellidos.Size = new System.Drawing.Size(139, 36);
             this.labelApellidos.TabIndex = 0;
             this.labelApellidos.Text = "Apellidos";
             // 
@@ -78,9 +81,10 @@
             // 
             this.labelTelefono.AutoSize = true;
             this.labelTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F);
-            this.labelTelefono.Location = new System.Drawing.Point(12, 245);
+            this.labelTelefono.Location = new System.Drawing.Point(9, 199);
+            this.labelTelefono.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTelefono.Name = "labelTelefono";
-            this.labelTelefono.Size = new System.Drawing.Size(164, 42);
+            this.labelTelefono.Size = new System.Drawing.Size(131, 36);
             this.labelTelefono.TabIndex = 0;
             this.labelTelefono.Text = "Telefono";
             // 
@@ -88,58 +92,65 @@
             // 
             this.labelAño.AutoSize = true;
             this.labelAño.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F);
-            this.labelAño.Location = new System.Drawing.Point(12, 321);
+            this.labelAño.Location = new System.Drawing.Point(9, 261);
+            this.labelAño.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelAño.Name = "labelAño";
-            this.labelAño.Size = new System.Drawing.Size(85, 42);
+            this.labelAño.Size = new System.Drawing.Size(70, 36);
             this.labelAño.TabIndex = 0;
             this.labelAño.Text = "Año";
             // 
             // txtCantidad
             // 
             this.txtCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F);
-            this.txtCantidad.Location = new System.Drawing.Point(582, 27);
+            this.txtCantidad.Location = new System.Drawing.Point(444, 22);
+            this.txtCantidad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.Size = new System.Drawing.Size(191, 49);
+            this.txtCantidad.Size = new System.Drawing.Size(144, 41);
             this.txtCantidad.TabIndex = 1;
             // 
             // txtNombres
             // 
             this.txtNombres.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F);
-            this.txtNombres.Location = new System.Drawing.Point(197, 96);
+            this.txtNombres.Location = new System.Drawing.Point(148, 78);
+            this.txtNombres.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtNombres.Name = "txtNombres";
-            this.txtNombres.Size = new System.Drawing.Size(191, 49);
+            this.txtNombres.Size = new System.Drawing.Size(191, 41);
             this.txtNombres.TabIndex = 1;
             // 
             // txtApellidos
             // 
             this.txtApellidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F);
-            this.txtApellidos.Location = new System.Drawing.Point(197, 171);
+            this.txtApellidos.Location = new System.Drawing.Point(148, 139);
+            this.txtApellidos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtApellidos.Name = "txtApellidos";
-            this.txtApellidos.Size = new System.Drawing.Size(191, 49);
+            this.txtApellidos.Size = new System.Drawing.Size(191, 41);
             this.txtApellidos.TabIndex = 1;
             // 
             // txtTelefono
             // 
             this.txtTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F);
-            this.txtTelefono.Location = new System.Drawing.Point(197, 238);
+            this.txtTelefono.Location = new System.Drawing.Point(148, 193);
+            this.txtTelefono.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(191, 49);
+            this.txtTelefono.Size = new System.Drawing.Size(191, 41);
             this.txtTelefono.TabIndex = 1;
             // 
             // txtAño
             // 
             this.txtAño.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F);
-            this.txtAño.Location = new System.Drawing.Point(197, 318);
+            this.txtAño.Location = new System.Drawing.Point(148, 258);
+            this.txtAño.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtAño.Name = "txtAño";
-            this.txtAño.Size = new System.Drawing.Size(191, 49);
+            this.txtAño.Size = new System.Drawing.Size(191, 41);
             this.txtAño.TabIndex = 1;
             // 
             // btnCantidad
             // 
             this.btnCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.btnCantidad.Location = new System.Drawing.Point(794, 16);
+            this.btnCantidad.Location = new System.Drawing.Point(596, 13);
+            this.btnCantidad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCantidad.Name = "btnCantidad";
-            this.btnCantidad.Size = new System.Drawing.Size(200, 77);
+            this.btnCantidad.Size = new System.Drawing.Size(150, 63);
             this.btnCantidad.TabIndex = 2;
             this.btnCantidad.Text = "Establecer Cantidad";
             this.btnCantidad.UseVisualStyleBackColor = true;
@@ -148,9 +159,10 @@
             // btnImprimir
             // 
             this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.btnImprimir.Location = new System.Drawing.Point(827, 119);
+            this.btnImprimir.Location = new System.Drawing.Point(349, 99);
+            this.btnImprimir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnImprimir.Name = "btnImprimir";
-            this.btnImprimir.Size = new System.Drawing.Size(133, 42);
+            this.btnImprimir.Size = new System.Drawing.Size(100, 34);
             this.btnImprimir.TabIndex = 2;
             this.btnImprimir.Text = "Imprimir";
             this.btnImprimir.UseVisualStyleBackColor = true;
@@ -160,18 +172,20 @@
             // 
             this.lbImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.lbImprimir.FormattingEnabled = true;
-            this.lbImprimir.ItemHeight = 25;
-            this.lbImprimir.Location = new System.Drawing.Point(465, 169);
+            this.lbImprimir.ItemHeight = 20;
+            this.lbImprimir.Location = new System.Drawing.Point(349, 137);
+            this.lbImprimir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lbImprimir.Name = "lbImprimir";
-            this.lbImprimir.Size = new System.Drawing.Size(528, 254);
+            this.lbImprimir.Size = new System.Drawing.Size(534, 224);
             this.lbImprimir.TabIndex = 3;
             // 
             // btnAgregar
             // 
             this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.btnAgregar.Location = new System.Drawing.Point(225, 396);
+            this.btnAgregar.Location = new System.Drawing.Point(169, 322);
+            this.btnAgregar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(133, 42);
+            this.btnAgregar.Size = new System.Drawing.Size(100, 34);
             this.btnAgregar.TabIndex = 2;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
@@ -179,9 +193,9 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1006, 450);
+            this.ClientSize = new System.Drawing.Size(894, 366);
             this.Controls.Add(this.lbImprimir);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnImprimir);
@@ -196,6 +210,7 @@
             this.Controls.Add(this.labelApellidos);
             this.Controls.Add(this.labelNombres);
             this.Controls.Add(this.labelCantidad);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Clase Practica 1";
             this.ResumeLayout(false);
