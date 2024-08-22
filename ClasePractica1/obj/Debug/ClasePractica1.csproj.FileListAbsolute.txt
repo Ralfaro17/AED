@@ -1,0 +1,10 @@
+C:\Users\Abel\Documents\GitHub\AED\ClasePractica1\bin\Debug\ClasePractica1.exe.config
+C:\Users\Abel\Documents\GitHub\AED\ClasePractica1\bin\Debug\ClasePractica1.exe
+C:\Users\Abel\Documents\GitHub\AED\ClasePractica1\bin\Debug\ClasePractica1.pdb
+C:\Users\Abel\Documents\GitHub\AED\ClasePractica1\obj\Debug\ClasePractica1.csproj.AssemblyReference.cache
+C:\Users\Abel\Documents\GitHub\AED\ClasePractica1\obj\Debug\ClasePractica1.Form1.resources
+C:\Users\Abel\Documents\GitHub\AED\ClasePractica1\obj\Debug\ClasePractica1.Properties.Resources.resources
+C:\Users\Abel\Documents\GitHub\AED\ClasePractica1\obj\Debug\ClasePractica1.csproj.GenerateResource.cache
+C:\Users\Abel\Documents\GitHub\AED\ClasePractica1\obj\Debug\ClasePractica1.csproj.CoreCompileInputs.cache
+C:\Users\Abel\Documents\GitHub\AED\ClasePractica1\obj\Debug\ClasePractica1.exe
+C:\Users\Abel\Documents\GitHub\AED\ClasePractica1\obj\Debug\ClasePractica1.pdb
