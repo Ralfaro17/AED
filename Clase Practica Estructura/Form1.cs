@@ -34,6 +34,9 @@ namespace Clase_Practica_Estructura
             txtCarnet.Clear();
             txtNombres.Clear();
             txtAño.Clear();
+            cbDia.ResetText();
+            cbMes.ResetText();
+            cbSexo.ResetText();
         }
 
         void Registrar()
@@ -111,7 +114,28 @@ namespace Clase_Practica_Estructura
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
+            int i = 0;
+            string x;
+            x = txtCarnet.Text;
+            while (i < N && x != Registros[i].Carnet)
+            {
+                i = i + 1;
+            }
+            if(i >= N)
+            {
+                MessageBox.Show(x + "No está Registrado");
+            }
+            else
+            {
+                for (int k = i; k < N; k++)
+                {
+                    Registros[k].Carnet = Registros[k + 1].Carnet;
+                    Registros[k].Nombres = Registros[k + 1].Nombres;
+                    Registros[k].Apellidos = Registros[k + 1].Apellidos;
+                    Registros[k].Sexo = Registros[k + 1].Sexo;
 
+                }
+            }
         }
 
         private void txtAño_KeyPress(object sender, KeyPressEventArgs e)
