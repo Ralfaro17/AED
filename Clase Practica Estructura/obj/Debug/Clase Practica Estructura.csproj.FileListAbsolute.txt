@@ -1,0 +1,10 @@
+C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.csproj.AssemblyReference.cache
+C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\obj\Debug\Clase_Practica_Estructura.FormStruct.resources
+C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\obj\Debug\Clase_Practica_Estructura.Properties.Resources.resources
+C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.csproj.GenerateResource.cache
+C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.csproj.CoreCompileInputs.cache
+C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\bin\Debug\Clase Practica Estructura.exe.config
+C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\bin\Debug\Clase Practica Estructura.exe
+C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\bin\Debug\Clase Practica Estructura.pdb
+C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.exe
+C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.pdb
