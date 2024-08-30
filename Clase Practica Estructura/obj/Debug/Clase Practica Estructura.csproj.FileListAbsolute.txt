@@ -8,3 +8,13 @@ C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\bin\Debug\Clase Practi
 C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\bin\Debug\Clase Practica Estructura.pdb
 C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.exe
 C:\Users\ROBOTICA\Documents\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.pdb
+C:\Users\Abel\Documents\GitHub\AED\Clase Practica Estructura\bin\Debug\Clase Practica Estructura.exe.config
+C:\Users\Abel\Documents\GitHub\AED\Clase Practica Estructura\bin\Debug\Clase Practica Estructura.exe
+C:\Users\Abel\Documents\GitHub\AED\Clase Practica Estructura\bin\Debug\Clase Practica Estructura.pdb
+C:\Users\Abel\Documents\GitHub\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.csproj.AssemblyReference.cache
+C:\Users\Abel\Documents\GitHub\AED\Clase Practica Estructura\obj\Debug\Clase_Practica_Estructura.FormStruct.resources
+C:\Users\Abel\Documents\GitHub\AED\Clase Practica Estructura\obj\Debug\Clase_Practica_Estructura.Properties.Resources.resources
+C:\Users\Abel\Documents\GitHub\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.csproj.GenerateResource.cache
+C:\Users\Abel\Documents\GitHub\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.csproj.CoreCompileInputs.cache
+C:\Users\Abel\Documents\GitHub\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.exe
+C:\Users\Abel\Documents\GitHub\AED\Clase Practica Estructura\obj\Debug\Clase Practica Estructura.pdb

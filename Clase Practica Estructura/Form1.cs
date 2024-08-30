@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -133,8 +134,12 @@ namespace Clase_Practica_Estructura
                     Registros[k].Nombres = Registros[k + 1].Nombres;
                     Registros[k].Apellidos = Registros[k + 1].Apellidos;
                     Registros[k].Sexo = Registros[k + 1].Sexo;
-
+                    Registros[k].FechaNac.Dia = Registros[k + 1].FechaNac.Dia;
+                    Registros[k].FechaNac.Mes = Registros[k + 1].FechaNac.Mes;
+                    Registros[k].FechaNac.Año = Registros[k + 1].FechaNac.Año;
                 }
+                N = N - 1;
+                MessageBox.Show("El estudiante con Carnet=" + x + " se ha eliminado");
             }
         }
 
@@ -146,9 +151,30 @@ namespace Clase_Practica_Estructura
             }
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void btnActualizar_Click(object sender, EventArgs e)
         {
-
+            int i = 0;
+            string x;
+            x = txtCarnet.Text;
+            while(i < N && x != Registros[i].Carnet)
+            {
+                i = i + 1;
+            }
+            if(i >= N)
+            {
+                MessageBox.Show(x + " No está Registrado");
+            }
+            else
+            {   
+                Registros[i].Nombres = txtNombres.Text;
+                Registros[i].Apellidos = txtApellidos.Text;
+                Registros[i].Sexo = cbSexo.Text;
+                Registros[i].FechaNac.Dia = int.Parse(cbDia.Text);
+                Registros[i].FechaNac.Mes = cbMes.Text;
+                Registros[i].FechaNac.Año = int.Parse(txtAño.Text);
+                Limpiar();
+                MessageBox.Show("El estudiante con Carnet=" + x + " se ha actualizado");
+            }
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
