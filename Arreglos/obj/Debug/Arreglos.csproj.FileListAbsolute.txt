@@ -1,0 +1,10 @@
+C:\Users\ROBOTICA\Documents\AED\Arreglos\bin\Debug\Arreglos.exe.config
+C:\Users\ROBOTICA\Documents\AED\Arreglos\bin\Debug\Arreglos.exe
+C:\Users\ROBOTICA\Documents\AED\Arreglos\bin\Debug\Arreglos.pdb
+C:\Users\ROBOTICA\Documents\AED\Arreglos\obj\Debug\Arreglos.csproj.AssemblyReference.cache
+C:\Users\ROBOTICA\Documents\AED\Arreglos\obj\Debug\Arreglos.Form1.resources
+C:\Users\ROBOTICA\Documents\AED\Arreglos\obj\Debug\Arreglos.Properties.Resources.resources
+C:\Users\ROBOTICA\Documents\AED\Arreglos\obj\Debug\Arreglos.csproj.GenerateResource.cache
+C:\Users\ROBOTICA\Documents\AED\Arreglos\obj\Debug\Arreglos.csproj.CoreCompileInputs.cache
+C:\Users\ROBOTICA\Documents\AED\Arreglos\obj\Debug\Arreglos.exe
+C:\Users\ROBOTICA\Documents\AED\Arreglos\obj\Debug\Arreglos.pdb
