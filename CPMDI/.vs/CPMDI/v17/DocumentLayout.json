@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Desktop\\CPMDI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|d:\\desktop\\cpmdi\\cpmdi\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|solutionrelative:cpmdi\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|D:\\Desktop\\CPMDI\\cpmdi\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|solutionrelative:cpmdi\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|D:\\Desktop\\CPMDI\\cpmdi\\frmprestamo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|solutionrelative:cpmdi\\frmprestamo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|D:\\Desktop\\CPMDI\\cpmdi\\frmempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|solutionrelative:cpmdi\\frmempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "frmPrincipal.cs",
+              "DocumentMoniker": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrincipal.cs",
+              "RelativeDocumentMoniker": "CPMDI\\frmPrincipal.cs",
+              "ToolTip": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrincipal.cs",
+              "RelativeToolTip": "CPMDI\\frmPrincipal.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAkwCwAAAB9AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-06T17:07:13.447Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "frmPrestamo.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrestamo.cs",
+              "RelativeDocumentMoniker": "CPMDI\\frmPrestamo.cs",
+              "ToolTip": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrestamo.cs [Dise\u00F1o]",
+              "RelativeToolTip": "CPMDI\\frmPrestamo.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-06T16:56:45.956Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "frmEmpleado.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Desktop\\CPMDI\\CPMDI\\frmEmpleado.cs",
+              "RelativeDocumentMoniker": "CPMDI\\frmEmpleado.cs",
+              "ToolTip": "D:\\Desktop\\CPMDI\\CPMDI\\frmEmpleado.cs [Dise\u00F1o]",
+              "RelativeToolTip": "CPMDI\\frmEmpleado.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-06T16:56:32.07Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmPrincipal.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrincipal.cs",
+              "RelativeDocumentMoniker": "CPMDI\\frmPrincipal.cs",
+              "ToolTip": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrincipal.cs [Dise\u00F1o]",
+              "RelativeToolTip": "CPMDI\\frmPrincipal.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-06T16:39:59.19Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
