@@ -1,22 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Desktop\\CPMDI\\",
+  "WorkspaceRootPath": "C:\\Users\\ROBOTICA\\Documents\\AED\\CPmdi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|d:\\desktop\\cpmdi\\cpmdi\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|solutionrelative:cpmdi\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BD20F6C7-C2E5-45E1-B483-8703EDF67B49}|CPmdi.csproj|c:\\users\\robotica\\documents\\aed\\cpmdi\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD20F6C7-C2E5-45E1-B483-8703EDF67B49}|CPmdi.csproj|solutionrelative:frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|D:\\Desktop\\CPMDI\\cpmdi\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|solutionrelative:cpmdi\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{BD20F6C7-C2E5-45E1-B483-8703EDF67B49}|CPmdi.csproj|c:\\users\\robotica\\documents\\aed\\cpmdi\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BD20F6C7-C2E5-45E1-B483-8703EDF67B49}|CPmdi.csproj|solutionrelative:frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|D:\\Desktop\\CPMDI\\cpmdi\\frmprestamo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|solutionrelative:cpmdi\\frmprestamo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{BD20F6C7-C2E5-45E1-B483-8703EDF67B49}|CPmdi.csproj|c:\\users\\robotica\\documents\\aed\\cpmdi\\frmempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BD20F6C7-C2E5-45E1-B483-8703EDF67B49}|CPmdi.csproj|solutionrelative:frmempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|D:\\Desktop\\CPMDI\\cpmdi\\frmempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{EF9AF767-9EAF-486A-BFDE-69FB5D62DE54}|CPMDI\\CPMDI.csproj|solutionrelative:cpmdi\\frmempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{BD20F6C7-C2E5-45E1-B483-8703EDF67B49}|CPmdi.csproj|c:\\users\\robotica\\documents\\aed\\cpmdi\\frmprestamo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{BD20F6C7-C2E5-45E1-B483-8703EDF67B49}|CPmdi.csproj|solutionrelative:frmprestamo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,57 +26,55 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "frmPrincipal.cs",
-              "DocumentMoniker": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrincipal.cs",
-              "RelativeDocumentMoniker": "CPMDI\\frmPrincipal.cs",
-              "ToolTip": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrincipal.cs",
-              "RelativeToolTip": "CPMDI\\frmPrincipal.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAkwCwAAAB9AAAA",
+              "DocumentMoniker": "C:\\Users\\ROBOTICA\\Documents\\AED\\CPmdi\\frmPrincipal.cs",
+              "RelativeDocumentMoniker": "frmPrincipal.cs",
+              "ToolTip": "C:\\Users\\ROBOTICA\\Documents\\AED\\CPmdi\\frmPrincipal.cs",
+              "RelativeToolTip": "frmPrincipal.cs",
+              "ViewState": "AQIAAB0AAAAAAAAAAAA9wCgAAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-06T17:07:13.447Z",
+              "WhenOpened": "2024-09-06T17:06:32.358Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "frmPrestamo.cs [Dise\u00F1o]",
-              "DocumentMoniker": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrestamo.cs",
-              "RelativeDocumentMoniker": "CPMDI\\frmPrestamo.cs",
-              "ToolTip": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrestamo.cs [Dise\u00F1o]",
-              "RelativeToolTip": "CPMDI\\frmPrestamo.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\ROBOTICA\\Documents\\AED\\CPmdi\\frmPrestamo.cs",
+              "RelativeDocumentMoniker": "frmPrestamo.cs",
+              "ToolTip": "C:\\Users\\ROBOTICA\\Documents\\AED\\CPmdi\\frmPrestamo.cs [Dise\u00F1o]",
+              "RelativeToolTip": "frmPrestamo.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-06T16:56:45.956Z"
+              "WhenOpened": "2024-09-06T16:56:30.141Z",
+              "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "frmEmpleado.cs [Dise\u00F1o]",
-              "DocumentMoniker": "D:\\Desktop\\CPMDI\\CPMDI\\frmEmpleado.cs",
-              "RelativeDocumentMoniker": "CPMDI\\frmEmpleado.cs",
-              "ToolTip": "D:\\Desktop\\CPMDI\\CPMDI\\frmEmpleado.cs [Dise\u00F1o]",
-              "RelativeToolTip": "CPMDI\\frmEmpleado.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\ROBOTICA\\Documents\\AED\\CPmdi\\frmEmpleado.cs",
+              "RelativeDocumentMoniker": "frmEmpleado.cs",
+              "ToolTip": "C:\\Users\\ROBOTICA\\Documents\\AED\\CPmdi\\frmEmpleado.cs [Dise\u00F1o]",
+              "RelativeToolTip": "frmEmpleado.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-06T16:56:32.07Z"
+              "WhenOpened": "2024-09-06T16:55:57.068Z",
+              "EditorCaption": " [Dise\u00F1o]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "frmPrincipal.cs [Dise\u00F1o]",
-              "DocumentMoniker": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrincipal.cs",
-              "RelativeDocumentMoniker": "CPMDI\\frmPrincipal.cs",
-              "ToolTip": "D:\\Desktop\\CPMDI\\CPMDI\\frmPrincipal.cs [Dise\u00F1o]",
-              "RelativeToolTip": "CPMDI\\frmPrincipal.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\ROBOTICA\\Documents\\AED\\CPmdi\\frmPrincipal.cs",
+              "RelativeDocumentMoniker": "frmPrincipal.cs",
+              "ToolTip": "C:\\Users\\ROBOTICA\\Documents\\AED\\CPmdi\\frmPrincipal.cs [Dise\u00F1o]",
+              "RelativeToolTip": "frmPrincipal.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-06T16:39:59.19Z",
+              "WhenOpened": "2024-09-06T16:38:10.185Z",
               "EditorCaption": " [Dise\u00F1o]"
             }
           ]
