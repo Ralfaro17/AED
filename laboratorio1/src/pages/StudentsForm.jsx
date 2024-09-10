@@ -21,7 +21,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { buttonVariants } from "@/components/ui/button"
 import 'sweetalert2/src/sweetalert2.scss';
 
 function StudentsForm() {
@@ -56,7 +55,7 @@ function StudentsForm() {
     studentArray.forEach((student) => {
       total += student.finalGrade;
       if (student.finalGrade > bestStudent.finalGrade) {
-        bestStudent = student;
+        bestStudent = student; 
       }
     });
     Swal.fire({
@@ -283,12 +282,12 @@ function StudentsForm() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row gap-6 p-6">
+    <div className="flex flex-col md:flex-row gap-6 p-0 md:p-6">
       <div className='absolute top-4 left-4 gap-4 flex'>
         <Link to="/"><Button variant="secondary">Homepage</Button></Link>
         <Link to="/employee"><Button variant="secondary">Formulario de empleados</Button></Link>
       </div>
-      <Card className="w-full md:w-1/2 bg-white rounded-lg mt-8">
+      <Card className="w-full md:w-1/2 bg-white rounded-lg mt-12 md:mt-8">
         <CardHeader>
           <CardTitle>Formulario de Estudiantes</CardTitle>
           <CardDescription>Ingresa los datos del estudiante</CardDescription>
@@ -406,7 +405,7 @@ function StudentsForm() {
               </Button>
             </CardFooter>
           </form>
-          <div className="flex justify-around ">
+          <div className="flex justify-around flex-col gap-4 md:gap-0 md:flex-row">
             <Button onClick={deleteStudent}>Eliminar estudiante</Button>
             <Button onClick={loadStudent}>Cargar estudiante</Button>
             <Button onClick={listStudent}>Listar estudiante</Button>
@@ -417,7 +416,7 @@ function StudentsForm() {
       <Card className="w-full md:w-1/2 mt-8">
         <CardHeader>
           <CardTitle>Detalles de la clase</CardTitle>
-          <Button type="submit" className="w-full" onClick={totalAndBestStudent}>
+          <Button type="submit" className="w-full text-wrap" onClick={totalAndBestStudent}>
             Obtener promedio general y mejor estudiante
           </Button>
         </CardHeader>

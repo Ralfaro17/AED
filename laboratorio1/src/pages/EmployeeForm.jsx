@@ -128,7 +128,9 @@ function EmployeeForm() {
             </TableBody>
           </Table>
         </CardContent>
-        
+        <CardFooter className="px-0">
+              <Button type="submit" className="w-full">Submit</Button>
+            </CardFooter>
       </Card>
     </div>
   )

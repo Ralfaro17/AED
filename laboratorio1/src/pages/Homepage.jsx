@@ -10,10 +10,10 @@ function Homepage() {
 
 
   return (
-    <div>
+    <div className="h-screen flex justify-center flex-col">
       
       <h1>Selecciona el formulario al que deseas acceder</h1>
-      <div className="card flex justify-around">
+      <div className="card flex md:justify-around gap-8 md:gap-0 flex-col md:flex-row">
         <Link to="/students">
           <Button variant="secondary">Formulario de estudiantes</Button>
         </Link>
