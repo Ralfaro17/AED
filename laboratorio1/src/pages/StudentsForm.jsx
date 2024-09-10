@@ -455,7 +455,7 @@ function StudentsForm() {
               className="w-full text-wrap"
               onClick={totalAndBestStudent}
             >
-              prom general, mejor estudiante
+              prom general y mejor est
             </Button>
             <Button
               className="w-full text-wrap p-2"
