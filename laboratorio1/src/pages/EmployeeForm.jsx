@@ -424,7 +424,7 @@ function EmployeeForm() {
               className="w-full text-wrap p-2"
               onClick={increaseSalary}
             >
-              Aumentar salario a empleados debajo del promedio
+              Aumentar salario
             </Button>
             <Button
               className="w-full text-wrap p-2"

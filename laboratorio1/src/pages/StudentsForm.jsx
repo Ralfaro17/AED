@@ -455,7 +455,7 @@ function StudentsForm() {
               className="w-full text-wrap"
               onClick={totalAndBestStudent}
             >
-              Obtener promedio general y mejor estudiante
+              promedio general y mejor estudiante
             </Button>
             <Button
               className="w-full text-wrap p-2"
