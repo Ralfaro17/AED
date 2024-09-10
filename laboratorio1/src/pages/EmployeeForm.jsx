@@ -28,7 +28,29 @@ function EmployeeForm() {
     document.title = 'Formulario de estudiantes';
   }, []);
 
-  const [employeeArray, setEmployeeArray] = useState([]);
+  const saveArray = (array) => {
+    localStorage.setItem('employeeArray', JSON.stringify(array));
+  }
+
+  const getArray = () => {
+    const array = localStorage.getItem('employeeArray');
+    if (array) {
+      return JSON.parse(array);
+    }
+    return [];
+  }
+  
+  const [employeeArray, setEmployeeArray] = useState(getArray());
+  
+  const cleanArray = () => {
+    localStorage.removeItem('employeeArray');
+    setEmployeeArray([]);
+    Swal.fire({
+      title: 'Registros eliminados',
+      icon: 'success',
+      confirmButtonText: 'ok',
+    });
+  }
   const {
     register,
     handleSubmit,
@@ -57,10 +79,12 @@ function EmployeeForm() {
     const newEmployeeArray = employeeArray.map((employee) => {
       if (employee.salary < average) {
         employee.salary = employee.salary * 1.1;
+        employee.salary = ((+employee.salary) + 0.00).toFixed(2);
       }
       return employee;
     });
     setEmployeeArray(newEmployeeArray);
+    saveArray(newEmployeeArray);
     Swal.fire({
       title: 'Salarios actualizados',
       icon: 'success',
@@ -102,6 +126,7 @@ function EmployeeForm() {
           (student) => student.idCard !== selectedOption
         );
         setEmployeeArray(newEmployeeArray);
+        saveArray(newEmployeeArray);
         Swal.close();
         Swal.fire({
           title: 'empleado eliminado',
@@ -239,6 +264,7 @@ function EmployeeForm() {
           if (result.isConfirmed) {
             employeeArray[i].salary = data.salary;
             setEmployeeArray([...employeeArray]);
+            saveArray([...employeeArray]);
             setFocus('idCard');
             Swal.fire({
               title: 'Empleado actualizado',
@@ -262,7 +288,9 @@ function EmployeeForm() {
       }
     }
     if (!centinel) {
+      data.salary = ((+data.salary) + 0.00).toFixed(2);
       setEmployeeArray([...employeeArray, data]);
+      saveArray([...employeeArray, data]);
       Swal.fire({
         title: 'Empleado agregado',
         icon: 'success',
@@ -341,6 +369,7 @@ function EmployeeForm() {
                 <Label htmlFor="salary">Salario</Label>
                 <Input
                   id="salary"
+                  step="0.01"
                   placeholder="Monto salario"
                   name="salary"
                   type="number"
@@ -390,13 +419,20 @@ function EmployeeForm() {
       <Card className="w-full md:w-1/2 mt-8">
         <CardHeader>
           <CardTitle>Detalles de la clase</CardTitle>
-          <Button
-            type="submit"
-            className="w-full text-wrap"
-            onClick={increaseSalary}
-          >
-            Aumentar salario a empleados debajo del promedio
-          </Button>
+          <div className='flex gap-4'>
+            <Button
+              className="w-full text-wrap p-2"
+              onClick={increaseSalary}
+            >
+              Aumentar salario a empleados debajo del promedio
+            </Button>
+            <Button
+              className="w-full text-wrap p-2"
+              onClick={cleanArray}
+            >
+              Borrar todos los registros
+            </Button>
+          </div>
         </CardHeader>
         <CardContent className="max-h-[28rem] overflow-auto">
           <Table>

@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { get, useForm } from 'react-hook-form';
 import {
   Table,
   TableBody,
@@ -28,8 +28,19 @@ function StudentsForm() {
     document.title = 'Formulario de estudiantes';
   }, []);
 
-  
-  const [studentArray, setStudentArray] = useState([]);
+  const saveArray = (array) => {
+    localStorage.setItem('studentArray', JSON.stringify(array));
+  };
+
+  const getArray = () => {
+    const array = localStorage.getItem('studentArray');
+    if (array) {
+      return JSON.parse(array);
+    }
+    return [];
+  };
+
+  const [studentArray, setStudentArray] = useState(getArray());
   const {
     register,
     handleSubmit,
@@ -39,7 +50,17 @@ function StudentsForm() {
     setValue,
     formState: { errors },
   } = useForm();
-  
+
+  const cleanArray = () => {
+    localStorage.removeItem('studentArray');
+    setStudentArray([]);
+    Swal.fire({
+      title: 'Registros eliminados',
+      icon: 'success',
+      confirmButtonText: 'ok',
+    });
+  };
+
   const totalAndBestStudent = () => {
     if (studentArray.length === 0) {
       Swal.fire({
@@ -55,7 +76,7 @@ function StudentsForm() {
     studentArray.forEach((student) => {
       total += student.finalGrade;
       if (student.finalGrade > bestStudent.finalGrade) {
-        bestStudent = student; 
+        bestStudent = student;
       }
     });
     Swal.fire({
@@ -64,25 +85,28 @@ function StudentsForm() {
       <br>
       <p><strong>Promedio general:</strong> ${total / studentArray.length}</p>
       <br>
-      <p><strong>Mejor estudiante:</strong> ${bestStudent.carnet} - ${bestStudent.fullName}</p>
+      <p><strong>Mejor estudiante:</strong> ${bestStudent.carnet} - ${
+        bestStudent.fullName
+      }</p>
       <br>
-      <p><strong>Nota Final del Mejor estudiante:</strong> ${bestStudent.finalGrade}</p>
+      <p><strong>Nota Final del Mejor estudiante:</strong> ${
+        bestStudent.finalGrade
+      }</p>
       `,
       confirmButtonText: 'ok',
     });
-  }
-
+  };
 
   const deleteStudent = () => {
-    const select = document.createElement("select");
-    select.id = "swal-select";
-    select.classList.add("swal2-select");
+    const select = document.createElement('select');
+    select.id = 'swal-select';
+    select.classList.add('swal2-select');
     studentArray.forEach((student) => {
-      const option = document.createElement("option");
+      const option = document.createElement('option');
       option.value = student.carnet;
       option.text = student.carnet;
       select.appendChild(option);
-    })
+    });
     Swal.fire({
       title: 'Selecciona el carnet del estudiante a borrar',
       html: select,
@@ -107,26 +131,27 @@ function StudentsForm() {
           (student) => student.carnet !== selectedOption
         );
         setStudentArray(newStudentArray);
+        saveArray(newStudentArray);
         Swal.close();
         Swal.fire({
           title: 'Estudiante eliminado',
           icon: 'success',
-          confirmButtonText: 'ok'
-        })
+          confirmButtonText: 'ok',
+        });
       }
     });
   };
 
   const loadStudent = () => {
-    const select = document.createElement("select");
-    select.id = "swal-select";
-    select.classList.add("swal2-select");
+    const select = document.createElement('select');
+    select.id = 'swal-select';
+    select.classList.add('swal2-select');
     studentArray.forEach((student) => {
-      const option = document.createElement("option");
+      const option = document.createElement('option');
       option.value = student.carnet;
       option.text = student.carnet;
       select.appendChild(option);
-    })
+    });
     Swal.fire({
       title: 'Selecciona el carnet del estudiante a cargar',
       html: select,
@@ -162,22 +187,22 @@ function StudentsForm() {
         Swal.fire({
           title: 'Estudiante cargado',
           icon: 'success',
-          confirmButtonText: 'ok'
-        })
+          confirmButtonText: 'ok',
+        });
       }
-    });;
-  }
+    });
+  };
 
   const listStudent = () => {
-    const select = document.createElement("select");
-    select.id = "swal-select";
-    select.classList.add("swal2-select");
+    const select = document.createElement('select');
+    select.id = 'swal-select';
+    select.classList.add('swal2-select');
     studentArray.forEach((student) => {
-      const option = document.createElement("option");
+      const option = document.createElement('option');
       option.value = student.carnet;
       option.text = student.carnet;
       select.appendChild(option);
-    })
+    });
     Swal.fire({
       title: 'Selecciona el carnet del estudiante a listar',
       html: select,
@@ -215,7 +240,7 @@ function StudentsForm() {
         });
       }
     });
-  }
+  };
 
   const onSubmit = (data) => {
     let centinel = false;
@@ -233,7 +258,7 @@ function StudentsForm() {
     for (let i = 0; i < studentArray.length; i++) {
       if (studentArray[i].carnet === data.carnet) {
         centinel = true;
-        Swal.close()
+        Swal.close();
         Swal.fire({
           title: 'Advertencia!',
           text: 'El carnet ya existe, deseas actualizar la información del estudiante?',
@@ -247,6 +272,7 @@ function StudentsForm() {
           if (result.isConfirmed) {
             studentArray[i] = data;
             setStudentArray([...studentArray]);
+            saveArray(studentArray);
             setFocus('carnet');
             Swal.fire({
               title: 'Estudiante actualizado',
@@ -254,24 +280,24 @@ function StudentsForm() {
               confirmButtonText: 'ok',
             });
             reset();
-          }
-          else if(result.isDenied){
+          } else if (result.isDenied) {
             Swal.close();
             Swal.fire({
               title: 'Operación cancelada',
               icon: 'info',
-              confirmButtonText: 'ok'
-            })
+              confirmButtonText: 'ok',
+            });
             return;
           }
         });
-        if(centinel){
+        if (centinel) {
           return;
         }
       }
     }
-    if(!centinel){
+    if (!centinel) {
       setStudentArray([...studentArray, data]);
+      saveArray([...studentArray, data]);
       Swal.fire({
         title: 'Estudiante agregado',
         icon: 'success',
@@ -283,9 +309,13 @@ function StudentsForm() {
 
   return (
     <div className="flex flex-col md:flex-row gap-6 p-0 md:p-6">
-      <div className='absolute top-4 left-4 gap-4 flex'>
-        <Link to="/"><Button variant="secondary">Homepage</Button></Link>
-        <Link to="/employee"><Button variant="secondary">Formulario de empleados</Button></Link>
+      <div className="absolute top-4 left-4 gap-4 flex">
+        <Link to="/">
+          <Button variant="secondary">Homepage</Button>
+        </Link>
+        <Link to="/employee">
+          <Button variant="secondary">Formulario de empleados</Button>
+        </Link>
       </div>
       <Card className="w-full md:w-1/2 bg-white rounded-lg mt-12 md:mt-8">
         <CardHeader>
@@ -333,6 +363,7 @@ function StudentsForm() {
                 <Input
                   id="partial1"
                   name="partial1"
+                  step="0.01"
                   type="number"
                   placeholder="Nota primer parcial"
                   {...register('partial1', {
@@ -349,6 +380,7 @@ function StudentsForm() {
                 <Label htmlFor="partial2">II P</Label>
                 <Input
                   id="partial2"
+                  step="0.01"
                   name="partial2"
                   type="number"
                   placeholder="Nota segundo parcial"
@@ -370,6 +402,7 @@ function StudentsForm() {
                   id="systematic"
                   placeholder="Nota sistematico"
                   name="systematic"
+                  step="0.01"
                   type="number"
                   {...register('systematic', {
                     required: 'Campo requerido',
@@ -386,6 +419,7 @@ function StudentsForm() {
                 <Input
                   id="project"
                   name="project"
+                  step="0.01"
                   type="number"
                   placeholder="Nota Proyecto"
                   {...register('project', {
@@ -416,12 +450,23 @@ function StudentsForm() {
       <Card className="w-full md:w-1/2 mt-8">
         <CardHeader>
           <CardTitle>Detalles de la clase</CardTitle>
-          <Button type="submit" className="w-full text-wrap" onClick={totalAndBestStudent}>
-            Obtener promedio general y mejor estudiante
-          </Button>
+          <div className='flex gap-4'>
+            <Button
+              className="w-full text-wrap"
+              onClick={totalAndBestStudent}
+            >
+              Obtener promedio general y mejor estudiante
+            </Button>
+            <Button
+              className="w-full text-wrap p-2"
+              onClick={cleanArray}
+            >
+              Borrar todos los registros
+            </Button>
+          </div>
         </CardHeader>
         <CardContent className="max-h-[28rem] overflow-auto">
-          <Table >
+          <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Carnet</TableHead>
