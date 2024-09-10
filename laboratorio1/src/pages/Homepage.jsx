@@ -21,6 +21,7 @@ function Homepage() {
           <Button variant="secondary">Formulario de empleados</Button>
         </Link>
       </div>
+      <h3>Hecho por Roger Alfaro y Enyel Baltodano</h3>
     </div>
   )
 }
