@@ -1,11 +1,23 @@
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card.jsx"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 function EmployeeForm() {
+  useEffect(() => {
+    document.title = 'Formulario de empleados';
+  }, [])
+
+  const students = [
+    { id: '001', name: 'Alice Johnson', grade1: 85, grade2: 90, grade3: 88, grade4: 92 },
+    { id: '002', name: 'Bob Smith', grade1: 78, grade2: 82, grade3: 80, grade4: 85 },
+    { id: '003', name: 'Charlie Brown', grade1: 92, grade2: 88, grade3: 95, grade4: 90 },
+    { id: '004', name: 'Diana Ross', grade1: 88, grade2: 91, grade3: 87, grade4: 89 },
+  ]
+
   const [employeeArray, setEmployeeArray] = useState([]);
   const {
     register,
@@ -18,52 +30,84 @@ function EmployeeForm() {
   }
 
   return (
-    <>
-      <Card className="w-full max-w-2xl mx-auto">
+    <div className="flex flex-col md:flex-row gap-6 p-6">
+      <Card className="w-full md:w-1/2 bg-white rounded-lg">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">Student Grade Form</CardTitle>
+          <CardTitle>Student Grade Form</CardTitle>
+          <CardDescription>Enter student details and grades</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="studentId">Student ID</Label>
-              <I  nput
-                id="studentId"
-                name="studentId"
-                {...register('carnet', {
-                  required: 'Tu carnet es requerido',
+              <Label htmlFor="idNumber">Carnet</Label>
+              <Input
+                id="idNumber"
+                name="idNumber"
+                placeholder="Carnet"
+                {...register("carnet", {
+                  required: "El carnet es obligatorio",
                 })}
-                placeholder="Ingresa un carnet"
               />
               {errors.first_name && (
                 <p className="text-red-500">{errors.carnet.message}</p>
               )}
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+                
             </div>
             <div className="space-y-2">
               <Label htmlFor="fullName">Full Name</Label>
               <Input
                 id="fullName"
                 name="fullName"
-                {...register('fullName', {
-                  required: 'El nombre completo es obligatorio',
+                {...register("fulName", { 
+                  required: "El nombre es obligatorio", 
                 })}
-                placeholder="Ingresa el nombre completo"
               />
-              {errors.first_name && (
-                <p className="text-red-500">{errors.fullName.message}</p>
+              {errors.full_name && (
+                <p className="text-red-500">{errors.full_name.message}</p>
               )}
             </div>
-            <div className="space-y-2">
-              
-            </div>
-            
+            <CardFooter className="px-0">
+              <Button type="submit" className="w-full">Submit</Button>
+            </CardFooter>
           </form>
         </CardContent>
-        <CardFooter>
-          <Button type="submit" className="w-full">Submit Grades</Button>
-        </CardFooter>
       </Card>
-    </>
+
+      <Card className="w-full md:w-1/2">
+        <CardHeader>
+          <CardTitle>Student Grades</CardTitle>
+          <CardDescription>Overview of student performance</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>ID</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Grade 1</TableHead>
+                <TableHead>Grade 2</TableHead>
+                <TableHead>Grade 3</TableHead>
+                <TableHead>Grade 4</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {students.map((student) => (
+                <TableRow key={student.id}>
+                  <TableCell>{student.id}</TableCell>
+                  <TableCell>{student.name}</TableCell>
+                  <TableCell>{student.grade1}</TableCell>
+                  <TableCell>{student.grade2}</TableCell>
+                  <TableCell>{student.grade3}</TableCell>
+                  <TableCell>{student.grade4}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </div>
   )
 }
 

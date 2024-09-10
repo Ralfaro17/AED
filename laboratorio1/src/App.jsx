@@ -1,6 +1,6 @@
 import './App.css'
 
-import EmployeeForm from './pages/EmployeeForm'
+import EmployeeForm from './pages/EmployeeForm.jsx'
 import StudentsForm from './pages/StudentsForm'
 import Homepage from './pages/Homepage'
 

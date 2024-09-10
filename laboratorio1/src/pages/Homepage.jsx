@@ -1,26 +1,26 @@
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
+import { useEffect } from "react";
 
 function Homepage() {
+
+  useEffect(() => {
+    document.title = 'Homepage';
+  }, []);
+
+
   return (
     <div>
-      {/* <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div> */}
+      
       <h1>Selecciona el formulario al que deseas acceder</h1>
-      <div className="card">
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="card flex justify-around">
+        <Link to="/students">
+          <Button variant="secondary">Formulario de estudiantes</Button>
+        </Link>
+        <Link to="/employee">
+          <Button variant="secondary">Formulario de empleados</Button>
+        </Link>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
