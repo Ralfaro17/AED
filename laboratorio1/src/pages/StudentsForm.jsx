@@ -13,14 +13,7 @@ function StudentsForm() {
     document.title = 'Formulario de estudiantes';
   }, []);
 
-  const students = [
-    { id: '001', name: 'Alice Johnson', grade1: 85, grade2: 90, grade3: 88, grade4: 92 },
-    { id: '002', name: 'Bob Smith', grade1: 78, grade2: 82, grade3: 80, grade4: 85 },
-    { id: '003', name: 'Charlie Brown', grade1: 92, grade2: 88, grade3: 95, grade4: 90 },
-    { id: '004', name: 'Diana Ross', grade1: 88, grade2: 91, grade3: 87, grade4: 89 },
-  ]
-
-  const [studentArray, setAtudentArray] = useState([]);
+  const [studentArray, setStudentArray] = useState([]);
   const {
     register,
     handleSubmit,
@@ -50,7 +43,7 @@ function StudentsForm() {
       }
     }
     console.log(data);
-    setAtudentArray([...studentArray, data]);
+    setStudentArray([...studentArray, data]);
     document.getElementById("idNumber").focus();
     
   }
