@@ -25,7 +25,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 
 function EmployeeForm() {
   useEffect(() => {
-    document.title = 'Formulario de estudiantes';
+    document.title = 'Formulario de empleados';
   }, []);
 
   const saveArray = (array) => {
