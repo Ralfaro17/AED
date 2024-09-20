@@ -1,0 +1,26 @@
+
+/*ELIMINE SIN COMPROMISO
+
+-no me hago responsable por sangrado de ojos
+se supone que estaria bien dentro lo que cabe
+
+*/
+
+html{
+  background-color: rebeccapurple;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+
+}
+.boton{
+  width: 100% !important;
+  height: 70px!important;
+  font-size: x-large;
+}
+.boton:hover{
+  background-color: darkmagenta!important;
+  color: aliceblue;
+}
