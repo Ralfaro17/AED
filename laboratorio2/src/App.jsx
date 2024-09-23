@@ -1,42 +1,20 @@
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Homepage from './pages/Homepage'
+import ParishionersForm from './pages/ParishionersForm'
+import ClinicForm from './pages/ClinicForm'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-<dic className="">
-<AlertDialog>
-  <AlertDialogTrigger><Button variant="outline" className="boton">Este boton hace algo</Button></AlertDialogTrigger>
-  <AlertDialogContent>
-    <AlertDialogHeader>
-      <AlertDialogTitle>estas completamente seguro?</AlertDialogTitle>
-      <AlertDialogDescription className="text-xl text-stone-900" >
-        todo es una prueba para el yutu
-      </AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-      <AlertDialogCancel>no</AlertDialogCancel>
-      <AlertDialogAction>si</AlertDialogAction>
-    </AlertDialogFooter>
-  </AlertDialogContent>
-</AlertDialog>
-</dic>
-
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" Component={Homepage}/>
+          <Route path="/parishioners" Component={ParishionersForm}/>
+          <Route path="/clinic" Component={ClinicForm}/>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
