@@ -507,7 +507,7 @@ function ParishionersForm() {
       <Card className="w-full md:w-1/2 mt-8">
         <CardHeader>
           <CardTitle>Detalles de los feligreses</CardTitle>
-          <div className='flex gap-4'>
+          <div className='flex gap-4 justify-around flex-col md:flex-row'>
             <Button
               className="w-full text-wrap p-2"
               onClick={amountInRange}
