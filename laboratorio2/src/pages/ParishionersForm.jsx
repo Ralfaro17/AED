@@ -25,32 +25,33 @@ import 'sweetalert2/src/sweetalert2.scss';
 
 function ParishionersForm() {
   useEffect(() => {
-    document.title = 'Formulario de empleados';
+    document.title = 'Formulario de feligreses';
   }, []);
 
   const saveArray = (array) => {
-    localStorage.setItem('employeeArray', JSON.stringify(array));
+    localStorage.setItem('parishionerArray', JSON.stringify(array));
   }
 
   const getArray = () => {
-    const array = localStorage.getItem('employeeArray');
+    const array = localStorage.getItem('parishionerArray');
     if (array) {
       return JSON.parse(array);
     }
     return [];
   }
   
-  const [employeeArray, setEmployeeArray] = useState(getArray());
+  const [parishionerArray, setParishionerArray] = useState(getArray());
   
   const cleanArray = () => {
-    localStorage.removeItem('employeeArray');
-    setEmployeeArray([]);
+    localStorage.removeItem('parishionerArray');
+    setParishionerArray([]);
     Swal.fire({
       title: 'Registros eliminados',
       icon: 'success',
       confirmButtonText: 'ok',
     });
   }
+  
   const {
     register,
     handleSubmit,
@@ -61,60 +62,110 @@ function ParishionersForm() {
     formState: { errors },
   } = useForm();
 
-  const increaseSalary = () => {
-    if (employeeArray.length === 0) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'No hay empleados registrados',
-        icon: 'error',
-        confirmButtonText: 'ok',
-      });
-      return;
+  const amountInRange = () => {
+    const select = document.createElement('select');
+    select.id = 'swal-select';
+    select.classList.add('swal2-select');
+    parishionerArray.forEach((parishioner) => {
+      const option = document.createElement('option');
+      option.value = parishioner.id;
+      option.text = parishioner.id;
+      select.appendChild(option);
+    });
+
+    const select2 = document.createElement('select');
+    select2.id = 'swal-select2';
+    select2.classList.add('swal2-select');
+    for (let i = 0; i < 12; i++) {
+      const option = document.createElement('option');
+      option.value = i + 1;
+      option.text = i + 1;
+      select.appendChild(option);
     }
-    let sum = 0;
-    employeeArray.forEach((employee) => {
-      sum += +employee.salary;
-    });
-    const average = sum / employeeArray.length;
-    const newEmployeeArray = employeeArray.map((employee) => {
-      if (employee.salary < average) {
-        employee.salary = employee.salary * 1.1;
-        employee.salary = ((+employee.salary) + 0.00).toFixed(2);
-      }
-      return employee;
-    });
-    setEmployeeArray(newEmployeeArray);
-    saveArray(newEmployeeArray);
+    
     Swal.fire({
-      title: 'Salarios actualizados',
-      icon: 'success',
-      confirmButtonText: 'ok',
-    });
-  };
-
-  const deleteEmployee = () => {
-    const select = document.createElement('select');
-    select.id = 'swal-select';
-    select.classList.add('swal2-select');
-    employeeArray.forEach((employee) => {
-      const option = document.createElement('option');
-      option.value = employee.idCard;
-      option.text = employee.idCard;
-      select.appendChild(option);
-    });
-    Swal.fire({
-      title: 'Selecciona la cedula del empleado a borrar',
+      title: 'Selecciona el feligrés',
       html: select,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Borrar empleado',
+      confirmButtonText: 'Buscar cantidad',
       cancelButtonText: 'Cancelar',
       focusConfirm: false,
       preConfirm: () => {
         const selectedOption = document.getElementById('swal-select').value;
         if (selectedOption === '' || selectedOption === null) {
-          Swal.showValidationMessage('Debes seleccionar una cedula');
+          Swal.showValidationMessage('Debes seleccionar un id');
+        } else {
+          return selectedOption;
+        }
+      },
+    }).then((result) => {
+      if(result.isConfirmed){
+        Swal.fire({
+          title: 'Selecciona el mes',
+          html: select2,
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'confirmar',
+          cancelButtonText: 'Cancelar',
+          focusConfirm: false,
+          preConfirm: () => {
+            const selectedOption = document.getElementById('swal-select').value;
+            if (selectedOption === '' || selectedOption === null) {
+              Swal.showValidationMessage('Debes seleccionar un mes');
+            } else {
+              return selectedOption;
+            }
+          },
+        }).then((result) => {
+          if(result.isConfirmed){
+            const selectedOption = document.getElementById('swal-select').value;
+            const selectedOption2 = document.getElementById('swal-select2').value;
+            let amount = 0;
+            parishionerArray.forEach((parishioner) => {
+              if (parishioner.id === selectedOption && parishioner.month === selectedOption2) {
+                amount += parishioner.amount;
+              }
+            })
+            const parishioner = parishionerArray.find(
+              (parishioner) => parishioner.id === selectedOption
+            )
+            Swal.fire({
+              title: 'Cantidad del feligrés',
+              html: `La cantidad del feligrés ${parishioner.id} en el mes ${parishioner.month} es de ${amount}`,
+              confirmButtonText: 'ok',
+            });
+          }
+        });
+      }
+    });
+  };
+
+  const deleteParishioner = () => {
+    const select = document.createElement('select');
+    select.id = 'swal-select';
+    select.classList.add('swal2-select');
+    parishionerArray.forEach((parishioner) => {
+      const option = document.createElement('option');
+      option.value = parishioner.id;
+      option.text = parishioner.id;
+      select.appendChild(option);
+    });
+    Swal.fire({
+      title: 'Selecciona el id del feligrés a borrar',
+      html: select,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Borrar feligrés',
+      cancelButtonText: 'Cancelar',
+      focusConfirm: false,
+      preConfirm: () => {
+        const selectedOption = document.getElementById('swal-select').value;
+        if (selectedOption === '' || selectedOption === null) {
+          Swal.showValidationMessage('Debes seleccionar un id');
         } else {
           return selectedOption;
         }
@@ -122,14 +173,15 @@ function ParishionersForm() {
     }).then((result) => {
       if (result.isConfirmed) {
         const selectedOption = document.getElementById('swal-select').value;
-        const newEmployeeArray = employeeArray.filter(
-          (student) => student.idCard !== selectedOption
+        const newParishionerArray = parishionerArray.filter(
+          (parishioner) => parishioner.id !== selectedOption
         );
-        setEmployeeArray(newEmployeeArray);
-        saveArray(newEmployeeArray);
+        const updatedArray = newParishionerArray.sort((a, b) => +b.amount - +a.amount)
+        setParishionerArray(updatedArray)
+        saveArray(updatedArray);
         Swal.close();
         Swal.fire({
-          title: 'empleado eliminado',
+          title: 'feligrés eliminado',
           icon: 'success',
           confirmButtonText: 'ok',
         });
@@ -137,29 +189,29 @@ function ParishionersForm() {
     });
   };
 
-  const loadEmployee = () => {
+  const loadParishioner = () => {
     const select = document.createElement('select');
     select.id = 'swal-select';
     select.classList.add('swal2-select');
-    employeeArray.forEach((employee) => {
+    parishionerArray.forEach((parishioner) => {
       const option = document.createElement('option');
-      option.value = employee.idCard;
-      option.text = employee.idCard;
+      option.value = parishioner.id;
+      option.text = parishioner.id;
       select.appendChild(option);
     });
     Swal.fire({
-      title: 'Selecciona la cedula del empleado a cargar',
+      title: 'Selecciona el id del feligrés a cargar',
       html: select,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Cargar empleado',
+      confirmButtonText: 'Cargar feligrés',
       cancelButtonText: 'Cancelar',
       focusConfirm: false,
       preConfirm: () => {
         const selectedOption = document.getElementById('swal-select').value;
         if (selectedOption === '' || selectedOption === null) {
-          Swal.showValidationMessage('Debes seleccionar una cedula');
+          Swal.showValidationMessage('Debes seleccionar un id');
         } else {
           return selectedOption;
         }
@@ -167,19 +219,20 @@ function ParishionersForm() {
     }).then((result) => {
       if (result.isConfirmed) {
         const selectedOption = document.getElementById('swal-select').value;
-        const student = employeeArray.find(
-          (student) => student.idCard === selectedOption
+        const parishioner = parishionerArray.find(
+          (parishioner) => parishioner.id === selectedOption
         );
-        setValue('idCard', student.idCard);
-        setValue('names', student.names);
-        setValue('lastNames', student.lastNames);
-        setValue('salary', student.salary);
-        setValue('children', student.children);
+        setValue('id', parishioner.id);
+        setValue('name', parishioner.name);
+        setValue('address', parishioner.address);
+        setValue('amount', parishioner.amount);
+        setValue('month', parishioner.month);
+        setValue('phone', parishioner.phone);
         clearErrors();
-        setFocus('idCard');
+        setFocus('id');
         Swal.close();
         Swal.fire({
-          title: 'Empleado cargado',
+          title: 'Feligrés cargado',
           icon: 'success',
           confirmButtonText: 'ok',
         });
@@ -187,28 +240,28 @@ function ParishionersForm() {
     });
   };
 
-  const listEmployee = () => {
+  const listParishioner = () => {
     const select = document.createElement('select');
     select.id = 'swal-select';
     select.classList.add('swal2-select');
-    employeeArray.forEach((employee) => {
+    parishionerArray.forEach((parishioner) => {
       const option = document.createElement('option');
-      option.value = employee.idCard;
-      option.text = employee.idCard;
+      option.value = parishioner.id;
+      option.text = parishioner.id;
       select.appendChild(option);
     });
     Swal.fire({
-      title: 'Selecciona la cedula del empleado a listar',
+      title: 'Selecciona el id del feligrés a listar',
       html: select,
       showDenyButton: true,
       confirmButtonColor: '#3085d6',
-      confirmButtonText: 'Listar empleado',
+      confirmButtonText: 'Listar feligrés',
       denyButtonText: 'Cancelar',
       focusConfirm: false,
       preConfirm: () => {
         const selectedOption = document.getElementById('swal-select').value;
         if (selectedOption === '' || selectedOption === null) {
-          Swal.showValidationMessage('Debes seleccionar una cedula');
+          Swal.showValidationMessage('Debes seleccionar un id');
         } else {
           return selectedOption;
         }
@@ -216,17 +269,18 @@ function ParishionersForm() {
     }).then((result) => {
       if (result.isConfirmed) {
         const selectedOption = document.getElementById('swal-select').value;
-        const employee = employeeArray.find(
-          (employee) => employee.idCard === selectedOption
+        const parishioner = parishionerArray.find(
+          (parishioner) => parishioner.id === selectedOption
         );
         Swal.fire({
           title: 'Información del empleado',
           html: `
-          <p><strong>Cedula:</strong> ${employee.idCard}</p>
-          <p><strong>Nombres:</strong> ${employee.name}</p>
-          <p><strong>Apellidos</strong> ${employee.lastNames}</p>
-          <p><strong>Salario</strong> ${employee.salary}</p>
-          <p><strong>N° Hijos</strong> ${employee.children}</p>
+          <p><strong>Id:</strong> ${parishioner.id}</p>
+          <p><strong>Nombre:</strong> ${parishioner.name}</p>
+          <p><strong>Dirección:</strong> ${parishioner.address}</p>
+          <p><strong>Cantidad:</strong> ${parishioner.amount}</p>
+          <p><strong>Teléfono:</strong> ${parishioner.phone}</p>
+          <p><strong>Mes:</strong> ${parishioner.month}</p>
           `,
           confirmButtonText: 'ok',
         });
@@ -236,24 +290,13 @@ function ParishionersForm() {
 
   const onSubmit = (data) => {
     let centinel = false;
-    data.finalGrade =
-      +data.partial1 + +data.partial2 + +data.systematic + +data.project;
-    if (data.finalGrade > 151) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'La cantidad de hijos no puede ser mayor a 151',
-        icon: 'error',
-        confirmButtonText: 'ok',
-      });
-      return;
-    }
-    for (let i = 0; i < employeeArray.length; i++) {
-      if (employeeArray[i].idCard === data.idCard) {
+    for (let i = 0; i < parishionerArray.length; i++) {
+      if (parishionerArray[i].id === data.id && parishionerArray[i].month === data.month) {
         centinel = true;
         Swal.close();
         Swal.fire({
           title: 'Advertencia!',
-          text: 'La cedula ya existe, deseas actualizar el salario del empleado?',
+          text: 'El registro ya existe, deseas actualizar los datos del feligrés?',
           icon: 'warning',
           showDenyButton: true,
           confirmButtonColor: '#3085d6',
@@ -262,12 +305,14 @@ function ParishionersForm() {
           denyButtonText: 'Cancelar',
         }).then((result) => {
           if (result.isConfirmed) {
-            employeeArray[i].salary = data.salary;
-            setEmployeeArray([...employeeArray]);
-            saveArray([...employeeArray]);
-            setFocus('idCard');
+            data.amount = ((+data.amount) + 0.00).toFixed(2);
+            parishionerArray[i] = data;
+            const updatedArray = parishionerArray.sort((a, b) => +b.amount - +a.amount)
+            setParishionerArray(updatedArray)
+            saveArray(updatedArray);
+            setFocus('id');
             Swal.fire({
-              title: 'Empleado actualizado',
+              title: 'feligrés actualizado',
               icon: 'success',
               confirmButtonText: 'ok',
             });
@@ -288,11 +333,12 @@ function ParishionersForm() {
       }
     }
     if (!centinel) {
-      data.salary = ((+data.salary) + 0.00).toFixed(2);
-      setEmployeeArray([...employeeArray, data]);
-      saveArray([...employeeArray, data]);
+      data.amount = ((+data.amount) + 0.00).toFixed(2);
+      const updatedArray = [...parishionerArray, data].sort((a, b) => +b.amount - +a.amount)
+      setParishionerArray(updatedArray)
+      saveArray(updatedArray);
       Swal.fire({
-        title: 'Empleado agregado',
+        title: 'Feligrés agregado',
         icon: 'success',
         confirmButtonText: 'ok',
       });
@@ -306,99 +352,118 @@ function ParishionersForm() {
         <Link to="/">
           <Button variant="secondary">Homepage</Button>
         </Link>
-        <Link to="/students">
-          <Button variant="secondary">Formulario de estudiantes</Button>
+        <Link to="/clinic">
+          <Button variant="secondary">Formulario de clínica</Button>
         </Link>
       </div>
       <Card className="w-full md:w-1/2 bg-white rounded-lg mt-12 md:mt-8">
         <CardHeader>
-          <CardTitle>Formulario de Empleados</CardTitle>
-          <CardDescription>Ingresa los datos del empleado</CardDescription>
+          <CardTitle>Formulario de Feligreses</CardTitle>
+          <CardDescription>Ingresa los datos del Feligrés</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="idCard">Cedula</Label>
+              <Label htmlFor="address">Dirección</Label>
               <Input
-                id="idCard"
-                name="idCard"
-                placeholder="Cedula"
-                {...register('idCard', {
-                  required: 'la cedula es obligatoria',
-                  maxLength: {
-                    value: 16,
-                    message: 'La cedula debe tener 16 dígitos',
-                  },
+                id="address"
+                name="address"
+                placeholder="Dirección"
+                {...register('address', {
+                  required: 'la dirección es obligatoria',
                 })}
               />
-              {errors.idCard && (
-                <p className="text-red-500">{errors.idCard.message}</p>
+              {errors.address && (
+                <p className="text-red-500">{errors.address.message}</p>
               )}
             </div>
             <div className="grid grid-cols-2 gap-4"></div>
             <div className="space-y-2">
-              <Label htmlFor="names">Nombres</Label>
+              <Label htmlFor="name">Nombre</Label>
               <Input
-                id="names"
-                name="names"
-                placeholder="Nombres"
-                {...register('names', {
-                  required: 'Los nombres son requeridos',
+                id="name"
+                name="name"
+                placeholder="Nombre"
+                {...register('name', {
+                  required: 'El nombre es requeridos',
                 })}
               />
-              {errors.names && (
-                <p className="text-red-500">{errors.names.message}</p>
-              )}
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="lastNames">Apellidos</Label>
-              <Input
-                id="lastNames"
-                name="lastNames"
-                placeholder="Apellidos"
-                {...register('lastNames', {
-                  required: 'Los apellidos son requeridos',
-                })}
-              />
-              {errors.lastNames && (
-                <p className="text-red-500">{errors.lastNames.message}</p>
+              {errors.name && (
+                <p className="text-red-500">{errors.name.message}</p>
               )}
             </div>
             <div className="flex justify-around">
               <div className="space-y-2">
-                <Label htmlFor="salary">Salario</Label>
+                <Label htmlFor="id">Id</Label>
                 <Input
-                  id="salary"
-                  step="0.01"
-                  placeholder="Monto salario"
-                  name="salary"
+                  id="id"
+                  placeholder="Id"
+                  name="id"
                   type="number"
-                  {...register('salary', {
+                  {...register('id', {
                     required: 'Campo requerido',
                     min: {
-                      value: 0,
-                      message: 'el salario no puede ser menor a 0',
+                      value: 1,
+                      message: 'El Id no puede ser menor a 1',
                     },
                   })}
                 />
-                {errors.salary && (
-                  <p className="text-red-500">{errors.salary.message}</p>
+                {errors.id && (
+                  <p className="text-red-500">{errors.id.message}</p>
                 )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="children">N° Hijos</Label>
+                <Label htmlFor="phone">Teléfono</Label>
                 <Input
-                  id="children"
-                  name="children"
-                  type="number"
-                  placeholder="Cantidad hijos"
-                  {...register('children', {
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="1234-1234"
+                  pattern="[0-9]{4}-[0-9]{4}"
+                  {...register('phone', {
                     required: 'Campo requerido',
-                    min: { value: 0, message: 'La cantidad mínima es 0' },
                   })}
                 />
-                {errors.children && (
-                  <p className="text-red-500">{errors.children.message}</p>
+                {errors.phone && (
+                  <p className="text-red-500">{errors.phone.message}</p>
+                )}
+              </div>
+            </div>
+            <div className="flex justify-around">
+              <div className="space-y-2">
+                <Label htmlFor="amount">Cantidad</Label>
+                <Input
+                  id="amount"
+                  step="0.01"
+                  placeholder="Monto cantidad"
+                  name="amount"
+                  type="number"
+                  {...register('amount', {
+                    required: 'Campo requerido',
+                    min: {
+                      value: 0,
+                      message: 'La cantidad no puede ser menor a 0',
+                    },
+                  })}
+                />
+                {errors.amount && (
+                  <p className="text-red-500">{errors.amount.message}</p>
+                )}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="month">Mes</Label>
+                <Input
+                  id="month"
+                  name="month"
+                  type="number"
+                  placeholder="Mes"
+                  {...register('month', {
+                    required: 'Campo requerido',
+                    min: { value: 1, message: 'El mes mínimo es 1' },
+                  })}
+                />
+                {errors.month && (
+                  <p className="text-red-500">{errors.month.message}</p>
                 )}
               </div>
             </div>
@@ -409,22 +474,22 @@ function ParishionersForm() {
             </CardFooter>
           </form>
           <div className="flex justify-around flex-col gap-4 md:gap-0 md:flex-row">
-            <Button onClick={deleteEmployee}>Eliminar empleado</Button>
-            <Button onClick={loadEmployee}>Cargar empleado</Button>
-            <Button onClick={listEmployee}>Listar empleado</Button>
+            <Button onClick={deleteParishioner}>Eliminar feligrés</Button>
+            <Button onClick={loadParishioner}>Cargar feligrés</Button>
+            <Button onClick={listParishioner}>Listar feligrés</Button>
           </div>
         </CardContent>
       </Card>
 
       <Card className="w-full md:w-1/2 mt-8">
         <CardHeader>
-          <CardTitle>Detalles de la clase</CardTitle>
+          <CardTitle>Detalles de los feligreses</CardTitle>
           <div className='flex gap-4'>
             <Button
               className="w-full text-wrap p-2"
-              onClick={increaseSalary}
+              onClick={amountInRange}
             >
-              Aumentar salario
+              Total de diezmo en rango
             </Button>
             <Button
               className="w-full text-wrap p-2"
@@ -438,27 +503,29 @@ function ParishionersForm() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Cedula</TableHead>
+                <TableHead>Id</TableHead>
                 <TableHead className="text-nowrap">Nombres</TableHead>
-                <TableHead className="text-nowrap">Apellidos</TableHead>
-                <TableHead className="text-nowrap">Salario</TableHead>
-                <TableHead>N° Hijos</TableHead>
+                <TableHead className="text-nowrap">Dirección</TableHead>
+                <TableHead className="text-nowrap">Cantidad</TableHead>
+                <TableHead>Teléfono</TableHead>
+                <TableHead>Mes</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {employeeArray.map((employee) => (
-                <TableRow key={employee.idCard}>
+              {parishionerArray.map((parishioner) => (
+                <TableRow key={parishioner.id}>
                   <TableCell className="text-nowrap">
-                    {employee.idCard}
+                    {parishioner.id}
                   </TableCell>
                   <TableCell className="text-nowrap">
-                    {employee.names}
+                    {parishioner.name}
                   </TableCell>
                   <TableCell className="text-nowrap">
-                    {employee.lastNames}
+                    {parishioner.address}
                   </TableCell>
-                  <TableCell>{employee.salary}</TableCell>
-                  <TableCell>{employee.children}</TableCell>
+                  <TableCell>{parishioner.amount}</TableCell>
+                  <TableCell className="text-nowrap">{parishioner.phone}</TableCell>
+                  <TableCell>{parishioner.month}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

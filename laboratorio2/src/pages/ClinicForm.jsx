@@ -29,18 +29,18 @@ function ClinicForm() {
   }, []);
 
   const saveArray = (array) => {
-    localStorage.setItem('studentArray', JSON.stringify(array));
+    localStorage.setItem('appointmentArray', JSON.stringify(array));
   };
 
   const getArray = () => {
-    const array = localStorage.getItem('studentArray');
+    const array = localStorage.getItem('appointmentArray');
     if (array) {
       return JSON.parse(array);
     }
     return [];
   };
 
-  const [studentArray, setStudentArray] = useState(getArray());
+  const [appointmentArray, setAppointmentArray] = useState(getArray());
   const {
     register,
     handleSubmit,
@@ -52,8 +52,8 @@ function ClinicForm() {
   } = useForm();
 
   const cleanArray = () => {
-    localStorage.removeItem('studentArray');
-    setStudentArray([]);
+    localStorage.removeItem('appointmentArray');
+    setAppointmentArray([]);
     Swal.fire({
       title: 'Registros eliminados',
       icon: 'success',
@@ -61,65 +61,29 @@ function ClinicForm() {
     });
   };
 
-  const totalAndBestStudent = () => {
-    if (studentArray.length === 0) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'No hay estudiantes registrados',
-        icon: 'error',
-        confirmButtonText: 'ok',
-      });
-      return;
+  const listMonthAppointments = () => {
+    const select = document.createElement('select');
+    select.id = 'swal-select';
+    select.classList.add('swal2-select');
+    for (let i = 0; i < 12; i++) {
+      const option = document.createElement('option');
+      option.value = i + 1;
+      option.text = i + 1;
+      select.appendChild(option);
     }
-    let total = 0;
-    let bestStudent = studentArray[0];
-    studentArray.forEach((student) => {
-      total += student.finalGrade;
-      if (student.finalGrade > bestStudent.finalGrade) {
-        bestStudent = student;
-      }
-    });
     Swal.fire({
-      title: 'Promedio general y mejor estudiante',
-      html: `
-      <br>
-      <p><strong>Promedio general:</strong> ${total / studentArray.length}</p>
-      <br>
-      <p><strong>Mejor estudiante:</strong> ${bestStudent.carnet} - ${
-        bestStudent.fullName
-      }</p>
-      <br>
-      <p><strong>Nota Final del Mejor estudiante:</strong> ${
-        bestStudent.finalGrade
-      }</p>
-      `,
-      confirmButtonText: 'ok',
-    });
-  };
-
-  const deleteStudent = () => {
-    const select = document.createElement('select');
-    select.id = 'swal-select';
-    select.classList.add('swal2-select');
-    studentArray.forEach((student) => {
-      const option = document.createElement('option');
-      option.value = student.carnet;
-      option.text = student.carnet;
-      select.appendChild(option);
-    });
-    Swal.fire({
-      title: 'Selecciona el carnet del estudiante a borrar',
+      title: 'Selecciona el mes a listar',
       html: select,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Borrar estudiante',
+      confirmButtonText: 'listar mes',
       cancelButtonText: 'Cancelar',
       focusConfirm: false,
       preConfirm: () => {
         const selectedOption = document.getElementById('swal-select').value;
         if (selectedOption === '' || selectedOption === null) {
-          Swal.showValidationMessage('Debes seleccionar un carnet');
+          Swal.showValidationMessage('Debes seleccionar un mes');
         } else {
           return selectedOption;
         }
@@ -127,14 +91,64 @@ function ClinicForm() {
     }).then((result) => {
       if (result.isConfirmed) {
         const selectedOption = document.getElementById('swal-select').value;
-        const newStudentArray = studentArray.filter(
-          (student) => student.carnet !== selectedOption
+        appointmentArray.forEach((appointment) => {
+          const date = new Date(appointment.date);
+          if (date.getMonth() + 1 === parseInt(selectedOption)) {
+            Swal.fire({
+              title: 'Información del cita',
+              html: `
+              <p><strong>Id cita:</strong> ${appointment.id}</p>
+              <p><strong>Paciente:</strong> ${appointment.patientId}</p>
+              <p><strong>Servicio:</strong> ${appointment.service}</p>
+              <p><strong>Fecha programada:</strong> ${appointment.date}</p>
+              `,
+              confirmButtonText: 'ok',
+            });
+          }
+        });
+      }
+    });
+  };
+
+  const deleteAppointment = () => {
+    const select = document.createElement('select');
+    select.id = 'swal-select';
+    select.classList.add('swal2-select');
+    appointmentArray.forEach((appointment) => {
+      const option = document.createElement('option');
+      option.value = appointment.id;
+      option.text = appointment.id;
+      select.appendChild(option);
+    });
+    Swal.fire({
+      title: 'Selecciona el id de la cita a borrar',
+      html: select,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Borrar cita',
+      cancelButtonText: 'Cancelar',
+      focusConfirm: false,
+      preConfirm: () => {
+        const selectedOption = document.getElementById('swal-select').value;
+        if (selectedOption === '' || selectedOption === null) {
+          Swal.showValidationMessage('Debes seleccionar un id');
+        } else {
+          return selectedOption;
+        }
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const selectedOption = document.getElementById('swal-select').value;
+        const newAppointmentArray = appointmentArray.filter(
+          (appointment) => appointment.id !== selectedOption
         );
-        setStudentArray(newStudentArray);
-        saveArray(newStudentArray);
+        const updatedAppointmentArray = [...newAppointmentArray].sort((a,b) => new Date(b.date) - new Date(a.date));
+        setAppointmentArray(updatedAppointmentArray);
+        saveArray(updatedAppointmentArray);
         Swal.close();
         Swal.fire({
-          title: 'Estudiante eliminado',
+          title: 'Cita eliminada',
           icon: 'success',
           confirmButtonText: 'ok',
         });
@@ -142,29 +156,29 @@ function ClinicForm() {
     });
   };
 
-  const loadStudent = () => {
+  const loadAppointment = () => {
     const select = document.createElement('select');
     select.id = 'swal-select';
     select.classList.add('swal2-select');
-    studentArray.forEach((student) => {
+    appointmentArray.forEach((appointment) => {
       const option = document.createElement('option');
-      option.value = student.carnet;
-      option.text = student.carnet;
+      option.value = appointment.id;
+      option.text = appointment.id;
       select.appendChild(option);
     });
     Swal.fire({
-      title: 'Selecciona el carnet del estudiante a cargar',
+      title: 'Selecciona el id de la cita a cargar',
       html: select,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Cargar estudiante',
+      confirmButtonText: 'Cargar cita',
       cancelButtonText: 'Cancelar',
       focusConfirm: false,
       preConfirm: () => {
         const selectedOption = document.getElementById('swal-select').value;
         if (selectedOption === '' || selectedOption === null) {
-          Swal.showValidationMessage('Debes seleccionar un carnet');
+          Swal.showValidationMessage('Debes seleccionar un id');
         } else {
           return selectedOption;
         }
@@ -172,20 +186,18 @@ function ClinicForm() {
     }).then((result) => {
       if (result.isConfirmed) {
         const selectedOption = document.getElementById('swal-select').value;
-        const student = studentArray.find(
-          (student) => student.carnet === selectedOption
+        const appointment = appointmentArray.find(
+          (appointment) => appointment.id === selectedOption
         );
-        setValue('carnet', student.carnet);
-        setValue('fullName', student.fullName);
-        setValue('partial1', student.partial1);
-        setValue('partial2', student.partial2);
-        setValue('systematic', student.systematic);
-        setValue('project', student.project);
+        setValue('id', appointment.id);
+        setValue('patientId', appointment.patientId);
+        setValue('service', appointment.service);
+        setValue('date', appointment.date);
         clearErrors();
-        setFocus('carnet');
+        setFocus('id');
         Swal.close();
         Swal.fire({
-          title: 'Estudiante cargado',
+          title: 'Cita cargada',
           icon: 'success',
           confirmButtonText: 'ok',
         });
@@ -193,28 +205,28 @@ function ClinicForm() {
     });
   };
 
-  const listStudent = () => {
+  const listAppointment = () => {
     const select = document.createElement('select');
     select.id = 'swal-select';
     select.classList.add('swal2-select');
-    studentArray.forEach((student) => {
+    appointmentArray.forEach((appointment) => {
       const option = document.createElement('option');
-      option.value = student.carnet;
-      option.text = student.carnet;
+      option.value = appointment.id;
+      option.text = appointment.id;
       select.appendChild(option);
     });
     Swal.fire({
-      title: 'Selecciona el carnet del estudiante a listar',
+      title: 'Selecciona el id del cita a listar',
       html: select,
       showDenyButton: true,
       confirmButtonColor: '#3085d6',
-      confirmButtonText: 'Listar estudiante',
+      confirmButtonText: 'Listar cita',
       denyButtonText: 'Cancelar',
       focusConfirm: false,
       preConfirm: () => {
         const selectedOption = document.getElementById('swal-select').value;
         if (selectedOption === '' || selectedOption === null) {
-          Swal.showValidationMessage('Debes seleccionar un carnet');
+          Swal.showValidationMessage('Debes seleccionar un id');
         } else {
           return selectedOption;
         }
@@ -222,19 +234,16 @@ function ClinicForm() {
     }).then((result) => {
       if (result.isConfirmed) {
         const selectedOption = document.getElementById('swal-select').value;
-        const student = studentArray.find(
-          (student) => student.carnet === selectedOption
+        const appointment = appointmentArray.find(
+          (appointment) => appointment.id === selectedOption
         );
         Swal.fire({
-          title: 'Información del estudiante',
+          title: 'Información del cita',
           html: `
-          <p><strong>Carnet:</strong> ${student.carnet}</p>
-          <p><strong>Nombre:</strong> ${student.fullName}</p>
-          <p><strong>I P:</strong> ${student.partial1}</p>
-          <p><strong>II P:</strong> ${student.partial2}</p>
-          <p><strong>SIST:</strong> ${student.systematic}</p>
-          <p><strong>PROY:</strong> ${student.project}</p>
-          <p><strong>N.F:</strong> ${student.finalGrade}</p>
+          <p><strong>Id cita:</strong> ${appointment.id}</p>
+          <p><strong>Paciente:</strong> ${appointment.patientId}</p>
+          <p><strong>Servicio:</strong> ${appointment.service}</p>
+          <p><strong>Fecha programada:</strong> ${appointment.date}</p>
           `,
           confirmButtonText: 'ok',
         });
@@ -244,24 +253,13 @@ function ClinicForm() {
 
   const onSubmit = (data) => {
     let centinel = false;
-    data.finalGrade =
-      +data.partial1 + +data.partial2 + +data.systematic + +data.project;
-    if (data.finalGrade > 100) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'La nota final no puede ser mayor a 100, revisa cada nota individual',
-        icon: 'error',
-        confirmButtonText: 'ok',
-      });
-      return;
-    }
-    for (let i = 0; i < studentArray.length; i++) {
-      if (studentArray[i].carnet === data.carnet) {
+    for (let i = 0; i < appointmentArray.length; i++) {
+      if (appointmentArray[i].id === data.id) {
         centinel = true;
         Swal.close();
         Swal.fire({
           title: 'Advertencia!',
-          text: 'El carnet ya existe, deseas actualizar la información del estudiante?',
+          text: 'El id ya existe, deseas actualizar la información de la cita?',
           icon: 'warning',
           showDenyButton: true,
           confirmButtonColor: '#3085d6',
@@ -270,10 +268,11 @@ function ClinicForm() {
           denyButtonText: 'Cancelar',
         }).then((result) => {
           if (result.isConfirmed) {
-            studentArray[i] = data;
-            setStudentArray([...studentArray]);
-            saveArray(studentArray);
-            setFocus('carnet');
+            appointmentArray[i] = data;
+            const updatedAppointmentArray = [...appointmentArray].sort((a,b) => new Date(b.date) - new Date(a.date));
+            setAppointmentArray(updatedAppointmentArray);
+            saveArray(updatedAppointmentArray);
+            setFocus('id');
             Swal.fire({
               title: 'Estudiante actualizado',
               icon: 'success',
@@ -296,10 +295,11 @@ function ClinicForm() {
       }
     }
     if (!centinel) {
-      setStudentArray([...studentArray, data]);
-      saveArray([...studentArray, data]);
+      const updatedAppointmentArray = [...appointmentArray, data].sort((a, b) => new Date(b.date) - new Date(a.date));
+      setAppointmentArray(updatedAppointmentArray);
+      saveArray(updatedAppointmentArray);
       Swal.fire({
-        title: 'Estudiante agregado',
+        title: 'Cita agregada',
         icon: 'success',
         confirmButtonText: 'ok',
       });
@@ -313,126 +313,78 @@ function ClinicForm() {
         <Link to="/">
           <Button variant="secondary">Homepage</Button>
         </Link>
-        <Link to="/employee">
-          <Button variant="secondary">Formulario de empleados</Button>
+        <Link to="/parishioners">
+          <Button variant="secondary">Formulario de feligreses</Button>
         </Link>
       </div>
       <Card className="w-full md:w-1/2 bg-white rounded-lg mt-12 md:mt-8">
         <CardHeader>
-          <CardTitle>Formulario de Estudiantes</CardTitle>
-          <CardDescription>Ingresa los datos del estudiante</CardDescription>
+          <CardTitle>Formulario de Clínica</CardTitle>
+          <CardDescription>Ingresa los datos de la cita</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="idNumber">Carnet</Label>
+              <Label htmlFor="idNumber">Id cita</Label>
               <Input
                 id="idNumber"
                 name="idNumber"
-                placeholder="Carnet"
-                {...register('carnet', {
-                  required: 'El carnet es obligatorio',
-                  maxLength: {
-                    value: 10,
-                    message: 'El carnet debe tener 8 dígitos',
-                  },
+                placeholder="Id cita"
+                type="number"
+                {...register('id', {
+                  required: 'El id es obligatorio',
                 })}
               />
-              {errors.carnet && (
-                <p className="text-red-500">{errors.carnet.message}</p>
+              {errors.id && (
+                <p className="text-red-500">{errors.id.message}</p>
               )}
             </div>
             <div className="grid grid-cols-2 gap-4"></div>
             <div className="space-y-2">
-              <Label htmlFor="fullName">Nombre Completo</Label>
+              <Label htmlFor="patientId">Paciente</Label>
               <Input
-                id="fullName"
-                name="fullName"
-                placeholder="Nombre completo"
-                {...register('fullName', {
-                  required: 'El nombre es obligatorio',
+                id="patientId"
+                name="patientId"
+                placeholder="Id del paciente"
+                type="number"
+                {...register('patientId', {
+                  required: 'El id del paciente es obligatorio',
                 })}
               />
-              {errors.fullName && (
-                <p className="text-red-500">{errors.fullName.message}</p>
+              {errors.patientId && (
+                <p className="text-red-500">{errors.patientId.message}</p>
               )}
             </div>
-            <div className="flex justify-around">
-              <div className="space-y-2">
-                <Label htmlFor="partial1">I P</Label>
-                <Input
-                  id="partial1"
-                  name="partial1"
-                  step="0.01"
-                  type="number"
-                  placeholder="Nota primer parcial"
-                  {...register('partial1', {
-                    required: 'Campo requerido',
-                    min: { value: 0, message: 'La nota mínima es 0' },
-                    max: { value: 100, message: 'La nota máxima es 100' },
-                  })}
-                />
-                {errors.partial1 && (
-                  <p className="text-red-500">{errors.partial1.message}</p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="partial2">II P</Label>
-                <Input
-                  id="partial2"
-                  step="0.01"
-                  name="partial2"
-                  type="number"
-                  placeholder="Nota segundo parcial"
-                  {...register('partial2', {
-                    required: 'Campo requerido',
-                    min: { value: 0, message: 'La nota mínima es 0' },
-                    max: { value: 100, message: 'La nota máxima es 100' },
-                  })}
-                />
-                {errors.partial2 && (
-                  <p className="text-red-500">{errors.partial2.message}</p>
-                )}
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="service">Nombre del servicio</Label>
+              <Input
+                id="service"
+                name="service"
+                placeholder="Servicio de la cita"
+                {...register('service', {
+                  required: 'El nombre del servicio es obligatorio',
+                })}
+              />
+              {errors.service && (
+                <p className="text-red-500">{errors.service.message}</p>
+              )}
             </div>
-            <div className="flex justify-around">
-              <div className="space-y-2">
-                <Label htmlFor="systematic">SIST</Label>
-                <Input
-                  id="systematic"
-                  placeholder="Nota sistematico"
-                  name="systematic"
-                  step="0.01"
-                  type="number"
-                  {...register('systematic', {
-                    required: 'Campo requerido',
-                    min: { value: 0, message: 'La nota mínima es 0' },
-                    max: { value: 100, message: 'La nota máxima es 100' },
-                  })}
-                />
-                {errors.systematic && (
-                  <p className="text-red-500">{errors.systematic.message}</p>
-                )}
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="project">PROY</Label>
-                <Input
-                  id="project"
-                  name="project"
-                  step="0.01"
-                  type="number"
-                  placeholder="Nota Proyecto"
-                  {...register('project', {
-                    required: 'Campo requerido',
-                    min: { value: 0, message: 'La nota mínima es 0' },
-                    max: { value: 100, message: 'La nota máxima es 100' },
-                  })}
-                />
-                {errors.project && (
-                  <p className="text-red-500">{errors.project.message}</p>
-                )}
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="date">Fecha programada</Label>
+              <Input
+                id="date"
+                name="date"
+                type="date"
+                placeholder="Id del paciente"
+                {...register('date', {
+                  required: 'La fecha programada es obligatoria',
+                })}
+              />
+              {errors.date && (
+                <p className="text-red-500">{errors.date.message}</p>
+              )}
             </div>
+            
             <CardFooter className="px-0 flex flex-col gap-4 justify-around">
               <Button type="submit" className="w-full">
                 Confirmar
@@ -440,22 +392,22 @@ function ClinicForm() {
             </CardFooter>
           </form>
           <div className="flex justify-around flex-col gap-4 md:gap-0 md:flex-row">
-            <Button onClick={deleteStudent}>Eliminar estudiante</Button>
-            <Button onClick={loadStudent}>Cargar estudiante</Button>
-            <Button onClick={listStudent}>Listar estudiante</Button>
+            <Button onClick={deleteAppointment}>Eliminar cita</Button>
+            <Button onClick={loadAppointment}>Cargar cita</Button>
+            <Button onClick={listAppointment}>Listar cita</Button>
           </div>
         </CardContent>
       </Card>
 
       <Card className="w-full md:w-1/2 mt-8">
         <CardHeader>
-          <CardTitle>Detalles de la clase</CardTitle>
+          <CardTitle>Detalles de las citas</CardTitle>
           <div className='flex gap-4'>
             <Button
               className="w-full text-wrap"
-              onClick={totalAndBestStudent}
+              onClick={listMonthAppointments}
             >
-              prom general y mejor est
+              Listas citas de un mes
             </Button>
             <Button
               className="w-full text-wrap p-2"
@@ -469,29 +421,23 @@ function ClinicForm() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Carnet</TableHead>
-                <TableHead className="text-nowrap">Nombre Completo</TableHead>
-                <TableHead className="text-nowrap">I P</TableHead>
-                <TableHead className="text-nowrap">II P</TableHead>
-                <TableHead>SIST</TableHead>
-                <TableHead>PROY</TableHead>
-                <TableHead>N.F</TableHead>
+                <TableHead>Id cita</TableHead>
+                <TableHead className="text-nowrap">Paciente</TableHead>
+                <TableHead className="text-nowrap">Nombre del servicio</TableHead>
+                <TableHead className="text-nowrap">Fecha programada</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {studentArray.map((student) => (
-                <TableRow key={student.carnet}>
+              {appointmentArray.map((appointment) => (
+                <TableRow key={appointment.id}>
                   <TableCell className="text-nowrap">
-                    {student.carnet}
+                    {appointment.id}
                   </TableCell>
                   <TableCell className="text-nowrap">
-                    {student.fullName}
+                    {appointment.patientId}
                   </TableCell>
-                  <TableCell>{student.partial1}</TableCell>
-                  <TableCell>{student.partial2}</TableCell>
-                  <TableCell>{student.systematic}</TableCell>
-                  <TableCell>{student.project}</TableCell>
-                  <TableCell>{student.finalGrade}</TableCell>
+                  <TableCell>{appointment.service}</TableCell>
+                  <TableCell>{appointment.date}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
