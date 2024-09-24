@@ -66,30 +66,37 @@ function ParishionersForm() {
     const select = document.createElement('select');
     select.id = 'swal-select';
     select.classList.add('swal2-select');
+    let idList = [];
     parishionerArray.forEach((parishioner) => {
-      const option = document.createElement('option');
-      option.value = parishioner.id;
-      option.text = parishioner.id;
-      select.appendChild(option);
+      idList.push(parishioner.id);
     });
-
-    const select2 = document.createElement('select');
-    select2.id = 'swal-select2';
-    select2.classList.add('swal2-select');
-    for (let i = 0; i < 12; i++) {
+    let set = [...new Set(idList)];
+    for (let i = 0; i < set.length; i++) {
       const option = document.createElement('option');
-      option.value = i + 1;
-      option.text = i + 1;
+      option.value = set[i];
+      option.text = set[i];
       select.appendChild(option);
     }
-    
+    let total = 0;
+    const initial = document.querySelector("#range1").value;
+    const final = document.querySelector("#range2").value;
+
+    if (initial < 0 || final < 0 || initial > final || initial > 12 || final > 12 || initial === null || final === null || initial === '' || final === '' || initial === undefined || final === undefined) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Los meses no son válidos',
+        icon: 'error',
+        confirmButtonText: 'ok',
+      });
+      return;
+    }
     Swal.fire({
       title: 'Selecciona el feligrés',
       html: select,
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Buscar cantidad',
+      confirmButtonText: 'Buscar feligrés',
       cancelButtonText: 'Cancelar',
       focusConfirm: false,
       preConfirm: () => {
@@ -102,42 +109,18 @@ function ParishionersForm() {
       },
     }).then((result) => {
       if(result.isConfirmed){
-        Swal.fire({
-          title: 'Selecciona el mes',
-          html: select2,
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'confirmar',
-          cancelButtonText: 'Cancelar',
-          focusConfirm: false,
-          preConfirm: () => {
-            const selectedOption = document.getElementById('swal-select').value;
-            if (selectedOption === '' || selectedOption === null) {
-              Swal.showValidationMessage('Debes seleccionar un mes');
-            } else {
-              return selectedOption;
-            }
-          },
-        }).then((result) => {
-          if(result.isConfirmed){
-            const selectedOption = document.getElementById('swal-select').value;
-            const selectedOption2 = document.getElementById('swal-select2').value;
-            let amount = 0;
-            parishionerArray.forEach((parishioner) => {
-              if (parishioner.id === selectedOption && parishioner.month === selectedOption2) {
-                amount += parishioner.amount;
-              }
-            })
-            const parishioner = parishionerArray.find(
-              (parishioner) => parishioner.id === selectedOption
-            )
-            Swal.fire({
-              title: 'Cantidad del feligrés',
-              html: `La cantidad del feligrés ${parishioner.id} en el mes ${parishioner.month} es de ${amount}`,
-              confirmButtonText: 'ok',
-            });
+        const selectedOption = document.getElementById('swal-select').value;
+        parishionerArray.forEach((parishioner) => {
+          if (parishioner.id === selectedOption && +parishioner.month >= initial && +parishioner.month <= final) {
+            total += +parishioner.amount;
+            console.log(initial)
           }
+        })
+        Swal.fire({
+          title: 'Total de diezmo en rango',
+          text: `El total de diezmo en el rango de ${initial} a ${final} es de: ${total}`,
+          icon: 'success',
+          confirmButtonText: 'ok',
         });
       }
     });
@@ -147,12 +130,17 @@ function ParishionersForm() {
     const select = document.createElement('select');
     select.id = 'swal-select';
     select.classList.add('swal2-select');
+    let idList = [];
     parishionerArray.forEach((parishioner) => {
-      const option = document.createElement('option');
-      option.value = parishioner.id;
-      option.text = parishioner.id;
-      select.appendChild(option);
+      idList.push(parishioner.id);
     });
+    let set = [...new Set(idList)];
+    for (let i = 0; i < set.length; i++) {
+      const option = document.createElement('option');
+      option.value = set[i];
+      option.text = set[i];
+      select.appendChild(option);
+    }
     Swal.fire({
       title: 'Selecciona el id del feligrés a borrar',
       html: select,
@@ -193,12 +181,17 @@ function ParishionersForm() {
     const select = document.createElement('select');
     select.id = 'swal-select';
     select.classList.add('swal2-select');
+    let idList = [];
     parishionerArray.forEach((parishioner) => {
-      const option = document.createElement('option');
-      option.value = parishioner.id;
-      option.text = parishioner.id;
-      select.appendChild(option);
+      idList.push(parishioner.id);
     });
+    let set = [...new Set(idList)];
+    for (let i = 0; i < set.length; i++) {
+      const option = document.createElement('option');
+      option.value = set[i];
+      option.text = set[i];
+      select.appendChild(option);
+    }
     Swal.fire({
       title: 'Selecciona el id del feligrés a cargar',
       html: select,
@@ -243,13 +236,19 @@ function ParishionersForm() {
   const listParishioner = () => {
     const select = document.createElement('select');
     select.id = 'swal-select';
+    let total = 0;
     select.classList.add('swal2-select');
+    let idList = [];
     parishionerArray.forEach((parishioner) => {
-      const option = document.createElement('option');
-      option.value = parishioner.id;
-      option.text = parishioner.id;
-      select.appendChild(option);
+      idList.push(parishioner.id);
     });
+    let set = [...new Set(idList)];
+    for (let i = 0; i < set.length; i++) {
+      const option = document.createElement('option');
+      option.value = set[i];
+      option.text = set[i];
+      select.appendChild(option);
+    }
     Swal.fire({
       title: 'Selecciona el id del feligrés a listar',
       html: select,
@@ -272,6 +271,11 @@ function ParishionersForm() {
         const parishioner = parishionerArray.find(
           (parishioner) => parishioner.id === selectedOption
         );
+        parishionerArray.forEach((parishioner) => {
+          if (parishioner.id === selectedOption) {
+            total += +parishioner.amount;
+          }
+        })
         Swal.fire({
           title: 'Información del empleado',
           html: `
@@ -280,7 +284,7 @@ function ParishionersForm() {
           <p><strong>Dirección:</strong> ${parishioner.address}</p>
           <p><strong>Cantidad:</strong> ${parishioner.amount}</p>
           <p><strong>Teléfono:</strong> ${parishioner.phone}</p>
-          <p><strong>Mes:</strong> ${parishioner.month}</p>
+          <p><strong>Mes:</strong> ${total}</p>
           `,
           confirmButtonText: 'ok',
         });
@@ -307,6 +311,13 @@ function ParishionersForm() {
           if (result.isConfirmed) {
             data.amount = ((+data.amount) + 0.00).toFixed(2);
             parishionerArray[i] = data;
+            parishionerArray.forEach((parishioner) => {
+              if (parishioner.id === data.id) {
+                parishioner.address = data.address;
+                parishioner.name = data.name;
+                parishioner.phone = data.phone;
+              }
+            })
             const updatedArray = parishionerArray.sort((a, b) => +b.amount - +a.amount)
             setParishionerArray(updatedArray)
             saveArray(updatedArray);
@@ -489,8 +500,10 @@ function ParishionersForm() {
               className="w-full text-wrap p-2"
               onClick={amountInRange}
             >
-              Total de diezmo en rango
+              Diezmo en rango
             </Button>
+            <Input type="number" placeholder="mes de inicio" id="range1"/>
+            <Input type="number" placeholder="mes de fin" id="range2"/>
             <Button
               className="w-full text-wrap p-2"
               onClick={cleanArray}
