@@ -22,11 +22,26 @@ import {
 } from '@/components/ui/table';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 function ClinicForm() {
   useEffect(() => {
-    document.title = 'Formulario de estudiantes';
+    document.title = 'Formulario de clinica';
   }, []);
+
+  const { toast } = useToast();
 
   const saveArray = (array) => {
     localStorage.setItem('appointmentArray', JSON.stringify(array));
@@ -41,6 +56,9 @@ function ClinicForm() {
   };
 
   const [appointmentArray, setAppointmentArray] = useState(getArray());
+  const [monthAppointments, setMonthAppointments] = useState([]);
+  const [month, setMonth] = useState(0);
+
   const {
     register,
     handleSubmit,
@@ -62,52 +80,25 @@ function ClinicForm() {
   };
 
   const listMonthAppointments = () => {
-    const select = document.createElement('select');
-    select.id = 'swal-select';
-    select.classList.add('swal2-select');
-    for (let i = 0; i < 12; i++) {
-      const option = document.createElement('option');
-      option.value = i + 1;
-      option.text = i + 1;
-      select.appendChild(option);
+    const chosenMonth = (parseInt(document.querySelector('#listedMonth').value));
+    if(chosenMonth >= 1 && chosenMonth <= 12){
+      setMonth(parseInt(document.querySelector('#listedMonth').value));
+      const newMonthAppointments = appointmentArray.filter(
+        (appointment) => new Date(appointment.date).getMonth() + 1 === chosenMonth
+      );
+      setMonthAppointments(newMonthAppointments);
     }
-    Swal.fire({
-      title: 'Selecciona el mes a listar',
-      html: select,
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'listar mes',
-      cancelButtonText: 'Cancelar',
-      focusConfirm: false,
-      preConfirm: () => {
-        const selectedOption = document.getElementById('swal-select').value;
-        if (selectedOption === '' || selectedOption === null) {
-          Swal.showValidationMessage('Debes seleccionar un mes');
-        } else {
-          return selectedOption;
-        }
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const selectedOption = document.getElementById('swal-select').value;
-        appointmentArray.forEach((appointment) => {
-          const date = new Date(appointment.date);
-          if (date.getMonth() + 1 === parseInt(selectedOption)) {
-            Swal.fire({
-              title: 'Información del cita',
-              html: `
-              <p><strong>Id cita:</strong> ${appointment.id}</p>
-              <p><strong>Paciente:</strong> ${appointment.patientId}</p>
-              <p><strong>Servicio:</strong> ${appointment.service}</p>
-              <p><strong>Fecha programada:</strong> ${appointment.date}</p>
-              `,
-              confirmButtonText: 'ok',
-            });
-          }
-        });
-      }
-    });
+    else{
+      setMonth(0);
+      setMonthAppointments([]);
+      toast({
+        title: "Error",
+        description: "El mes seleccionado no es valido",
+        action: (
+          <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
+        ),
+      })
+    }
   };
 
   const deleteAppointment = () => {
@@ -216,7 +207,7 @@ function ClinicForm() {
       select.appendChild(option);
     });
     Swal.fire({
-      title: 'Selecciona el id del cita a listar',
+      title: 'Selecciona el id de la cita a listar',
       html: select,
       showDenyButton: true,
       confirmButtonColor: '#3085d6',
@@ -238,7 +229,7 @@ function ClinicForm() {
           (appointment) => appointment.id === selectedOption
         );
         Swal.fire({
-          title: 'Información del cita',
+          title: 'Información de la cita',
           html: `
           <p><strong>Id cita:</strong> ${appointment.id}</p>
           <p><strong>Paciente:</strong> ${appointment.patientId}</p>
@@ -403,12 +394,51 @@ function ClinicForm() {
         <CardHeader>
           <CardTitle>Detalles de las citas</CardTitle>
           <div className='flex gap-4'>
-            <Button
-              className="w-full text-wrap"
-              onClick={listMonthAppointments}
-            >
-              Listas citas de un mes
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+              <Button
+                className="w-full text-wrap"
+                onClick={listMonthAppointments}
+              >
+                Listar citas de un mes
+              </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="text-black">Citas del mes {month}</AlertDialogTitle>
+                  <AlertDialogDescription>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="text-nowrap">Id cita</TableHead>
+                        <TableHead className="text-nowrap">Paciente</TableHead>
+                        <TableHead className="text-nowrap">Nombre del servicio</TableHead>
+                        <TableHead className="text-nowrap">Fecha programada</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {monthAppointments.map((appointment) => (
+                        <TableRow key={appointment.id}>
+                          <TableCell className="text-nowrap">
+                            {appointment.id}
+                          </TableCell>
+                          <TableCell className="text-nowrap">
+                            {appointment.patientId}
+                          </TableCell>
+                          <TableCell>{appointment.service}</TableCell>
+                          <TableCell>{appointment.date}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogAction>Ok</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+            <Input type="number" placeholder="mes a listar" id="listedMonth" min="1" max="12" />
             <Button
               className="w-full text-wrap p-2"
               onClick={cleanArray}
