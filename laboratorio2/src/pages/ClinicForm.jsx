@@ -25,7 +25,6 @@ import 'sweetalert2/src/sweetalert2.scss';
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,

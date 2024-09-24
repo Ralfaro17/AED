@@ -345,15 +345,27 @@ function ParishionersForm() {
     }
     if (!centinel) {
       data.amount = ((+data.amount) + 0.00).toFixed(2);
-      const updatedArray = [...parishionerArray, data].sort((a, b) => +b.amount - +a.amount)
-      setParishionerArray(updatedArray)
-      saveArray(updatedArray);
-      Swal.fire({
-        title: 'Feligrés agregado',
-        icon: 'success',
-        confirmButtonText: 'ok',
-      });
-      reset();
+      const feligres = parishionerArray.find((parishioner) => parishioner.id === data.id);
+      if ((feligres) && (data.name != feligres.name || data.address != feligres.address || data.phone != feligres.phone)) {
+        Swal.fire({
+          title: 'Error',
+          text: 'El feligres ya existe, pero los datos no coinciden',
+          icon: 'error',
+          confirmButtonText: 'ok',
+        })
+        return
+      }
+      else{
+        const updatedArray = [...parishionerArray, data].sort((a, b) => +b.amount - +a.amount)
+        setParishionerArray(updatedArray)
+        saveArray(updatedArray);
+        Swal.fire({
+          title: 'Feligrés agregado',
+          icon: 'success',
+          confirmButtonText: 'ok',
+        });
+        reset();
+      }
     }
   };
 
