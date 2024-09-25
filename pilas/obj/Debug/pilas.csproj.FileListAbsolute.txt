@@ -1,0 +1,10 @@
+C:\Users\ROBOTICA\Documents\AED\pilas\bin\Debug\pilas.exe.config
+C:\Users\ROBOTICA\Documents\AED\pilas\bin\Debug\pilas.exe
+C:\Users\ROBOTICA\Documents\AED\pilas\bin\Debug\pilas.pdb
+C:\Users\ROBOTICA\Documents\AED\pilas\obj\Debug\pilas.csproj.AssemblyReference.cache
+C:\Users\ROBOTICA\Documents\AED\pilas\obj\Debug\pilas.Form1.resources
+C:\Users\ROBOTICA\Documents\AED\pilas\obj\Debug\pilas.Properties.Resources.resources
+C:\Users\ROBOTICA\Documents\AED\pilas\obj\Debug\pilas.csproj.GenerateResource.cache
+C:\Users\ROBOTICA\Documents\AED\pilas\obj\Debug\pilas.csproj.CoreCompileInputs.cache
+C:\Users\ROBOTICA\Documents\AED\pilas\obj\Debug\pilas.exe
+C:\Users\ROBOTICA\Documents\AED\pilas\obj\Debug\pilas.pdb
