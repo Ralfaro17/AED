@@ -483,6 +483,7 @@ function ParishionersForm() {
                   {...register('month', {
                     required: 'Campo requerido',
                     min: { value: 1, message: 'El mes mínimo es 1' },
+                    max: { value: 12, message: 'El mes máximo es 12' },
                   })}
                 />
                 {errors.month && (
@@ -514,8 +515,10 @@ function ParishionersForm() {
             >
               Diezmo en rango
             </Button>
-            <Input type="number" placeholder="mes de inicio" id="range1"/>
-            <Input type="number" placeholder="mes de fin" id="range2"/>
+            <div className='flex flex-row md:flex-row w-full gap-4 md:w-[200%]'>
+              <Input type="number" placeholder="mes inicial" id="range1"/>
+              <Input type="number" placeholder="mes final" id="range2"/>
+            </div>
             <Button
               className="w-full text-wrap p-2"
               onClick={cleanArray}
@@ -537,8 +540,8 @@ function ParishionersForm() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {parishionerArray.map((parishioner) => (
-                <TableRow key={parishioner.id}>
+              {parishionerArray.map((parishioner, index) => (
+                <TableRow key={index}>
                   <TableCell className="text-nowrap">
                     {parishioner.id}
                   </TableCell>

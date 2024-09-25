@@ -258,6 +258,15 @@ function ClinicForm() {
           denyButtonText: 'Cancelar',
         }).then((result) => {
           if (result.isConfirmed) {
+            if(new Date(data.date).getFullYear() != 2024){
+              Swal.fire({
+                title: 'Error',
+                text: 'El año de la fecha programada debe ser de 2024',
+                icon: 'error',
+                confirmButtonText: 'ok',
+              });
+              return;
+            }
             appointmentArray[i] = data;
             const updatedAppointmentArray = [...appointmentArray].sort((a,b) => new Date(b.date) - new Date(a.date));
             setAppointmentArray(updatedAppointmentArray);
@@ -285,6 +294,15 @@ function ClinicForm() {
       }
     }
     if (!centinel) {
+      if(new Date(data.date).getFullYear() != 2024){
+        Swal.fire({
+          title: 'Error',
+          text: 'El año de la fecha programada debe ser 2024',
+          icon: 'error',
+          confirmButtonText: 'ok',
+        });
+        return;
+      }
       const updatedAppointmentArray = [...appointmentArray, data].sort((a, b) => new Date(b.date) - new Date(a.date));
       setAppointmentArray(updatedAppointmentArray);
       saveArray(updatedAppointmentArray);
@@ -323,6 +341,10 @@ function ClinicForm() {
                 type="number"
                 {...register('id', {
                   required: 'El id es obligatorio',
+                  min: {
+                    value: 1,
+                    message: 'El Id no puede ser menor a 1',
+                  },
                 })}
               />
               {errors.id && (
@@ -339,6 +361,7 @@ function ClinicForm() {
                 type="number"
                 {...register('patientId', {
                   required: 'El id del paciente es obligatorio',
+                  min:{value: 1, message: 'El id del paciente no puede ser menor a 1'}
                 })}
               />
               {errors.patientId && (
@@ -392,7 +415,7 @@ function ClinicForm() {
       <Card className="w-full md:w-1/2 mt-8">
         <CardHeader>
           <CardTitle>Detalles de las citas</CardTitle>
-          <div className='flex gap-4'>
+          <div className='flex gap-4 justify-around flex-col md:flex-row'>
             <AlertDialog>
               <AlertDialogTrigger asChild>
               <Button
