@@ -43,13 +43,26 @@ function ParishionersForm() {
   const [parishionerArray, setParishionerArray] = useState(getArray());
 
   const cleanArray = () => {
-    localStorage.removeItem('parishionerArray');
-    setParishionerArray([]);
     Swal.fire({
-      title: 'Registros eliminados',
-      icon: 'success',
-      confirmButtonText: 'ok',
-    });
+      title: 'Advertencia!',
+      text: 'Estas seguro que deseas eliminar todos los registros?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar registros',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('parishionerArray');
+        setParishionerArray([]);
+        Swal.fire({
+          title: 'Registros eliminados',
+          icon: 'success',
+          confirmButtonText: 'ok',
+        });
+      }
+    })
   };
 
   const {

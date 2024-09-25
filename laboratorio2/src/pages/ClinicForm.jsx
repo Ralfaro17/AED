@@ -32,8 +32,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import { useToast } from "@/hooks/use-toast"
-import { ToastAction } from "@/components/ui/toast"
 
 function ClinicForm() {
   useEffect(() => {
@@ -41,8 +39,6 @@ function ClinicForm() {
   }, []);
 
   const [open, setOpen] = useState(false);
-
-  const { toast } = useToast();
 
   const saveArray = (array) => {
     localStorage.setItem('appointmentArray', JSON.stringify(array));
@@ -73,12 +69,25 @@ function ClinicForm() {
   } = useForm();
 
   const cleanArray = () => {
-    localStorage.removeItem('appointmentArray');
-    setAppointmentArray([]);
     Swal.fire({
-      title: 'Registros eliminados',
-      icon: 'success',
-      confirmButtonText: 'ok',
+      title: 'Advertencia!',
+      text: 'Estas seguro que deseas eliminar todos los registros?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar registros',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('appointmentArray');        
+        setAppointmentArray([]);
+        Swal.fire({
+          title: 'Registros eliminados',
+          icon: 'success',
+          confirmButtonText: 'ok',
+        });
+      }
     });
   };
 
@@ -95,13 +104,6 @@ function ClinicForm() {
     else{
       setMonth(0);
       setMonthAppointments([]);
-      toast({
-        title: "Error",
-        description: "El mes seleccionado no es valido",
-        action: (
-          <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
-        ),
-      })
     }
   };
 
@@ -414,8 +416,10 @@ function ClinicForm() {
             <AlertDialog  open={open} onOpenChange={setOpen}>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle className="text-black">Citas del paciente {patient}</AlertDialogTitle>
+                  <AlertDialogTitle className="text-black absolute left-8 top-4 md:right-0">Citas del paciente {patient}</AlertDialogTitle>
                   <AlertDialogDescription>
+                  <Card className="w-[70%] md:w-[90%] mt-8">
+                  <CardContent className="overflow-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -440,10 +444,12 @@ function ClinicForm() {
                       ))}
                     </TableBody>
                   </Table>
+                  </CardContent>
+                  </Card>
                   </AlertDialogDescription>
                 </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogAction>Ok</AlertDialogAction>
+                <AlertDialogFooter className="flex justify-center items-center">
+                  <AlertDialogAction className="w-[4rem] md:w-[4rem] absolute top-3 right-4">ok</AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
@@ -455,8 +461,8 @@ function ClinicForm() {
         <CardHeader>
           <CardTitle>Detalles de las citas</CardTitle>
           <div className='flex gap-4 justify-around flex-col md:flex-row'>
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
+          <AlertDialog  open={open} onOpenChange={setOpen}>
+          <AlertDialogTrigger asChild>
               <Button
                 className="w-full text-wrap"
                 onClick={listMonthAppointments}
@@ -466,8 +472,10 @@ function ClinicForm() {
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle className="text-black">Citas del mes {month}</AlertDialogTitle>
+                  <AlertDialogTitle className="text-black absolute left-8 top-4 md:right-0">Citas del mes {month}</AlertDialogTitle>
                   <AlertDialogDescription>
+                  <Card className="w-[70%] md:w-[90%] mt-8">
+                  <CardContent className="overflow-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -492,10 +500,12 @@ function ClinicForm() {
                       ))}
                     </TableBody>
                   </Table>
+                  </CardContent>
+                  </Card>
                   </AlertDialogDescription>
                 </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogAction>Ok</AlertDialogAction>
+                <AlertDialogFooter className="flex justify-center items-center">
+                  <AlertDialogAction className="w-[4rem] md:w-[4rem] absolute top-3 right-4">ok</AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
