@@ -40,6 +40,8 @@ function ClinicForm() {
     document.title = 'Formulario de clinica';
   }, []);
 
+  const [open, setOpen] = useState(false);
+
   const { toast } = useToast();
 
   const saveArray = (array) => {
@@ -57,6 +59,8 @@ function ClinicForm() {
   const [appointmentArray, setAppointmentArray] = useState(getArray());
   const [monthAppointments, setMonthAppointments] = useState([]);
   const [month, setMonth] = useState(0);
+  const [listedAppointments, setListedAppointments] = useState([]);
+  const [patient, setPatient] = useState('');
 
   const {
     register,
@@ -79,7 +83,8 @@ function ClinicForm() {
   };
 
   const listMonthAppointments = () => {
-    const chosenMonth = (parseInt(document.querySelector('#listedMonth').value));
+    const input = document.querySelector('#listedMonth');
+    const chosenMonth = (parseInt(input.value));
     if(chosenMonth >= 1 && chosenMonth <= 12){
       setMonth(parseInt(document.querySelector('#listedMonth').value));
       const newMonthAppointments = appointmentArray.filter(
@@ -195,22 +200,27 @@ function ClinicForm() {
     });
   };
 
-  const listAppointment = () => {
+  const listAppointments = () => {
     const select = document.createElement('select');
     select.id = 'swal-select';
     select.classList.add('swal2-select');
+    let idList = [];
     appointmentArray.forEach((appointment) => {
-      const option = document.createElement('option');
-      option.value = appointment.id;
-      option.text = appointment.id;
-      select.appendChild(option);
+      idList.push(appointment.patientId);
     });
+    let set = [...new Set(idList)];
+    for (let i = 0; i < set.length; i++) {
+      const option = document.createElement('option');
+      option.value = set[i];
+      option.text = set[i];
+      select.appendChild(option);
+    }
     Swal.fire({
-      title: 'Selecciona el id de la cita a listar',
+      title: 'Selecciona el id del paciente para listar sus citas',
       html: select,
       showDenyButton: true,
       confirmButtonColor: '#3085d6',
-      confirmButtonText: 'Listar cita',
+      confirmButtonText: 'Listar citas',
       denyButtonText: 'Cancelar',
       focusConfirm: false,
       preConfirm: () => {
@@ -224,19 +234,12 @@ function ClinicForm() {
     }).then((result) => {
       if (result.isConfirmed) {
         const selectedOption = document.getElementById('swal-select').value;
-        const appointment = appointmentArray.find(
-          (appointment) => appointment.id === selectedOption
+        const appointments = appointmentArray.filter(
+          (appointment) => appointment.patientId === selectedOption
         );
-        Swal.fire({
-          title: 'Información de la cita',
-          html: `
-          <p><strong>Id cita:</strong> ${appointment.id}</p>
-          <p><strong>Paciente:</strong> ${appointment.patientId}</p>
-          <p><strong>Servicio:</strong> ${appointment.service}</p>
-          <p><strong>Fecha programada:</strong> ${appointment.date}</p>
-          `,
-          confirmButtonText: 'ok',
-        });
+        setListedAppointments(appointments);
+        setPatient(selectedOption);
+        setOpen(true);
       }
     });
   };
@@ -407,7 +410,43 @@ function ClinicForm() {
           <div className="flex justify-around flex-col gap-4 md:gap-0 md:flex-row">
             <Button onClick={deleteAppointment}>Eliminar cita</Button>
             <Button onClick={loadAppointment}>Cargar cita</Button>
-            <Button onClick={listAppointment}>Listar cita</Button>
+            <Button onClick={listAppointments}>Listar cita</Button>
+            <AlertDialog  open={open} onOpenChange={setOpen}>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle className="text-black">Citas del paciente {patient}</AlertDialogTitle>
+                  <AlertDialogDescription>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="text-nowrap">Id cita</TableHead>
+                        <TableHead className="text-nowrap">Paciente</TableHead>
+                        <TableHead className="text-nowrap">Nombre del servicio</TableHead>
+                        <TableHead className="text-nowrap">Fecha programada</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {listedAppointments.map((appointment) => (
+                        <TableRow key={appointment.id}>
+                          <TableCell className="text-nowrap">
+                            {appointment.id}
+                          </TableCell>
+                          <TableCell className="text-nowrap">
+                            {appointment.patientId}
+                          </TableCell>
+                          <TableCell>{appointment.service}</TableCell>
+                          <TableCell>{appointment.date}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogAction>Ok</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </CardContent>
       </Card>

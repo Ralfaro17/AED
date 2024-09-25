@@ -30,7 +30,7 @@ function ParishionersForm() {
 
   const saveArray = (array) => {
     localStorage.setItem('parishionerArray', JSON.stringify(array));
-  }
+  };
 
   const getArray = () => {
     const array = localStorage.getItem('parishionerArray');
@@ -38,10 +38,10 @@ function ParishionersForm() {
       return JSON.parse(array);
     }
     return [];
-  }
-  
+  };
+
   const [parishionerArray, setParishionerArray] = useState(getArray());
-  
+
   const cleanArray = () => {
     localStorage.removeItem('parishionerArray');
     setParishionerArray([]);
@@ -50,8 +50,8 @@ function ParishionersForm() {
       icon: 'success',
       confirmButtonText: 'ok',
     });
-  }
-  
+  };
+
   const {
     register,
     handleSubmit,
@@ -78,10 +78,22 @@ function ParishionersForm() {
       select.appendChild(option);
     }
     let total = 0;
-    const initial = document.querySelector("#range1").value;
-    const final = document.querySelector("#range2").value;
+    const initial = document.querySelector('#range1').value;
+    const final = document.querySelector('#range2').value;
 
-    if (initial < 0 || final < 0 || initial > final || initial > 12 || final > 12 || initial === null || final === null || initial === '' || final === '' || initial === undefined || final === undefined) {
+    if (
+      initial < 0 ||
+      final < 0 ||
+      initial > final ||
+      initial > 12 ||
+      final > 12 ||
+      initial === null ||
+      final === null ||
+      initial === '' ||
+      final === '' ||
+      initial === undefined ||
+      final === undefined
+    ) {
       Swal.fire({
         title: 'Error!',
         text: 'Los meses no son válidos',
@@ -108,17 +120,23 @@ function ParishionersForm() {
         }
       },
     }).then((result) => {
-      if(result.isConfirmed){
+      if (result.isConfirmed) {
         const selectedOption = document.getElementById('swal-select').value;
         parishionerArray.forEach((parishioner) => {
-          if (parishioner.id === selectedOption && +parishioner.month >= initial && +parishioner.month <= final) {
+          if (
+            parishioner.id === selectedOption &&
+            +parishioner.month >= initial &&
+            +parishioner.month <= final
+          ) {
             total += +parishioner.amount;
-            console.log(initial)
           }
-        })
+        });
+        const parishioner = parishionerArray.find(
+          (parishioner) => parishioner.id === selectedOption
+        )
         Swal.fire({
-          title: 'Total de diezmo en rango',
-          text: `El total de diezmo en el rango de ${initial} a ${final} es de: ${total}`,
+          title: `Total de diezmo en rango para el feligrés ${selectedOption}`,
+          text: `El total de diezmo en el rango de ${initial} a ${final} para ${parishioner.name} es de: ${total}`,
           icon: 'success',
           confirmButtonText: 'ok',
         });
@@ -163,9 +181,11 @@ function ParishionersForm() {
         const selectedOption = document.getElementById('swal-select').value;
         const newParishionerArray = parishionerArray.filter(
           (parishioner) => parishioner.id !== selectedOption
+        );  
+        const updatedArray = newParishionerArray.sort(
+          (a, b) => +b.amount - +a.amount
         );
-        const updatedArray = newParishionerArray.sort((a, b) => +b.amount - +a.amount)
-        setParishionerArray(updatedArray)
+        setParishionerArray(updatedArray);
         saveArray(updatedArray);
         Swal.close();
         Swal.fire({
@@ -218,8 +238,8 @@ function ParishionersForm() {
         setValue('id', parishioner.id);
         setValue('name', parishioner.name);
         setValue('address', parishioner.address);
-        setValue('amount', parishioner.amount);
-        setValue('month', parishioner.month);
+        setValue('amount', 0);
+        setValue('month', 0);
         setValue('phone', parishioner.phone);
         clearErrors();
         setFocus('id');
@@ -266,6 +286,7 @@ function ParishionersForm() {
         }
       },
     }).then((result) => {
+      let monthArray = [];
       if (result.isConfirmed) {
         const selectedOption = document.getElementById('swal-select').value;
         const parishioner = parishionerArray.find(
@@ -274,17 +295,19 @@ function ParishionersForm() {
         parishionerArray.forEach((parishioner) => {
           if (parishioner.id === selectedOption) {
             total += +parishioner.amount;
+            monthArray.push(+parishioner.month);
           }
-        })
+        });
+        monthArray.sort();
         Swal.fire({
           title: 'Información del empleado',
           html: `
           <p><strong>Id:</strong> ${parishioner.id}</p>
           <p><strong>Nombre:</strong> ${parishioner.name}</p>
           <p><strong>Dirección:</strong> ${parishioner.address}</p>
-          <p><strong>Cantidad:</strong> ${parishioner.amount}</p>
+          <p><strong>Cantidad:</strong> ${total}</p>
           <p><strong>Teléfono:</strong> ${parishioner.phone}</p>
-          <p><strong>Mes:</strong> ${total}</p>
+          <p><strong>Mes:</strong> ${monthArray}</p>
           `,
           confirmButtonText: 'ok',
         });
@@ -295,7 +318,10 @@ function ParishionersForm() {
   const onSubmit = (data) => {
     let centinel = false;
     for (let i = 0; i < parishionerArray.length; i++) {
-      if (parishionerArray[i].id === data.id && parishionerArray[i].month === data.month) {
+      if (
+        parishionerArray[i].id === data.id &&
+        parishionerArray[i].month === data.month
+      ) {
         centinel = true;
         Swal.close();
         Swal.fire({
@@ -309,7 +335,7 @@ function ParishionersForm() {
           denyButtonText: 'Cancelar',
         }).then((result) => {
           if (result.isConfirmed) {
-            data.amount = ((+data.amount) + 0.00).toFixed(2);
+            data.amount = (+data.amount + 0.0).toFixed(2);
             parishionerArray[i] = data;
             parishionerArray.forEach((parishioner) => {
               if (parishioner.id === data.id) {
@@ -317,9 +343,11 @@ function ParishionersForm() {
                 parishioner.name = data.name;
                 parishioner.phone = data.phone;
               }
-            })
-            const updatedArray = parishionerArray.sort((a, b) => +b.amount - +a.amount)
-            setParishionerArray(updatedArray)
+            });
+            const updatedArray = parishionerArray.sort(
+              (a, b) => +b.amount - +a.amount
+            );
+            setParishionerArray(updatedArray);
             saveArray(updatedArray);
             setFocus('id');
             Swal.fire({
@@ -344,20 +372,28 @@ function ParishionersForm() {
       }
     }
     if (!centinel) {
-      data.amount = ((+data.amount) + 0.00).toFixed(2);
-      const feligres = parishionerArray.find((parishioner) => parishioner.id === data.id);
-      if ((feligres) && (data.name != feligres.name || data.address != feligres.address || data.phone != feligres.phone)) {
+      data.amount = (+data.amount + 0.0).toFixed(2);
+      const feligres = parishionerArray.find(
+        (parishioner) => parishioner.id === data.id
+      );
+      if (
+        feligres &&
+        (data.name != feligres.name ||
+          data.address != feligres.address ||
+          data.phone != feligres.phone)
+      ) {
         Swal.fire({
           title: 'Error',
           text: 'El feligres ya existe, pero los datos no coinciden',
           icon: 'error',
           confirmButtonText: 'ok',
-        })
-        return
-      }
-      else{
-        const updatedArray = [...parishionerArray, data].sort((a, b) => +b.amount - +a.amount)
-        setParishionerArray(updatedArray)
+        });
+        return;
+      } else {
+        const updatedArray = [...parishionerArray, data].sort(
+          (a, b) => +b.amount - +a.amount
+        );
+        setParishionerArray(updatedArray);
         saveArray(updatedArray);
         Swal.fire({
           title: 'Feligrés agregado',
@@ -508,21 +544,15 @@ function ParishionersForm() {
       <Card className="w-full md:w-1/2 mt-8">
         <CardHeader>
           <CardTitle>Detalles de los feligreses</CardTitle>
-          <div className='flex gap-4 justify-around flex-col md:flex-row'>
-            <Button
-              className="w-full text-wrap p-2"
-              onClick={amountInRange}
-            >
+          <div className="flex gap-4 justify-around flex-col md:flex-row">
+            <Button className="w-full text-wrap p-2" onClick={amountInRange}>
               Diezmo en rango
             </Button>
-            <div className='flex flex-row md:flex-row w-full gap-4 md:w-[200%]'>
-              <Input type="number" placeholder="mes inicial" id="range1"/>
-              <Input type="number" placeholder="mes final" id="range2"/>
+            <div className="flex flex-row md:flex-row w-full gap-4 md:w-[200%]">
+              <Input type="number" placeholder="mes inicial" id="range1" />
+              <Input type="number" placeholder="mes final" id="range2" />
             </div>
-            <Button
-              className="w-full text-wrap p-2"
-              onClick={cleanArray}
-            >
+            <Button className="w-full text-wrap p-2" onClick={cleanArray}>
               Borrar todos los registros
             </Button>
           </div>
@@ -552,7 +582,9 @@ function ParishionersForm() {
                     {parishioner.address}
                   </TableCell>
                   <TableCell>{parishioner.amount}</TableCell>
-                  <TableCell className="text-nowrap">{parishioner.phone}</TableCell>
+                  <TableCell className="text-nowrap">
+                    {parishioner.phone}
+                  </TableCell>
                   <TableCell>{parishioner.month}</TableCell>
                 </TableRow>
               ))}
