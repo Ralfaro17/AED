@@ -39,6 +39,7 @@ function ClinicForm() {
   }, []);
 
   const [open, setOpen] = useState(false);
+  const openMonth = useState(false);
 
   const saveArray = (array) => {
     localStorage.setItem('appointmentArray', JSON.stringify(array));
@@ -104,6 +105,13 @@ function ClinicForm() {
     else{
       setMonth(0);
       setMonthAppointments([]);
+      Swal.fire({
+        title: 'Error',
+        text: 'El mes a listar debe ser un número entre 1 y 12',
+        icon: 'error',
+        confirmButtonText: 'ok',
+      });
+      openMonth.setOpen(false);
     }
   };
 
@@ -203,47 +211,52 @@ function ClinicForm() {
   };
 
   const listAppointments = () => {
-    const select = document.createElement('select');
-    select.id = 'swal-select';
-    select.classList.add('swal2-select');
-    let idList = [];
-    appointmentArray.forEach((appointment) => {
-      idList.push(appointment.patientId);
-    });
-    let set = [...new Set(idList)];
-    for (let i = 0; i < set.length; i++) {
-      const option = document.createElement('option');
-      option.value = set[i];
-      option.text = set[i];
-      select.appendChild(option);
-    }
-    Swal.fire({
-      title: 'Selecciona el id del paciente para listar sus citas',
-      html: select,
-      showDenyButton: true,
-      confirmButtonColor: '#3085d6',
-      confirmButtonText: 'Listar citas',
-      denyButtonText: 'Cancelar',
-      focusConfirm: false,
-      preConfirm: () => {
-        const selectedOption = document.getElementById('swal-select').value;
-        if (selectedOption === '' || selectedOption === null) {
-          Swal.showValidationMessage('Debes seleccionar un id');
-        } else {
-          return selectedOption;
-        }
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const selectedOption = document.getElementById('swal-select').value;
-        const appointments = appointmentArray.filter(
-          (appointment) => appointment.patientId === selectedOption
-        );
-        setListedAppointments(appointments);
-        setPatient(selectedOption);
-        setOpen(true);
+    if (!open){
+      const select = document.createElement('select');
+      select.id = 'swal-select';
+      select.classList.add('swal2-select');
+      let idList = [];
+      appointmentArray.forEach((appointment) => {
+        idList.push(appointment.patientId);
+      });
+      let set = [...new Set(idList)];
+      for (let i = 0; i < set.length; i++) {
+        const option = document.createElement('option');
+        option.value = set[i];
+        option.text = set[i];
+        select.appendChild(option);
       }
-    });
+      Swal.fire({
+        title: 'Selecciona el id del paciente para listar sus citas',
+        html: select,
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Listar citas',
+        denyButtonText: 'Cancelar',
+        focusConfirm: false,
+        preConfirm: () => {
+          const selectedOption = document.getElementById('swal-select').value;
+          if (selectedOption === '' || selectedOption === null) {
+            Swal.showValidationMessage('Debes seleccionar un id');
+          } else {
+            return selectedOption;
+          }
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const selectedOption = document.getElementById('swal-select').value;
+          const appointments = appointmentArray.filter(
+            (appointment) => appointment.patientId === selectedOption
+          );
+          setListedAppointments(appointments);
+          setPatient(selectedOption);
+          setOpen(true);
+        }
+      });
+    }
+    else{
+      setOpen(false);
+    }
   };
 
   const onSubmit = (data) => {
@@ -461,7 +474,7 @@ function ClinicForm() {
         <CardHeader>
           <CardTitle>Detalles de las citas</CardTitle>
           <div className='flex gap-4 justify-around flex-col md:flex-row'>
-          <AlertDialog  open={open} onOpenChange={setOpen}>
+          <AlertDialog  open={openMonth.open} onOpenChange={openMonth.setOpen}>
           <AlertDialogTrigger asChild>
               <Button
                 className="w-full text-wrap"
