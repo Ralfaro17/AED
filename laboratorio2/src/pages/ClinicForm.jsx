@@ -431,8 +431,8 @@ function ClinicForm() {
                 <AlertDialogHeader>
                   <AlertDialogTitle className="text-black absolute left-8 top-4 md:right-0">Citas del paciente {patient}</AlertDialogTitle>
                   <AlertDialogDescription>
-                  <Card className="w-[70%] md:w-[90%] mt-8">
-                  <CardContent className="overflow-auto">
+                  <Card className="w-[70%] md:w-[100%] mt-8 p-0">
+                  <CardContent className="overflow-auto p-0">
                   <Table>
                     <TableHeader>
                       <TableRow>
