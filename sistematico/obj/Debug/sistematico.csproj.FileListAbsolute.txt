@@ -1,0 +1,10 @@
+C:\Users\ROBOTICA\Documents\AED\sistematico\bin\Debug\sistematico.exe.config
+C:\Users\ROBOTICA\Documents\AED\sistematico\bin\Debug\sistematico.exe
+C:\Users\ROBOTICA\Documents\AED\sistematico\bin\Debug\sistematico.pdb
+C:\Users\ROBOTICA\Documents\AED\sistematico\obj\Debug\sistematico.csproj.AssemblyReference.cache
+C:\Users\ROBOTICA\Documents\AED\sistematico\obj\Debug\sistematico.Form1.resources
+C:\Users\ROBOTICA\Documents\AED\sistematico\obj\Debug\sistematico.Properties.Resources.resources
+C:\Users\ROBOTICA\Documents\AED\sistematico\obj\Debug\sistematico.csproj.GenerateResource.cache
+C:\Users\ROBOTICA\Documents\AED\sistematico\obj\Debug\sistematico.csproj.CoreCompileInputs.cache
+C:\Users\ROBOTICA\Documents\AED\sistematico\obj\Debug\sistematico.exe
+C:\Users\ROBOTICA\Documents\AED\sistematico\obj\Debug\sistematico.pdb
