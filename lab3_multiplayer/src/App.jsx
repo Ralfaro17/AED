@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import MusicStreamingApp from './pages/Reproductor'
+import BankSystemApp from './pages/BankSystemApp'
+import Homepage from './pages/Homepage'
 
 import './App.css'
 
@@ -9,7 +11,9 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" Component={MusicStreamingApp}/>
+          <Route path="/" Component={Homepage}/>
+          <Route path="/music" Component={MusicStreamingApp}/>
+          <Route path="/bank" Component={BankSystemApp}/>
         </Routes>
       </BrowserRouter>
     </>

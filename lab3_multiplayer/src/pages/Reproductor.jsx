@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -44,6 +44,10 @@ useEffect(() => {
         .then(result => result.json())
         .then(data => setAccessToken(data.access_token));
 }, []);
+
+useEffect(() => {
+  document.title = "Reproductor de música";
+})
 
 //search
 
