@@ -55,6 +55,14 @@ const loadPlaylistsFromLocalStorage = () => {
 const CLIENT_ID = '7a941c5d29194cd98724bbb2a9554614';
 const CLIENT_SECRET = 'd642147eea754344ade62162becf715c';
 function MusicStreamingApp() {
+
+  const [nowPlaying, setNowPlaying] = useState(null); // La canción actual en reproducción
+  const [queue, setQueue] = useState([]); // La lista temporal de reproducción
+  const [history, setHistory] = useState(() => {
+    // Recuperar el historial del localStorage al cargar la aplicación
+    const storedHistory = localStorage.getItem('playbackHistory');
+    return storedHistory ? JSON.parse(storedHistory) : [];
+  });
   const { register, handleSubmit, watch } = useForm();
   const [searchType, setSearchType] = useState("Todo");
 
@@ -154,6 +162,49 @@ function MusicStreamingApp() {
       console.error("Error en la búsqueda:", error);
     }
   }
+
+  // cola historial reproduccin
+
+  // Función para guardar el historial en localStorage
+  const saveHistoryToLocalStorage = (updatedHistory) => {
+    localStorage.setItem('playbackHistory', JSON.stringify(updatedHistory));
+  };
+
+  const handlePlaySong = (track) => {
+    setNowPlaying(track); // Establece el track actual en reproducción
+    setQueue([track]); // Reinicia la cola con la canción actual
+
+    // Actualizar el historial y guardarlo en localStorage
+    const updatedHistory = [...history, track];
+    setHistory(updatedHistory);
+    saveHistoryToLocalStorage(updatedHistory); // Guarda en localStorage
+  };
+
+  const handleAddToQueue = (track) => {
+    // Si la canción que se intenta reproducir ya es la que está en reproducción
+    if (isPlaying && tempPlaylist[currentTrackIndex]?.id === track.id) {
+      // La canción ya está en reproducción, así que simplemente agrega el siguiente track a la cola
+      return; // No hacer nada si ya está reproduciendo esta canción
+    }
+    
+    // Si no hay track en reproducción o si se selecciona una nueva canción
+    if (!isPlaying) {
+      handlePlaySong(track); // Asegúrate de que handlePlaySong esté definido
+      setTempPlaylist([track]); // Establece la lista temporal con esta canción
+      setCurrentTrackIndex(0); // Comienza desde esta pista
+      setIsPlaying(true);
+    } else {
+      // Si hay una canción en reproducción y se selecciona una nueva canción, se agrega a la cola
+      setQueue((prevQueue) => [...prevQueue, track]); // Actualiza la cola en tiempo real
+      console.log(prevQueue);
+    }
+  };
+  
+  // Función para manejar la acción de reproducción y cola
+  const handleSongAction = (track) => {
+    handleAddToQueue(track);
+  };
+  
 
   // Función para obtener información del artista
   const fetchArtistInfo = async (artistId) => {
@@ -802,42 +853,43 @@ function MusicStreamingApp() {
                 </div>
 
 
-                <div>
-                  {/* Mapeo de canciones */}
-                  {searchResults.tracks.map((track, index) => (
-                    <div key={track.id} className="flex items-center py-2 hover:bg-zinc-800 group">
-                      <div className="w-8 text-center text-sm text-zinc-400 group-hover:text-white">{index + 1}</div>
-                      <div className="flex-1 flex items-center">
-                        <Avatar className="h-10 w-10 mr-3">
-                          <AvatarImage
-                            src={track.album.images[0]?.url || `/placeholder.svg?height=40&width=40`}
-                            alt={track.name}
-                          />
-                          <AvatarFallback>{track.name[0]}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="font-medium group-hover:text-white">{track.name}</div>
-                          <div className="text-sm text-zinc-400">{track.artists[0]?.name || "Artista Desconocido"}</div>
-                        </div>
+                {/* Mapeo de canciones de los resultados de búsqueda */}
+                {searchResults.tracks.map((track, index) => (
+                  <div key={track.id} className="flex items-center py-2 hover:bg-zinc-800 group">
+                    <div className="w-8 text-center text-sm text-zinc-400 group-hover:text-white">{index + 1}</div>
+                    <div className="flex-1 flex items-center">
+                      <Avatar className="h-10 w-10 mr-3">
+                        <AvatarImage
+                          src={track.album.images[0]?.url || `/placeholder.svg?height=40&width=40`}
+                          alt={track.name}
+                        />
+                        <AvatarFallback>{track.name[0]}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-medium group-hover:text-white">{track.name}</div>
+                        <div className="text-sm text-zinc-400">{track.artists[0]?.name || "Artista Desconocido"}</div>
                       </div>
-                      <div className="w-1/3 text-sm text-zinc-400">{track.album.name || "Álbum Desconocido"}</div>
-                      <div className="w-16 text-right text-sm text-zinc-400">{track.duration_ms ? formatDuration(track.duration_ms) : "N/A"}</div>
-                      <Button size="icon" className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity bg-green-500 text-black rounded-full">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger><Play className="h-6 w-6" /></DropdownMenuTrigger>
-                          <DropdownMenuContent>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => handleAddToPlaylist(track)}> {/* Cambiado a track */}
-                              Agregar a Playlist
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>Reproducir</DropdownMenuItem>
-                            <DropdownMenuItem>Agregar a cola</DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </Button>
                     </div>
-                  ))}
-                </div>
+                    <div className="w-1/3 text-sm text-zinc-400">{track.album.name || "Álbum Desconocido"}</div>
+                    <div className="w-16 text-right text-sm text-zinc-400">{track.duration_ms ? formatDuration(track.duration_ms) : "N/A"}</div>
+
+                    {/* Botón de menú con opciones para reproducir y agregar a cola */}
+                    <Button size="icon" className="ml-4 opacity-0 group-hover:opacity-100 transition-opacity bg-green-500 text-black rounded-full">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger><Play className="h-6 w-6" /></DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuItem onClick={() => handleAddToPlaylist(track)}> {/* Cambiado a track */}
+                            Agregar a Playlist
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleSongAction(track)}>
+                            Reproducir
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </Button>
+                  </div>
+                ))}
+
 
               </div>
             </div>
@@ -878,14 +930,14 @@ function MusicStreamingApp() {
 
           <ScrollArea className="h-[calc(100vh-220px)]">
             <div className="space-y-4">
-                        {/* Lista de reproducción actual */}
-          <ul className="mb-4">
-            {tempPlaylist.map((track, index) => (
-              <li key={index} className="text-gray-300 mb-1">
-                {track.name} - {track.artists.map(artist => artist.name).join(', ')}
-              </li>
-            ))}
-          </ul>
+              {/* Lista de reproducción actual */}
+              <ul className="mb-4">
+                {tempPlaylist.map((track, index) => (
+                  <li key={index} className="text-gray-300 mb-1">
+                    {track.name} - {track.artists.map(artist => artist.name).join(', ')}
+                  </li>
+                ))}
+              </ul>
             </div>
           </ScrollArea>
 
@@ -900,7 +952,7 @@ function MusicStreamingApp() {
           <div>
             <p className="font-medium">
               {tempPlaylist.length > 0 && currentTrackIndex < tempPlaylist.length
-                ? tempPlaylist[currentTrackIndex]?.name
+                ? tempPlaylist[currentTrackIndex]?.name // Asegúrate de que tempPlaylist tenga la estructura correcta
                 : "Canción Desconocida"}
             </p>
             <p className="text-sm text-gray-400">
@@ -909,7 +961,6 @@ function MusicStreamingApp() {
                 : "Artista Desconocido"}
             </p>
           </div>
-
         </div>
         <div className="flex flex-col items-center">
           <div className="flex items-center space-x-4 mb-2">
@@ -922,6 +973,8 @@ function MusicStreamingApp() {
             </Button>
           </div>
           {/* Aquí puedes agregar tu slider de tiempo */}
+          {/* Ejemplo de slider de tiempo */}
+          {/* <Slider value={currentTime} max={duration} onChange={handleTimeChange} className="w-full" /> */}
         </div>
         <div className="flex items-center space-x-4">
           <Button variant="ghost" size="icon">
@@ -936,6 +989,7 @@ function MusicStreamingApp() {
           <Slider defaultValue={[75]} max={100} step={1} className="w-24" />
         </div>
       </div>
+
 
     </div>
   )
