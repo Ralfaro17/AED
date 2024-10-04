@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
@@ -75,6 +75,10 @@ function MusicStreamingApp() {
       .then(data => setAccessToken(data.access_token))
       .catch(error => console.error('Error fetching access token:', error));
   }, []);
+
+useEffect(() => {
+  document.title = "Reproductor de música";
+})
 
   function formatDuration(ms) {
     const minutes = Math.floor(ms / 60000);
