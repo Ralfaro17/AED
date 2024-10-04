@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
@@ -207,11 +207,6 @@ useEffect(() => {
             </div>
           </div>
           <div className="flex mb-0">
-            
-           
-
-
-
 <Dialog open={isOpen} onOpenChange={setIsOpen}>
   <DialogContent className="sm:max-w-[425px] bg-zinc-900 text-white border-zinc-800">
     <DialogHeader>
@@ -251,24 +246,13 @@ useEffect(() => {
     </DialogFooter>
   </DialogContent>
 </Dialog>
-
-
-
           </div>
           <div className="relative mb-4">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
             <Input className="pl-10 bg-zinc-800 border-none text-sm" placeholder="Buscar en tu biblioteca" />
           </div>
           <ScrollArea className="h-[calc(100vh-220px)]">
-  <div className="space-y-4">
-    {playlists.map((playlist, index) => (
-      <div key={index} className="flex items-center">
-        <div>
-          <p className="font-medium text-sm">{playlist.name}</p>
-          <p className="text-xs text-gray-400">{'Playlist'}</p>
-        </div>
-      </div>
-    ))}
+          <div className="space-y-4">
   </div>
 </ScrollArea>
         </div>
