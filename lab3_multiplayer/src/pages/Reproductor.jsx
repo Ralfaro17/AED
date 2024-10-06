@@ -431,8 +431,8 @@ function MusicStreamingApp() {
   // Función para reproducir el álbum
   const handlePlayAlbum = async (album) => {
     const albumId = album.id; // Captura el ID del álbum
-
-    // Función para obtener las pistas del álbum
+  
+    // Función para obtener las pistas del álbum desde la API de Spotify
     const fetchAlbumTracks = async (albumId) => {
       try {
         const response = await fetch(`https://api.spotify.com/v1/albums/${albumId}/tracks`, {
@@ -440,23 +440,23 @@ function MusicStreamingApp() {
             'Authorization': 'Bearer ' + accessToken, // Asegúrate de que accessToken esté definido y válido
           },
         });
-
+  
         if (!response.ok) {
           throw new Error('Error al obtener las pistas del álbum');
         }
-
+  
         const albumData = await response.json();
-        return albumData.items; // Cambia `tracks.items` a `items`
+        return albumData.items; // Las pistas están en `items`
       } catch (error) {
         console.error('Error fetching album tracks:', error);
         return []; // Retorna un arreglo vacío en caso de error
       }
     };
-
-    // Obtén las pistas del álbum
+  
+    // 1. Obtener las pistas del álbum usando la API de Spotify
     const tracks = await fetchAlbumTracks(albumId);
-
-    // Verifica si se obtuvieron las pistas
+  
+    // Verifica si se obtuvieron las pistas correctamente
     if (!Array.isArray(tracks) || tracks.length === 0) {
       Swal.fire({
         icon: 'error',
@@ -465,8 +465,8 @@ function MusicStreamingApp() {
       });
       return;
     }
-
-    // Mapear las pistas del álbum al formato de `nextQueue`
+  
+    // 2. Mapear las pistas del álbum al formato que utiliza tu reproductor (nextQueue)
     const albumTracks = tracks.map(track => ({
       id: track.id,
       name: track.name,
@@ -477,20 +477,76 @@ function MusicStreamingApp() {
       type: track.type,
       uri: track.uri,
     }));
-
-    // Configura nextQueue con las pistas del álbum
-    setNextQueue(albumTracks); // Asegúrate de que setNextQueue esté disponible y funcione correctamente
-
-    // Solo inicia la reproducción si currentTrack está vacío
+  
+    // 3. Configurar el nextQueue con las pistas del álbum
+    setNextQueue(albumTracks); // Aquí se configura `nextQueue` con las pistas obtenidas
+  
+    // 4. Solo inicia la reproducción si `currentTrack` está vacío
     if (!currentTrack) {
       const [firstTrack, ...remainingQueue] = albumTracks; // Toma la primera canción
-      setCurrentTrack(firstTrack); // Asigna la canción actual
-      setNextQueue(remainingQueue); // Actualiza nextQueue eliminando la primera canción
+      setCurrentTrack(firstTrack); // Establece la primera pista como la canción actual
+      setNextQueue(remainingQueue); // Elimina la primera canción de `nextQueue`
       setIsPlaying(true); // Inicia la reproducción
+  
+      // 5. Reproduce la preview de la primera canción
+      handlePlaySong(firstTrack); // Asegúrate de que esta función reproduzca la preview de la canción
     }
-
+  
     console.log("Playing album:", albumTracks);
   };
+// Función para reproducir una playlist desde el localStorage
+const handlePlayPlaylistFromLocalStorage = (playlistName) => {
+  // 1. Obtener las playlists desde el localStorage
+  const playlists = JSON.parse(localStorage.getItem('playlists'));
+
+  if (!playlists || !Array.isArray(playlists)) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'No se encontraron playlists guardadas en localStorage.',
+    });
+    return;
+  }
+
+  // 2. Buscar la playlist seleccionada por nombre
+  const selectedPlaylist = playlists.find(pl => pl.name === playlistName);
+
+  if (!selectedPlaylist || !selectedPlaylist.tracks || selectedPlaylist.tracks.length === 0) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: `No se encontraron pistas en la playlist "${playlistName}".`,
+    });
+    return;
+  }
+
+  // 3. Mapear las pistas de la playlist al formato de `nextQueue`
+  const playlistTracks = selectedPlaylist.tracks.map(track => ({
+    id: track.id,
+    name: track.name,
+    artists: track.artists, // Mantener como un arreglo de objetos
+    album: track.album,
+    preview_url: track.preview_url,
+    track_number: track.track_number,
+    type: track.type,
+    uri: track.uri,
+  }));
+
+  // 4. Configurar nextQueue con las pistas de la playlist
+  setNextQueue(playlistTracks);
+
+  // 5. Iniciar la reproducción si no hay una canción en curso
+  if (!currentTrack) {
+    const [firstTrack, ...remainingQueue] = playlistTracks; // Toma la primera canción
+    setCurrentTrack(firstTrack); // Asigna la canción actual
+    setNextQueue(remainingQueue); // Elimina la primera canción de `nextQueue`
+    setIsPlaying(true); // Inicia la reproducción
+  }
+
+  console.log("Playing playlist from localStorage:", playlistTracks);
+};
+
+  
 
   const handlePlayPreview = () => {
     if (audio) {
@@ -520,6 +576,11 @@ function MusicStreamingApp() {
       setIsPreviewPlaying(false); // Cambia el estado a no reproducido
       console.log("Pausando vista previa de:", currentTrack.name);
     }
+  };
+
+  const getPlaylistsFromStorage = () => {
+    const storedPlaylists = localStorage.getItem("playlists");
+    return storedPlaylists ? JSON.parse(storedPlaylists) : [];
   };
 
   useEffect(() => {
@@ -709,7 +770,9 @@ function MusicStreamingApp() {
       // Solo mueve currentTrack a nextQueue si está definido
       if (currentTrack) {
         setNextQueue([currentTrack, ...nextQueue]); // Mueve currentTrack a la parte de nextQueue
+        
       }
+      
 
       setPreviousQueue(previousQueue.slice(0, -1)); // Remueve el último elemento de previousQueue
     } else {
@@ -862,12 +925,15 @@ const formatTime = (timeInSeconds) => {
             <div className="space-y-4">
               {playlists.map((playlist) => (
                 <Collapsible key={playlist.id} className="mb-2">
-                  <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-zinc-800 rounded-md">
-                    <div className="flex items-center">
+                  <CollapsibleTrigger  className="flex items-center justify-between w-full p-2 hover:bg-zinc-800 rounded-md">
+                  <div className="flex items-center" >
                       <Music className="mr-2 h-4 w-4" />
+                    <div className="flex items-center" onClick={() => handlePlayPlaylistFromLocalStorage(playlist.name)}>
+                      <Play className="mr-2 h-5 w-5 hover:bg-green-900 " />
                       <span>{playlist.name}</span>
                     </div>
                     <ChevronRight className="h-4 w-4" />
+                    </div>
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     {Array.isArray(playlist.tracks) && playlist.tracks.length > 0 ? (
@@ -877,7 +943,7 @@ const formatTime = (timeInSeconds) => {
                             <p className="text-sm font-medium">{track?.name || "Canción Sin Nombre"}</p>
                             <p className="text-xs text-zinc-400">{track?.artist || "Artista Desconocido"}</p>
                           </div>
-                          <Button size="icon" variant="ghost" className="opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Button size="icon" variant="ghost" onClick={() => handleSongAction(track)} className="opacity-0 group-hover:opacity-100 transition-opacity">
                             <Play className="h-4 w-4" />
                           </Button>
                         </div>
