@@ -24,6 +24,9 @@ function ClientRegister() {
     document.title = 'Registro de clientes';
   }, [])
 
+  let attentionNumber = +localStorage.getItem('attentionNumber') || 0;
+  let attentionLetter = localStorage.getItem('attentionLetter') || 'A';
+
   const utterance = new SpeechSynthesisUtterance('Siguiente numero')
   const voices = speechSynthesis.getVoices()
   utterance.lang = 'es-MX'
@@ -43,7 +46,28 @@ function ClientRegister() {
     formState: { errors },
   } = useForm();
 
+  const generateAttentionCode = () => {
+    if (attentionNumber === 100) {
+      attentionNumber = 0;
+      attentionLetter = String.fromCharCode(attentionLetter.charCodeAt(0) + 1);
+    }
+    if(attentionLetter === 'Z'){
+      attentionLetter = 'A';
+    }
+
+    attentionNumber += 1;
+    localStorage.setItem('attentionNumber', attentionNumber);
+    localStorage.setItem('attentionLetter', attentionLetter);
+
+    if(attentionNumber <= 9){
+      return `${attentionLetter}0${attentionNumber}`;
+    }
+    return `${attentionLetter}${attentionNumber}`;
+  }
+
   const onSubmit = async (data) => {
+    const attentionCode = generateAttentionCode();
+    data.attentionCode = attentionCode;
     data.service = service;
     if (data.service === 1){
       const tempCajaQueue = cajaQueue.clone();
