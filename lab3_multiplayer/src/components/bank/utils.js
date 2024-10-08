@@ -22,7 +22,7 @@ export const dequeue = (queue, setQueue, name) => {
   tempQueue.dequeue();
   setQueue(tempQueue);
   saveQueue(tempQueue, `${name}`); 
-  const utterance = new SpeechSynthesisUtterance(`siguiente cliente ${tempQueue.peek().name}, Favor pasar a caja`)
+  const utterance = new SpeechSynthesisUtterance(`siguiente cliente ${tempQueue.peek().name}, Favor pasar a ${name}`)
   const voices = speechSynthesis.getVoices()
   utterance.lang = 'es-MX'
   /* utterance.pitch = 1
