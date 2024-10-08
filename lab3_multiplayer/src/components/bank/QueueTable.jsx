@@ -40,13 +40,13 @@ function QueueTable({queue, setQueue, name}) {
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="h-[16rem] overflow-auto w-full">
+      <CardContent className="h-[18rem] overflow-hidden w-full">
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead className="text-nowrap">Numero</TableHead>
               <TableHead className="text-nowrap">Nombre</TableHead>
-              <TableHead className="text-nowrap">Servicio</TableHead>
+              <TableHead className="text-nowrap">Código</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -57,9 +57,22 @@ function QueueTable({queue, setQueue, name}) {
               >
                 <TableCell className="text-nowrap">{index + 1}</TableCell>
                 <TableCell className="text-nowrap">{client.name}</TableCell>
-                <TableCell>{client.service}</TableCell>
+                <TableCell>{client.attentionCode}</TableCell>
               </TableRow>
             ))}
+            
+            {queue.printKeys.length > 5 && (
+              <TableRow>
+                <TableCell colSpan="3" className="text-center">
+                  <Button
+                    disabled
+                    className="text-wrap"
+                  >
+                    . . .
+                  </Button>
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </CardContent>
