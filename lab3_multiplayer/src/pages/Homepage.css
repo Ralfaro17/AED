@@ -22,11 +22,6 @@ body {
   color: var(--foreground);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
 ::-webkit-scrollbar {
   width: 5px;
 }

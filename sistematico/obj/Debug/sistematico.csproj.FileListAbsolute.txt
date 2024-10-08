@@ -8,3 +8,13 @@ C:\Users\ROBOTICA\Documents\AED\sistematico\obj\Debug\sistematico.csproj.Generat
 C:\Users\ROBOTICA\Documents\AED\sistematico\obj\Debug\sistematico.csproj.CoreCompileInputs.cache
 C:\Users\ROBOTICA\Documents\AED\sistematico\obj\Debug\sistematico.exe
 C:\Users\ROBOTICA\Documents\AED\sistematico\obj\Debug\sistematico.pdb
+C:\Users\Abel\Documents\GitHub\AED\sistematico\bin\Debug\sistematico.exe.config
+C:\Users\Abel\Documents\GitHub\AED\sistematico\bin\Debug\sistematico.exe
+C:\Users\Abel\Documents\GitHub\AED\sistematico\bin\Debug\sistematico.pdb
+C:\Users\Abel\Documents\GitHub\AED\sistematico\obj\Debug\sistematico.csproj.AssemblyReference.cache
+C:\Users\Abel\Documents\GitHub\AED\sistematico\obj\Debug\sistematico.Form1.resources
+C:\Users\Abel\Documents\GitHub\AED\sistematico\obj\Debug\sistematico.Properties.Resources.resources
+C:\Users\Abel\Documents\GitHub\AED\sistematico\obj\Debug\sistematico.csproj.GenerateResource.cache
+C:\Users\Abel\Documents\GitHub\AED\sistematico\obj\Debug\sistematico.csproj.CoreCompileInputs.cache
+C:\Users\Abel\Documents\GitHub\AED\sistematico\obj\Debug\sistematico.exe
+C:\Users\Abel\Documents\GitHub\AED\sistematico\obj\Debug\sistematico.pdb

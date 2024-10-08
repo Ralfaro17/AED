@@ -13,7 +13,7 @@ function Homepage() {
   return (
     <div className="h-screen flex justify-center flex-col homepage-div">
       <div className="flex flex-col gap-8 ">
-        <h1>Selecciona la aplicación a la que deseas acceder</h1>
+        <h1 className="text-[3.2em] leading-[1.1]" >Selecciona la aplicación a la que deseas acceder</h1>
         <div className="card flex md:justify-around gap-8 md:gap-0 flex-col md:flex-row">
           <Link to="/bank">
             <Button variant="secondary">Sistema de bancos</Button>
