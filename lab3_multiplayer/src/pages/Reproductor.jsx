@@ -5,7 +5,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Slider } from "@/components/ui/slider"
-import { ChevronRight, Search, Heart, Library, List, Mic2, Play, Plus, Repeat, SkipBack, SkipForward, Volume2, X, Clock, Minus, Music, User, Mail, Lock, LogIn, UserPlus, Trash2, Pause } from 'lucide-react';
+import { ChevronRight, Search, Heart, Library, List, Mic2, Play, Plus, Repeat, SkipBack, SkipForward, Volume2, X, Clock, Minus, Music, User, Mail, Lock, LogIn, UserPlus, Trash2, Pause, HomeIcon } from 'lucide-react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { useForm } from 'react-hook-form';
@@ -13,6 +13,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import Swal from 'sweetalert2';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import { Skeleton } from "@/components/ui/skeleton"
+import { Link } from "react-router-dom"
 
 
 import {
@@ -916,10 +917,10 @@ function MusicStreamingApp() {
 
   return (
     <div className="flex flex-col h-screen bg-black text-white">
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden  ">
 
         {/* Left Panel - Playlist */}
-        <div className="w-64 p-6 bg-zinc-900">
+        <div className="w-64 p-6 bg-zinc-800 rounded-md ">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
               <Library className="mr-2" />
@@ -927,7 +928,9 @@ function MusicStreamingApp() {
             </div>
             <div className="flex items-center">
 
-              <ChevronRight />
+            <Link to="/">
+            <Button variant="secondary"><HomeIcon></HomeIcon>Home</Button>
+          </Link>
             </div>
           </div>
 
@@ -973,11 +976,7 @@ function MusicStreamingApp() {
               </DialogContent>
             </Dialog>
           </div>
-          <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-            <Input className="pl-10 bg-zinc-800 border-none text-sm" placeholder="Buscar en tu biblioteca" />
 
-          </div>
           <div className="flex flex-row">
             <Button onClick={() => setIsOpen(true)} className="bg-slate-500 text-black hover:bg-slate-900">
               <Plus size="icon" />
@@ -1172,7 +1171,7 @@ function MusicStreamingApp() {
         </div>
 
         {/* Right Panel - Now Playing */}
-        <div className="w-96 p-6 bg-zinc-900">
+        <div className="w-96 p-6 bg-zinc-800 rounded-md ">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold">
               {currentTrack ? currentTrack.name : "Canción Desconocida"}
