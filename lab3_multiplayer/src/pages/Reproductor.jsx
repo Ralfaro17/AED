@@ -12,6 +12,7 @@ import { useForm } from 'react-hook-form';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@radix-ui/react-select';
 import Swal from 'sweetalert2';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
+import { Skeleton } from "@/components/ui/skeleton"
 
 
 import {
@@ -58,11 +59,7 @@ const CLIENT_SECRET = 'd642147eea754344ade62162becf715c';
 function MusicStreamingApp() {
 
 
-  const [history, setHistory] = useState(() => {
-    // Recuperar el historial del localStorage al cargar la aplicación
-    const storedHistory = localStorage.getItem('playbackHistory');
-    return storedHistory ? JSON.parse(storedHistory) : [];
-  });
+  const [history, setHistory] = useState([]);
   const { register, handleSubmit, watch } = useForm();
   const [searchType, setSearchType] = useState("Todo");
 
@@ -103,6 +100,33 @@ function MusicStreamingApp() {
     console.log("Buscando:", data.search);
     search(data.search);  // Pasar la búsqueda al método search
   };
+  const showHistory = () => {
+    // Si el historial está vacío, mostrar un mensaje de alerta
+    if (history.length === 0) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Historial vacío',
+        text: 'No hay canciones reproducidas en el historial.',
+      });
+      return;
+    }
+  
+    // Muestra el historial temporal con SweetAlert
+    Swal.fire({
+      title: 'Historial de canciones reproducidas',
+      html: `
+        <ScrollArea className="h-[calc(100vh-220px)]">
+        <ul style="text-align: left;">
+          ${history.map(song => `<li>${song.name} - ${song.artists}</li>`).join('')}
+        </ul>
+        </ScrollArea>
+      `,
+      confirmButtonText: 'Cerrar',
+      width: '500px', // Ajusta el tamaño si es necesario
+    });
+  };
+
+
 
   useEffect(() => {
     console.log("El usuario está buscando:", busquedaDis);
@@ -431,7 +455,7 @@ function MusicStreamingApp() {
   // Función para reproducir el álbum
   const handlePlayAlbum = async (album) => {
     const albumId = album.id; // Captura el ID del álbum
-  
+
     // Función para obtener las pistas del álbum desde la API de Spotify
     const fetchAlbumTracks = async (albumId) => {
       try {
@@ -440,11 +464,11 @@ function MusicStreamingApp() {
             'Authorization': 'Bearer ' + accessToken, // Asegúrate de que accessToken esté definido y válido
           },
         });
-  
+
         if (!response.ok) {
           throw new Error('Error al obtener las pistas del álbum');
         }
-  
+
         const albumData = await response.json();
         return albumData.items; // Las pistas están en `items`
       } catch (error) {
@@ -452,10 +476,10 @@ function MusicStreamingApp() {
         return []; // Retorna un arreglo vacío en caso de error
       }
     };
-  
+
     // 1. Obtener las pistas del álbum usando la API de Spotify
     const tracks = await fetchAlbumTracks(albumId);
-  
+
     // Verifica si se obtuvieron las pistas correctamente
     if (!Array.isArray(tracks) || tracks.length === 0) {
       Swal.fire({
@@ -465,7 +489,7 @@ function MusicStreamingApp() {
       });
       return;
     }
-  
+
     // 2. Mapear las pistas del álbum al formato que utiliza tu reproductor (nextQueue)
     const albumTracks = tracks.map(track => ({
       id: track.id,
@@ -477,76 +501,76 @@ function MusicStreamingApp() {
       type: track.type,
       uri: track.uri,
     }));
-  
+
     // 3. Configurar el nextQueue con las pistas del álbum
     setNextQueue(albumTracks); // Aquí se configura `nextQueue` con las pistas obtenidas
-  
+
     // 4. Solo inicia la reproducción si `currentTrack` está vacío
     if (!currentTrack) {
       const [firstTrack, ...remainingQueue] = albumTracks; // Toma la primera canción
       setCurrentTrack(firstTrack); // Establece la primera pista como la canción actual
       setNextQueue(remainingQueue); // Elimina la primera canción de `nextQueue`
       setIsPlaying(true); // Inicia la reproducción
-  
+
       // 5. Reproduce la preview de la primera canción
       handlePlaySong(firstTrack); // Asegúrate de que esta función reproduzca la preview de la canción
     }
-  
+
     console.log("Playing album:", albumTracks);
   };
-// Función para reproducir una playlist desde el localStorage
-const handlePlayPlaylistFromLocalStorage = (playlistName) => {
-  // 1. Obtener las playlists desde el localStorage
-  const playlists = JSON.parse(localStorage.getItem('playlists'));
+  // Función para reproducir una playlist desde el localStorage
+  const handlePlayPlaylistFromLocalStorage = (playlistName) => {
+    // 1. Obtener las playlists desde el localStorage
+    const playlists = JSON.parse(localStorage.getItem('playlists'));
 
-  if (!playlists || !Array.isArray(playlists)) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: 'No se encontraron playlists guardadas en localStorage.',
-    });
-    return;
-  }
+    if (!playlists || !Array.isArray(playlists)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'No se encontraron playlists guardadas en localStorage.',
+      });
+      return;
+    }
 
-  // 2. Buscar la playlist seleccionada por nombre
-  const selectedPlaylist = playlists.find(pl => pl.name === playlistName);
+    // 2. Buscar la playlist seleccionada por nombre
+    const selectedPlaylist = playlists.find(pl => pl.name === playlistName);
 
-  if (!selectedPlaylist || !selectedPlaylist.tracks || selectedPlaylist.tracks.length === 0) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Error',
-      text: `No se encontraron pistas en la playlist "${playlistName}".`,
-    });
-    return;
-  }
+    if (!selectedPlaylist || !selectedPlaylist.tracks || selectedPlaylist.tracks.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: `No se encontraron pistas en la playlist "${playlistName}".`,
+      });
+      return;
+    }
 
-  // 3. Mapear las pistas de la playlist al formato de `nextQueue`
-  const playlistTracks = selectedPlaylist.tracks.map(track => ({
-    id: track.id,
-    name: track.name,
-    artists: track.artists, // Mantener como un arreglo de objetos
-    album: track.album,
-    preview_url: track.preview_url,
-    track_number: track.track_number,
-    type: track.type,
-    uri: track.uri,
-  }));
+    // 3. Mapear las pistas de la playlist al formato de `nextQueue`
+    const playlistTracks = selectedPlaylist.tracks.map(track => ({
+      id: track.id,
+      name: track.name,
+      artists: track.artists, // Mantener como un arreglo de objetos
+      album: track.album,
+      preview_url: track.preview_url,
+      track_number: track.track_number,
+      type: track.type,
+      uri: track.uri,
+    }));
 
-  // 4. Configurar nextQueue con las pistas de la playlist
-  setNextQueue(playlistTracks);
+    // 4. Configurar nextQueue con las pistas de la playlist
+    setNextQueue(playlistTracks);
 
-  // 5. Iniciar la reproducción si no hay una canción en curso
-  if (!currentTrack) {
-    const [firstTrack, ...remainingQueue] = playlistTracks; // Toma la primera canción
-    setCurrentTrack(firstTrack); // Asigna la canción actual
-    setNextQueue(remainingQueue); // Elimina la primera canción de `nextQueue`
-    setIsPlaying(true); // Inicia la reproducción
-  }
+    // 5. Iniciar la reproducción si no hay una canción en curso
+    if (!currentTrack) {
+      const [firstTrack, ...remainingQueue] = playlistTracks; // Toma la primera canción
+      setCurrentTrack(firstTrack); // Asigna la canción actual
+      setNextQueue(remainingQueue); // Elimina la primera canción de `nextQueue`
+      setIsPlaying(true); // Inicia la reproducción
+    }
 
-  console.log("Playing playlist from localStorage:", playlistTracks);
-};
+    console.log("Playing playlist from localStorage:", playlistTracks);
+  };
 
-  
+
 
   const handlePlayPreview = () => {
     if (audio) {
@@ -770,9 +794,9 @@ const handlePlayPlaylistFromLocalStorage = (playlistName) => {
       // Solo mueve currentTrack a nextQueue si está definido
       if (currentTrack) {
         setNextQueue([currentTrack, ...nextQueue]); // Mueve currentTrack a la parte de nextQueue
-        
+
       }
-      
+
 
       setPreviousQueue(previousQueue.slice(0, -1)); // Remueve el último elemento de previousQueue
     } else {
@@ -789,7 +813,7 @@ const handlePlayPlaylistFromLocalStorage = (playlistName) => {
       // Solo agrega currentTrack a previousQueue si está definido
       if (currentTrack) {
         setPreviousQueue([...previousQueue, currentTrack]); // Agrega currentTrack a previousQueue
-        
+
       }
     } else {
       console.log('No hay canciones en la cola.');
@@ -835,11 +859,11 @@ const handlePlayPlaylistFromLocalStorage = (playlistName) => {
   };
 
   // Función para formatear el tiempo en minutos:segundos
-const formatTime = (timeInSeconds) => {
-  const minutes = Math.floor(timeInSeconds / 60);
-  const seconds = Math.floor(timeInSeconds % 60);
-  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-};
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = Math.floor(timeInSeconds % 60);
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  };
 
 
 
@@ -847,6 +871,47 @@ const formatTime = (timeInSeconds) => {
   const handleSongAction = (track) => {
     handleAddToQueue(track);
   };
+
+  /* Historial */
+  useEffect(() => {
+    // Función para agregar la canción al historial temporal
+    const updateHistory = (track) => {
+      if (!track) return; // Si no hay canción en currentTrack, no hacer nada
+  
+      // Verificar si la canción ya está en el historial para evitar duplicados
+      const isAlreadyInHistory = history.some((song) => song.id === track.id);
+      
+      if (!isAlreadyInHistory) {
+        // Verificar si track.artists es un arreglo antes de usar map
+        const artists = Array.isArray(track.artists)
+          ? track.artists.map(artist => artist.name).join(', ')
+          : 'Artista desconocido'; // Valor por defecto en caso de que no haya artistas
+      
+        // Agregar la canción al historial temporal
+        const newHistory = [
+          ...history,
+          {
+            id: track.id,
+            name: track.name,
+            artists: artists, // Usa la variable que contiene los artistas
+            album: track.album,
+            preview_url: track.preview_url,
+          },
+        ];
+      
+        // Actualizar el estado de historial
+        setHistory(newHistory);
+      }
+      
+    };
+  
+    // Llamar a la función updateHistory cada vez que currentTrack cambie
+    if (currentTrack) {
+      updateHistory(currentTrack); // Actualizar historial temporal
+      console.log("Current track added to history:", currentTrack);
+    }
+  
+  }, [currentTrack]); 
 
 
   return (
@@ -925,14 +990,14 @@ const formatTime = (timeInSeconds) => {
             <div className="space-y-4">
               {playlists.map((playlist) => (
                 <Collapsible key={playlist.id} className="mb-2">
-                  <CollapsibleTrigger  className="flex items-center justify-between w-full p-2 hover:bg-zinc-800 rounded-md">
-                  <div className="flex items-center" >
+                  <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-zinc-800 rounded-md">
+                    <div className="flex items-center" >
                       <Music className="mr-2 h-4 w-4" />
-                    <div className="flex items-center" onClick={() => handlePlayPlaylistFromLocalStorage(playlist.name)}>
-                      <Play className="mr-2 h-5 w-5 hover:bg-green-900 " />
-                      <span>{playlist.name}</span>
-                    </div>
-                    <ChevronRight className="h-4 w-4" />
+                      <div className="flex items-center" onClick={() => handlePlayPlaylistFromLocalStorage(playlist.name)}>
+                        <Play className="mr-2 h-5 w-5 hover:bg-green-900 " />
+                        <span>{playlist.name}</span>
+                      </div>
+                      <ChevronRight className="h-4 w-4" />
                     </div>
                   </CollapsibleTrigger>
                   <CollapsibleContent>
@@ -1118,9 +1183,10 @@ const formatTime = (timeInSeconds) => {
           </div>
           <ScrollArea className="h-[calc(100vh-150px)]">
             <img
-              src={trackDetails?.album?.images?.[0]?.url || `/placeholder.svg?height=40&width=40`}
+              src={trackDetails?.album?.images?.[0]?.url || `/placeholder.svg`}
               alt={trackDetails?.album?.name || "Álbum Desconocido"}
             />
+            
             <p className="font-medium">
               {currentTrack ? currentTrack.name : "Canción Desconocida"}
             </p>
@@ -1134,7 +1200,7 @@ const formatTime = (timeInSeconds) => {
             <h4 className="font-semibold mb-2">Información de la lista</h4>
             <ScrollArea className="h-[calc(100vh-300px)]">
               <div className="space-y-4">
-                <div>
+                <div className=' outline outline-offset-2 outline-white-500'>
                   <h3 className="text-lg font-semibold">Anterior</h3>
                   <ul className="mb-4 space-y-2">
                     {previousQueue?.length > 0 ? (
@@ -1149,7 +1215,7 @@ const formatTime = (timeInSeconds) => {
                   </ul>
                 </div>
 
-                <div>
+                <div className=' outline outline-offset-2 outline-green-500'>
                   <h3 className="text-lg font-semibold">Reproduciendo Actualmente</h3>
                   {currentTrack ? (
                     <div>
@@ -1165,7 +1231,7 @@ const formatTime = (timeInSeconds) => {
                   )}
                 </div>
 
-                <div>
+                <div className=' outline outline-offset-2 outline-white-500' >
                   <h3 className="text-lg font-semibold">Siguiente Canción</h3>
                   <ul className="mb-4 space-y-2">
                     {nextQueue?.length > 0 ? (
@@ -1181,6 +1247,7 @@ const formatTime = (timeInSeconds) => {
                 </div>
               </div>
             </ScrollArea>
+
           </ScrollArea>
 
         </div>
@@ -1198,6 +1265,7 @@ const formatTime = (timeInSeconds) => {
                 alt={trackDetails?.album?.name || "Álbum Desconocido"}
               />
             </Avatar>
+            
             <div>
               <p className="font-medium">
                 {trackDetails?.name || "Canción Desconocida"} {/* Nombre de la canción */}
@@ -1232,23 +1300,22 @@ const formatTime = (timeInSeconds) => {
             </Button>
           </div>
           <div className="flex items-center w-96">
-      <span className="text-xs text-gray-400 mr-2">{formatTime(currentTime)}</span>
-      <Slider
-        value={[currentTime]} // Valor actual del slider
-        onChange={handleSliderChange} // Maneja el cambio del slider
-        max={duration} // Duración total de la canción
-        step={1} // Paso de un segundo
-        className="w-80"
-      />
-      <span className="text-xs text-gray-400 ml-2">{formatTime(duration)}</span>
-    </div>
+            <span className="text-xs text-gray-400 mr-2">{formatTime(currentTime)}</span>
+            <Slider
+              value={[currentTime]} // Valor actual del slider
+              onChange={handleSliderChange} // Maneja el cambio del slider
+              max={duration} // Duración total de la canción
+              step={1} // Paso de un segundo
+              className="w-80"
+            />
+            <span className="text-xs text-gray-400 ml-2">{formatTime(duration)}</span>
+          </div>
         </div>
         <div className="flex items-center space-x-4">
           <Button variant="ghost" size="icon">
-            <Mic2 className="h-4 w-4" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <List className="h-4 w-4" />
+            <div onClick={showHistory} className="flex items-center cursor-pointer">
+              Historial
+            </div>
           </Button>
           <Button variant="ghost" size="icon">
             <Volume2 className="h-4 w-4" />
