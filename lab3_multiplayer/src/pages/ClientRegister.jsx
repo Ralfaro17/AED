@@ -39,6 +39,7 @@ function ClientRegister() {
   const [service, setService] = useState(1);
   const [serviciosQueue, setServiciosQueue] = useState(new Queue(getQueue('servicios').printKeys));
   const [cajaQueue, setCajaQueue] = useState(new Queue(getQueue('caja').printKeys));
+  
   const {
     register,
     handleSubmit,
@@ -51,7 +52,7 @@ function ClientRegister() {
       attentionNumber = 0;
       attentionLetter = String.fromCharCode(attentionLetter.charCodeAt(0) + 1);
     }
-    if(attentionLetter === 'Z'){
+    if(String.fromCharCode(attentionLetter.charCodeAt(0) + 1) > 'Z'){
       attentionLetter = 'A';
     }
 
