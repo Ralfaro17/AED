@@ -1,0 +1,10 @@
+C:\Users\ROBOTICA\Documents\AED\ordenacionDirecta\obj\Debug\ordenacionDirecta.csproj.AssemblyReference.cache
+C:\Users\ROBOTICA\Documents\AED\ordenacionDirecta\obj\Debug\ordenacionDirecta.Form1.resources
+C:\Users\ROBOTICA\Documents\AED\ordenacionDirecta\obj\Debug\ordenacionDirecta.Properties.Resources.resources
+C:\Users\ROBOTICA\Documents\AED\ordenacionDirecta\obj\Debug\ordenacionDirecta.csproj.GenerateResource.cache
+C:\Users\ROBOTICA\Documents\AED\ordenacionDirecta\obj\Debug\ordenacionDirecta.csproj.CoreCompileInputs.cache
+C:\Users\ROBOTICA\Documents\AED\ordenacionDirecta\bin\Debug\ordenacionDirecta.exe.config
+C:\Users\ROBOTICA\Documents\AED\ordenacionDirecta\bin\Debug\ordenacionDirecta.exe
+C:\Users\ROBOTICA\Documents\AED\ordenacionDirecta\bin\Debug\ordenacionDirecta.pdb
+C:\Users\ROBOTICA\Documents\AED\ordenacionDirecta\obj\Debug\ordenacionDirecta.exe
+C:\Users\ROBOTICA\Documents\AED\ordenacionDirecta\obj\Debug\ordenacionDirecta.pdb
