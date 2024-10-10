@@ -33,7 +33,7 @@ namespace ordenacionDirecta
             this.cbMetodo = new System.Windows.Forms.ComboBox();
             this.txtNumero = new System.Windows.Forms.TextBox();
             this.txtOrden = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lEtiqueta = new System.Windows.Forms.Label();
             this.lbNumeros = new System.Windows.Forms.ListBox();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -42,9 +42,10 @@ namespace ordenacionDirecta
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.label1.Location = new System.Drawing.Point(499, 19);
+            this.label1.Location = new System.Drawing.Point(665, 23);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(247, 24);
+            this.label1.Size = new System.Drawing.Size(315, 29);
             this.label1.TabIndex = 0;
             this.label1.Text = "Elija mètodo de ordenaciòn ";
             // 
@@ -52,55 +53,61 @@ namespace ordenacionDirecta
             // 
             this.cbMetodo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
             this.cbMetodo.FormattingEnabled = true;
-            this.cbMetodo.Location = new System.Drawing.Point(514, 58);
+            this.cbMetodo.Location = new System.Drawing.Point(685, 71);
+            this.cbMetodo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbMetodo.Name = "cbMetodo";
-            this.cbMetodo.Size = new System.Drawing.Size(202, 32);
+            this.cbMetodo.Size = new System.Drawing.Size(268, 37);
             this.cbMetodo.TabIndex = 1;
             this.cbMetodo.SelectedIndexChanged += new System.EventHandler(this.cbMetodo_SelectedIndexChanged);
             // 
             // txtNumero
             // 
             this.txtNumero.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.txtNumero.Location = new System.Drawing.Point(80, 24);
+            this.txtNumero.Location = new System.Drawing.Point(107, 30);
+            this.txtNumero.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtNumero.Name = "txtNumero";
-            this.txtNumero.Size = new System.Drawing.Size(111, 29);
+            this.txtNumero.Size = new System.Drawing.Size(147, 34);
             this.txtNumero.TabIndex = 2;
             this.txtNumero.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumero_KeyPress);
             // 
             // txtOrden
             // 
             this.txtOrden.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.txtOrden.Location = new System.Drawing.Point(493, 118);
+            this.txtOrden.Location = new System.Drawing.Point(657, 145);
+            this.txtOrden.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtOrden.Name = "txtOrden";
-            this.txtOrden.Size = new System.Drawing.Size(253, 29);
+            this.txtOrden.Size = new System.Drawing.Size(336, 34);
             this.txtOrden.TabIndex = 2;
             // 
-            // label2
+            // lEtiqueta
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.label2.Location = new System.Drawing.Point(45, 408);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(204, 24);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "0 elementos insertados";
+            this.lEtiqueta.AutoSize = true;
+            this.lEtiqueta.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.lEtiqueta.Location = new System.Drawing.Point(60, 502);
+            this.lEtiqueta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lEtiqueta.Name = "lEtiqueta";
+            this.lEtiqueta.Size = new System.Drawing.Size(263, 29);
+            this.lEtiqueta.TabIndex = 0;
+            this.lEtiqueta.Text = "0 elementos insertados";
             // 
             // lbNumeros
             // 
             this.lbNumeros.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.lbNumeros.FormattingEnabled = true;
-            this.lbNumeros.ItemHeight = 16;
-            this.lbNumeros.Location = new System.Drawing.Point(34, 59);
+            this.lbNumeros.ItemHeight = 20;
+            this.lbNumeros.Location = new System.Drawing.Point(45, 73);
+            this.lbNumeros.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lbNumeros.Name = "lbNumeros";
-            this.lbNumeros.Size = new System.Drawing.Size(224, 340);
+            this.lbNumeros.Size = new System.Drawing.Size(297, 404);
             this.lbNumeros.TabIndex = 3;
             // 
             // btnLimpiar
             // 
             this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
-            this.btnLimpiar.Location = new System.Drawing.Point(264, 356);
+            this.btnLimpiar.Location = new System.Drawing.Point(352, 438);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(129, 43);
+            this.btnLimpiar.Size = new System.Drawing.Size(172, 53);
             this.btnLimpiar.TabIndex = 4;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
@@ -108,16 +115,17 @@ namespace ordenacionDirecta
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.lbNumeros);
             this.Controls.Add(this.txtOrden);
             this.Controls.Add(this.txtNumero);
             this.Controls.Add(this.cbMetodo);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lEtiqueta);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Ordenacion Directa";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -132,7 +140,7 @@ namespace ordenacionDirecta
         private System.Windows.Forms.ComboBox cbMetodo;
         private System.Windows.Forms.TextBox txtNumero;
         private System.Windows.Forms.TextBox txtOrden;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lEtiqueta;
         private System.Windows.Forms.ListBox lbNumeros;
         private System.Windows.Forms.Button btnLimpiar;
     }

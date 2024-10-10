@@ -80,6 +80,36 @@ namespace ordenacionDirecta
             }
         }
 
+        void BurbujaSeñal()
+        {
+            N = 0;
+            foreach (int Elemento in lbNumeros.Items)
+            {
+                Array.Resize(ref Numeros, N + 1);
+                Numeros[N] = Elemento;
+                N++;
+            }
+            txtOrden.Clear();
+            i = 0;
+            bool Band = false;
+            while (i < N - 1 && Band == false)
+            {
+                Band = true;
+                for (int j = 0; j < N - 1; j++)
+                {
+                    if (Numeros[j] > Numeros[j + 1])
+                    {
+                        int aux = Numeros[j];
+                        Numeros[j] = Numeros[j + 1];
+                        Numeros[j + 1] = aux;
+                        Band = false;
+                    }
+                    Imprimir();
+                }
+                i = i + 1;
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             cbMetodo.Items.Add("Burburja Menor");
@@ -94,39 +124,9 @@ namespace ordenacionDirecta
             {
                 int Num = int.Parse(txtNumero.Text);
                 lbNumeros.Items.Add(Num);
-                lbNumeros.Text = Convert.ToString(lbNumeros.Items.Count + "elementos insertados");
+                lEtiqueta.Text = Convert.ToString(lbNumeros.Items.Count + " elementos insertados");
                 txtNumero.Text = "";
                 txtNumero.Focus();
-            }
-        }
-
-        void BurbujaSeñal()
-        {
-            N = 0;
-            foreach(int Elemento in lbNumeros.Items)
-            {
-                Array.Resize(ref Numeros, N + 1);
-                Numeros[N] = Elemento;
-                N++;
-            }
-            txtOrden.Clear();
-            i = 0;
-            bool Band = false;
-            while (i < N - 1 && Band == false)
-            {
-                Band = true;
-                for(int j = 0; j < N - 1; j++)
-                {
-                    if(Numeros[j] > Numeros[j + 1])
-                    {
-                        int aux = Numeros[j];
-                        Numeros[j] = Numeros[j + 1];
-                        Numeros[j + 1] = aux;
-                        Band = false;
-                    }
-                    Imprimir();
-                }
-                i = i + 1;
             }
         }
 
