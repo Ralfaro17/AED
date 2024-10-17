@@ -1,0 +1,10 @@
+C:\Users\ROBOTICA\Documents\AED\RA11\bin\Debug\RA11.exe.config
+C:\Users\ROBOTICA\Documents\AED\RA11\bin\Debug\RA11.exe
+C:\Users\ROBOTICA\Documents\AED\RA11\bin\Debug\RA11.pdb
+C:\Users\ROBOTICA\Documents\AED\RA11\obj\Debug\RA11.csproj.AssemblyReference.cache
+C:\Users\ROBOTICA\Documents\AED\RA11\obj\Debug\RA11.Form1.resources
+C:\Users\ROBOTICA\Documents\AED\RA11\obj\Debug\RA11.Properties.Resources.resources
+C:\Users\ROBOTICA\Documents\AED\RA11\obj\Debug\RA11.csproj.GenerateResource.cache
+C:\Users\ROBOTICA\Documents\AED\RA11\obj\Debug\RA11.csproj.CoreCompileInputs.cache
+C:\Users\ROBOTICA\Documents\AED\RA11\obj\Debug\RA11.exe
+C:\Users\ROBOTICA\Documents\AED\RA11\obj\Debug\RA11.pdb
