@@ -8,3 +8,13 @@ C:\Users\LAB 5\Documents\AED\RA12\obj\Debug\RA12.csproj.GenerateResource.cache
 C:\Users\LAB 5\Documents\AED\RA12\obj\Debug\RA12.csproj.CoreCompileInputs.cache
 C:\Users\LAB 5\Documents\AED\RA12\obj\Debug\RA12.exe
 C:\Users\LAB 5\Documents\AED\RA12\obj\Debug\RA12.pdb
+C:\Users\Abel\Documents\GitHub\AED\RA12\bin\Debug\RA12.exe.config
+C:\Users\Abel\Documents\GitHub\AED\RA12\bin\Debug\RA12.exe
+C:\Users\Abel\Documents\GitHub\AED\RA12\bin\Debug\RA12.pdb
+C:\Users\Abel\Documents\GitHub\AED\RA12\obj\Debug\RA12.csproj.AssemblyReference.cache
+C:\Users\Abel\Documents\GitHub\AED\RA12\obj\Debug\RA12.Form1.resources
+C:\Users\Abel\Documents\GitHub\AED\RA12\obj\Debug\RA12.Properties.Resources.resources
+C:\Users\Abel\Documents\GitHub\AED\RA12\obj\Debug\RA12.csproj.GenerateResource.cache
+C:\Users\Abel\Documents\GitHub\AED\RA12\obj\Debug\RA12.csproj.CoreCompileInputs.cache
+C:\Users\Abel\Documents\GitHub\AED\RA12\obj\Debug\RA12.exe
+C:\Users\Abel\Documents\GitHub\AED\RA12\obj\Debug\RA12.pdb

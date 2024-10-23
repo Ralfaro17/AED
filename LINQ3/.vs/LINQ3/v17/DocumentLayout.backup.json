@@ -1,0 +1,328 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\frmreporte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:frmreporte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\frmreporte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:frmreporte.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\frmmatricula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:frmmatricula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\frmasignatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:frmasignatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\frmestudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:frmestudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\frmpago.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:frmpago.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\frmmatricula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:frmmatricula.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\declaraciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:declaraciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\frmpago.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:frmpago.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\pago.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:pago.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\frmasignatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:frmasignatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\frmestudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:frmestudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\est_asig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:est_asig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|c:\\users\\abel\\documents\\github\\aed\\linq3\\asignatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F685241-7A78-410D-8CED-2315387E363F}|LINQ3.csproj|solutionrelative:asignatura.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Form1.Designer.cs",
+              "RelativeToolTip": "Form1.Designer.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAawDwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T04:04:47.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAASwBcAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T04:03:20.168Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Form1.cs [Design]",
+              "RelativeToolTip": "Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T02:21:40.436Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "frmReporte.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmReporte.cs",
+              "RelativeDocumentMoniker": "frmReporte.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmReporte.cs",
+              "RelativeToolTip": "frmReporte.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAawEoAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T03:57:04.746Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "frmReporte.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmReporte.cs",
+              "RelativeDocumentMoniker": "frmReporte.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmReporte.cs [Design]",
+              "RelativeToolTip": "frmReporte.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T03:50:50.377Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "frmMatricula.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmMatricula.cs",
+              "RelativeDocumentMoniker": "frmMatricula.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmMatricula.cs [Design]",
+              "RelativeToolTip": "frmMatricula.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T03:43:22.329Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "frmMatricula.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmMatricula.cs",
+              "RelativeDocumentMoniker": "frmMatricula.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmMatricula.cs",
+              "RelativeToolTip": "frmMatricula.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAA3wCoAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T03:45:28.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Declaraciones.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Declaraciones.cs",
+              "RelativeDocumentMoniker": "Declaraciones.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Declaraciones.cs",
+              "RelativeToolTip": "Declaraciones.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T02:35:03.596Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "frmPago.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmPago.cs",
+              "RelativeDocumentMoniker": "frmPago.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmPago.cs [Design]",
+              "RelativeToolTip": "frmPago.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T03:04:52.519Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "frmEstudiante.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmEstudiante.cs",
+              "RelativeDocumentMoniker": "frmEstudiante.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmEstudiante.cs [Design]",
+              "RelativeToolTip": "frmEstudiante.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T02:30:39.095Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "frmAsignatura.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmAsignatura.cs",
+              "RelativeDocumentMoniker": "frmAsignatura.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmAsignatura.cs [Design]",
+              "RelativeToolTip": "frmAsignatura.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T02:42:09.42Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "frmPago.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmPago.cs",
+              "RelativeDocumentMoniker": "frmPago.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmPago.cs",
+              "RelativeToolTip": "frmPago.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAACgAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T03:18:23.423Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Pago.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Pago.cs",
+              "RelativeDocumentMoniker": "Pago.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Pago.cs",
+              "RelativeToolTip": "Pago.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T02:23:32.184Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "frmAsignatura.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmAsignatura.cs",
+              "RelativeDocumentMoniker": "frmAsignatura.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmAsignatura.cs",
+              "RelativeToolTip": "frmAsignatura.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T02:52:52.943Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "frmEstudiante.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmEstudiante.cs",
+              "RelativeDocumentMoniker": "frmEstudiante.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\frmEstudiante.cs",
+              "RelativeToolTip": "frmEstudiante.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T02:33:58.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Estudiante.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Estudiante.cs",
+              "RelativeDocumentMoniker": "Estudiante.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Estudiante.cs",
+              "RelativeToolTip": "Estudiante.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T02:26:24.263Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Est_Asig.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Est_Asig.cs",
+              "RelativeDocumentMoniker": "Est_Asig.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Est_Asig.cs",
+              "RelativeToolTip": "Est_Asig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T02:26:01.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Asignatura.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Asignatura.cs",
+              "RelativeDocumentMoniker": "Asignatura.cs",
+              "ToolTip": "C:\\Users\\Abel\\Documents\\GitHub\\AED\\LINQ3\\Asignatura.cs",
+              "RelativeToolTip": "Asignatura.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-23T02:24:40.254Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
