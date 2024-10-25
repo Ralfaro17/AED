@@ -1,0 +1,15 @@
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\bin\Debug\LINQ3.exe.config
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\bin\Debug\LINQ3.exe
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\bin\Debug\LINQ3.pdb
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.csproj.AssemblyReference.cache
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.Form1.resources
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.frmAsignatura.resources
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.frmEstudiante.resources
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.frmMatricula.resources
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.frmPago.resources
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.frmReporte.resources
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.Properties.Resources.resources
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.csproj.GenerateResource.cache
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.csproj.CoreCompileInputs.cache
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.exe
+C:\Users\Abel\Documents\GitHub\AED\LINQ3\obj\Debug\LINQ3.pdb

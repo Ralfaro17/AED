@@ -34,5 +34,52 @@ namespace LINQ3
             Rep.Hide();
 
         }
+
+        private void asignaturaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Asig.MdiParent = this;
+            Asig.Show();
+
+            Est.Hide();
+            Pa.Hide();
+            Mat.Hide();
+            Rep.Hide();
+        }
+
+        private void pagoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pa.MdiParent = this;
+            Pa.Show();
+            Pa.LlenarComboCarnet();
+
+            Asig.Hide();
+            Est.Hide();
+            Mat.Hide();
+            Rep.Hide();
+        }
+
+        private void matriculaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Mat.MdiParent = this;
+            Mat.Show();
+            Mat.LlenarComboCarnetyAsig();
+
+            Asig.Hide();
+            Pa.Hide();
+            Est.Hide();
+            Rep.Hide();
+        }
+
+        private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Rep.MdiParent = this;
+            Rep.Show();
+            Rep.LlenarComboAsignatura();
+
+            Asig.Hide();
+            Pa.Hide();
+            Mat.Hide();
+            Est.Hide();
+        }
     }
 }
