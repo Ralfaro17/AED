@@ -138,7 +138,7 @@ function ClinicForm() {
     const select = document.createElement('select');
     select.id = 'swal-select';
     select.classList.add('swal2-select');
-    appointmentArray.forEach((appointment) => {
+    appointmentArray.forEach((appointment: Appointment) => {
       const option = document.createElement('option');
       option.value = appointment.id;
       option.text = appointment.id;
@@ -165,9 +165,9 @@ function ClinicForm() {
       if (result.isConfirmed) {
         const selectedOption = document.getElementById('swal-select').value;
         const newAppointmentArray = appointmentArray.filter(
-          (appointment) => appointment.id !== selectedOption
+          (appointment: Appointment) => appointment.id !== selectedOption
         );
-        const updatedAppointmentArray = [...newAppointmentArray].sort((a,b) => new Date(b.date) - new Date(a.date));
+        const updatedAppointmentArray = [...newAppointmentArray].sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         setAppointmentArray(updatedAppointmentArray);
         saveArray(updatedAppointmentArray);
         Swal.close();
