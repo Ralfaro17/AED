@@ -44,6 +44,8 @@ interface Tithe {
 }
 
 function ParishionersForm() {
+  let lastParishionerId: number = Number.parseInt(JSON.parse(localStorage.getItem('parishionerLastId') || '1'));
+
   const MySwal = withReactContent(Swal);
   useEffect(() => {
     document.title = 'Formulario de feligreses';
@@ -82,7 +84,7 @@ function ParishionersForm() {
     address: string;
     phone: string;
   }>({
-    id: 0,
+    id: lastParishionerId + 1,
     name: '',
     address: '',
     phone: '',
@@ -103,6 +105,8 @@ function ParishionersForm() {
         Swal.fire('ID debe ser un número positivo.', '', 'warning');
         return;
       }
+      setFormData({ ...formData, [name]: +value });
+      return
     }
 
     setFormData({ ...formData, [name]: value });
@@ -110,6 +114,7 @@ function ParishionersForm() {
 
   // Función para agregar un feligrés
   const handleAddParishioner = () => {
+    
     const existingParishioner = Enumerable.from(parishioners).firstOrDefault(
       (p) => p.id === formData.id
     );
@@ -137,6 +142,17 @@ function ParishionersForm() {
       });
     } else {
       // Si el feligrés no existe, lo agrega al array
+      if(formData.id != lastParishionerId + 1) {
+        Swal.fire({
+          title: 'Error',
+          text: 'El id de una nueva cita debe ser consecutivo',
+          icon: 'error',
+          confirmButtonText: 'ok',
+        });
+        return;
+      }
+      lastParishionerId = formData.id;
+      localStorage.setItem('parishionerLastId', JSON.stringify(formData.id));
       const updatedParishioners = [
         ...parishioners,
         { ...formData, quantity: 0, month: '' },
@@ -146,10 +162,11 @@ function ParishionersForm() {
       saveArray(updatedParishioners); // Guardar en localStorage
 
       Swal.fire('Feligrés agregado', '', 'success');
+      setFormData({ id: lastParishionerId + 1, name: '', address: '', phone: '' });
     }
 
     // Limpiar el formulario
-    setFormData({ id: 0, name: '', address: '', phone: '' }); // Resetear los campos a valores vacíos
+    setFormData({ id: lastParishionerId + 1, name: '', address: '', phone: '' }); // Resetear los campos a valores vacíos
   };
   // Función para eliminar un feligrés
   const handleAddTithe = () => {
@@ -502,7 +519,7 @@ function ParishionersForm() {
 
         // Filtra el feligrés seleccionado
         const parishioner = Enumerable.from(parishioners)
-          .where((p) => p.id === selectedParishionerID)
+          .where((p) => p.id.toString() === selectedParishionerID)
           .firstOrDefault();
         console.log('Feligrés seleccionado:', parishioner);
         if (parishioner) {
@@ -635,7 +652,7 @@ function ParishionersForm() {
                     {...register('name', {
                       required: 'El nombre es obligatorio',
                     })}
-                    onChange={handleInputChange}
+                    onChange={handleInputChange}  
                   />
                   {errors.name && (
                     <p className="text-red-500">{errors.name?.message as string}</p>
@@ -643,16 +660,12 @@ function ParishionersForm() {
 
                   <Input
                     placeholder="Id"
-                    value={parishioners.length + 1}
+                    value={formData.id.toString()}
                     type="number"
-                    {...register('id', {
-                      required: 'El id es obligatorio',
-                      min: {
-                        value: 1,
-                        message: 'El Id no puede ser menor a 1',
-                      },
-                    })}
-                    onChange={handleInputChange}
+                    onChange={(e) => {
+                      const newFormData = { ...formData, id: Number(e.target.value) };
+                      setFormData(newFormData);
+                    }}
                   />
                   {errors.id && (
                     <p className="text-red-500">{errors.id?.message as string}</p>
@@ -701,7 +714,7 @@ function ParishionersForm() {
         </CardHeader>
       </Card>
 
-      <Card className="w-full mt-8">
+      <Card className="w-full h-full">
         <CardHeader>
           <CardTitle>Detalles de los feligreses</CardTitle>
           <div className="flex gap-4 justify-around flex-col md:flex-row">
@@ -743,7 +756,7 @@ function ParishionersForm() {
           </div>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="max-h-[25rem] overflow-auto">
           <Tabs defaultValue="parishioners">
             <TabsList>
               <div className="flex flex-nowrap">

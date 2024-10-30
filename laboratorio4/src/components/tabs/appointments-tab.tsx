@@ -412,7 +412,6 @@ function AppointmentsTab() {
       localStorage.setItem('appointmentLastId', JSON.stringify(data.id));
       lastAppointmentId = Number.parseInt(data.id);
       setFocus('id');
-      console.log(lastAppointmentId);
       Swal.fire({
         title: 'Cita agregada',
         icon: 'success',
