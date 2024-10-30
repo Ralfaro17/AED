@@ -4,11 +4,9 @@ import {
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
 } from '@/components/ui/card.jsx';
 import { Link } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -21,15 +19,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -37,7 +26,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import ThemeChanger from '@/components/theme-changer';
 
 import Enumerable from 'linq';
-import { parse } from 'path';
+
 
 interface Parishioner {
   id: number;
@@ -102,8 +91,8 @@ function ParishionersForm() {
   const [parishioners, setParishioners] = useState<Parishioner[]>([]);
   const [tithes, setTithes] = useState<Tithe[]>([]);
 
-  const [startMonth, setStartMonth] = useState(0);
-  const [endMonth, setEndMonth] = useState(0);
+  const [startMonth, setStartMonth] = useState(1);
+  const [endMonth, setEndMonth] = useState(12);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -398,8 +387,12 @@ function ParishionersForm() {
     });
 
     // Obtener valores del rango de meses desde los inputs
-    const initial = parseInt(document.querySelector('#range1').value, 10);
-    const final = parseInt(document.querySelector('#range2').value, 10);
+    const initial = parseInt((
+      document.getElementById('range1') as HTMLInputElement
+    )?.value)
+    const final = parseInt((
+      document.getElementById('range2') as HTMLInputElement
+    )?.value);
 
     // Validación del rango
     if (
@@ -429,7 +422,9 @@ function ParishionersForm() {
       cancelButtonText: 'Cancelar',
       focusConfirm: false,
       preConfirm: () => {
-        const selectedOption = document.getElementById('swal-select').value;
+        const selectedOption = (
+          document.getElementById('swal-select') as HTMLSelectElement
+        )?.value;
         if (!selectedOption) {
           Swal.showValidationMessage('Debes seleccionar un ID');
           return false;
@@ -438,7 +433,9 @@ function ParishionersForm() {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        const selectedOption = document.getElementById('swal-select').value;
+        const selectedOption = (
+          document.getElementById('swal-select') as HTMLSelectElement
+        )?.value;
 
         // Filtrar y sumar los diezmos usando LINQ
         const tithesInRange = Enumerable.from(tithes)
@@ -458,7 +455,7 @@ function ParishionersForm() {
         console.log(total);
 
         // Obtener el nombre del feligrés para el mensaje
-        const parishioner = parishioners.find((p) => p.id === selectedOption);
+        const parishioner = parishioners.find((p) => p.id.toString() === selectedOption);
         console.log(parishioner);
 
         // Mostrar el total en el rango
@@ -622,7 +619,6 @@ function ParishionersForm() {
                 <div className="my-5 grid gap-5">
                   <Input
                     placeholder="Dirección"
-                    name="address"
                     value={formData.address}
                     {...register('address', {
                       required: 'La dirección es obligatoria',
@@ -630,12 +626,11 @@ function ParishionersForm() {
                     onChange={handleInputChange}
                   />
                   {errors.address && (
-                    <p className="text-red-500">{errors.address.message}</p>
+                    <p className="text-red-500">{errors.address?.message as string}</p>
                   )}
 
                   <Input
                     placeholder="Nombre"
-                    name="name"
                     value={formData.name}
                     {...register('name', {
                       required: 'El nombre es obligatorio',
@@ -643,12 +638,11 @@ function ParishionersForm() {
                     onChange={handleInputChange}
                   />
                   {errors.name && (
-                    <p className="text-red-500">{errors.name.message}</p>
+                    <p className="text-red-500">{errors.name?.message as string}</p>
                   )}
 
                   <Input
                     placeholder="Id"
-                    name="id"
                     value={parishioners.length + 1}
                     type="number"
                     {...register('id', {
@@ -661,12 +655,11 @@ function ParishionersForm() {
                     onChange={handleInputChange}
                   />
                   {errors.id && (
-                    <p className="text-red-500">{errors.id.message}</p>
+                    <p className="text-red-500">{errors.id?.message as string}</p>
                   )}
 
                   <Input
                     placeholder="Teléfono"
-                    name="phone"
                     value={formData.phone}
                     {...register('phone', {
                       required: 'El teléfono es obligatorio',
@@ -674,7 +667,7 @@ function ParishionersForm() {
                     onChange={handleInputChange}
                   />
                   {errors.phone && (
-                    <p className="text-red-500">{errors.phone.message}</p>
+                    <p className="text-red-500">{errors.phone?.message as string}</p>
                   )}
                 </div>
 
@@ -689,13 +682,13 @@ function ParishionersForm() {
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => handleDeleteParishioner(formData.id)}
+                  onClick={() => handleDeleteParishioner()}
                 >
                   Eliminar Feligrés
                 </Button>
                 <Button
                   variant="outline"
-                  onClick={() => handleLoadParishioner(formData.id)}
+                  onClick={() => handleLoadParishioner()}
                 >
                   Cargar Feligrés
                 </Button>

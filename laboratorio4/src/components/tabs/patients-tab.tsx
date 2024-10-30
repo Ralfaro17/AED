@@ -272,7 +272,7 @@ function PatientsTab() {
 
   return (
     <>
-      <Card className="w-full md:w-1/2 rounded-lg">
+      <Card className="w-full md:w-[60%] rounded-lg">
         <CardHeader>
           <CardTitle>Formulario de Clínica</CardTitle>
           <CardDescription>Ingresa los datos del paciente</CardDescription>
