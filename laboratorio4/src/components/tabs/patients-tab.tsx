@@ -29,6 +29,13 @@ type Patient = {
   birthDate: string;
 };
 
+type Appointment = {
+  id: string;
+  patientId: string;
+  service: string;
+  date: string;
+};
+
 function PatientsTab() {
   let lastPatientId: number = Number.parseInt(JSON.parse(localStorage.getItem('patientLastId') || '1'));
 
@@ -44,7 +51,20 @@ function PatientsTab() {
     return [];
   };
 
+  const saveAppointmentsArray = (array: Appointment[]) => {
+    localStorage.setItem('appointmentArray', JSON.stringify(array));
+  };
+
+  const getAppointmentsArray = (): Appointment[] => {
+    const array = localStorage.getItem('appointmentArray');
+    if (array) {
+      return JSON.parse(array);
+    }
+    return [];
+  };
+
   const [patientsArray, setPatientsArray] = useState(getArray());
+  const [appointmentArray, setAppointmentArray] = useState(getAppointmentsArray());
 
   const {
     register,
@@ -128,6 +148,11 @@ function PatientsTab() {
         const newPatientsArray = patientsArray.filter(
           (patient: Patient) => patient.id !== selectedOption
         );
+        const newAppointmentArray = appointmentArray.filter(
+          (appointment: Appointment) => appointment.patientId !== selectedOption
+        );
+        setAppointmentArray(newAppointmentArray);
+        saveAppointmentsArray(newAppointmentArray);
         const updatedPatientsArray = [...newPatientsArray].sort(
           (a, b) => Number.parseInt(a.id) - Number.parseInt(b.id)
         );
@@ -261,12 +286,14 @@ function PatientsTab() {
       saveArray(updatedPatientsArray);
       localStorage.setItem('patientLastId', JSON.stringify(data.id));
       lastPatientId = Number.parseInt(data.id);
+      setFocus('id');
       Swal.fire({
         title: 'Paciente agregado',
         icon: 'success',
         confirmButtonText: 'ok',
       });
       reset();
+      setValue('id', (lastPatientId + 1).toString());
     }
   };
 
@@ -285,7 +312,6 @@ function PatientsTab() {
                 id="idNumber"
                 placeholder="Id del paciente"
                 type="number"
-                value={patientsArray.length + 1}
                 {...register('id', {
                   required: 'El id es obligatorio',
                   min: {
