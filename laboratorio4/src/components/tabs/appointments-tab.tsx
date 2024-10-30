@@ -39,15 +39,17 @@ type Appointment = {
   date: string;
 };
 
-/* type Patient = {
-  id: number;
+type Patient = {
+  id: string;
   name: string;
   lastName: string;
-}; */
+  birthDate: string;
+};
 
 function AppointmentsTab() {
   const [open, setOpen] = useState(false);
   const [openMonth, setOpenMonth] = useState(false);
+  let lastAppointmentId: number = Number.parseInt(JSON.parse(localStorage.getItem('appointmentLastId') || '1'));
 
   const saveArray = (array: Appointment[]) => {
     localStorage.setItem('appointmentArray', JSON.stringify(array));
@@ -61,6 +63,14 @@ function AppointmentsTab() {
     return [];
   };
 
+  const getPatientsArray = (): Patient[] => {
+    const array = localStorage.getItem('patientsArray');
+    if (array) {
+      return JSON.parse(array);
+    }
+    return [];
+  };
+
   const [appointmentArray, setAppointmentArray] = useState(getArray());
   const [monthAppointments, setMonthAppointments] = useState<Appointment[]>([]);
   const [month, setMonth] = useState(0);
@@ -68,6 +78,7 @@ function AppointmentsTab() {
     []
   );
   const [patient, setPatient] = useState('');
+  const [patientsArray] = useState(getPatientsArray());
 
   const {
     register,
@@ -77,7 +88,16 @@ function AppointmentsTab() {
     setFocus,
     setValue,
     formState: { errors },
-  } = useForm<Appointment>();
+  } = useForm<Appointment>(
+    {
+      defaultValues: {
+        id: (lastAppointmentId + 1).toString(),
+        patientId: '',
+        service: '',
+        date: '',
+      },
+    }
+  );
 
   const cleanArray = () => {
     Swal.fire({
@@ -303,6 +323,16 @@ function AppointmentsTab() {
 
   const onSubmit = (data: Appointment) => {
     let centinel = false;
+    const patientExist = Enumerable.from(patientsArray).any((patient) => patient.id === data.patientId);
+    if (!patientExist) {
+      Swal.fire({
+        title: 'Error',
+        text: 'El paciente con el Id ingresado no existe',
+        icon: 'error',
+        confirmButtonText: 'ok',
+      });
+      return;
+    }
     for (let i = 0; i < appointmentArray.length; i++) {
       if (appointmentArray[i].id === data.id) {
         centinel = true;
@@ -365,11 +395,22 @@ function AppointmentsTab() {
         });
         return;
       }
+      else if (Number.parseInt(data.id) != lastAppointmentId + 1) {
+        Swal.fire({
+          title: 'Error',
+          text: 'El id de una nueva cita debe ser consecutivo',
+          icon: 'error',
+          confirmButtonText: 'ok',
+        });
+        return;
+      }
       const updatedAppointmentArray = [...appointmentArray, data].sort(
         (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
       );
       setAppointmentArray(updatedAppointmentArray);
       saveArray(updatedAppointmentArray);
+      localStorage.setItem('appointmentLastId', JSON.stringify(data.id));
+      lastAppointmentId = Number.parseInt(data.id);
       Swal.fire({
         title: 'Cita agregada',
         icon: 'success',
@@ -395,7 +436,6 @@ function AppointmentsTab() {
               <Input
                 id="idNumber"
                 placeholder="Id cita"
-                value={appointmentArray.length + 1}
                 type="number"
                 {...register('id', {
                   required: 'El id es obligatorio',

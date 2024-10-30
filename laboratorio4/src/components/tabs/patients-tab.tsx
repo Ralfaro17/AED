@@ -30,6 +30,7 @@ type Patient = {
 };
 
 function PatientsTab() {
+  let lastPatientId: number = Number.parseInt(JSON.parse(localStorage.getItem('patientLastId') || '1'));
 
   const saveArray = (array: Patient[]) => {
     localStorage.setItem('patientsArray', JSON.stringify(array));
@@ -53,7 +54,16 @@ function PatientsTab() {
     setFocus,
     setValue,
     formState: { errors },
-  } = useForm<Patient>();
+  } = useForm<Patient>(
+    {
+      defaultValues: {
+        id: (lastPatientId + 1).toString(),
+        name: '',
+        lastName: '',
+        birthDate: ''
+      }
+    }
+  );
 
   const cleanArray = () => {
     Swal.fire({
@@ -240,6 +250,8 @@ function PatientsTab() {
       );
       setPatientsArray(updatedPatientsArray);
       saveArray(updatedPatientsArray);
+      localStorage.setItem('patientLastId', JSON.stringify(data.id));
+      lastPatientId = Number.parseInt(data.id);
       Swal.fire({
         title: 'Paciente agregado',
         icon: 'success',
@@ -332,8 +344,8 @@ function PatientsTab() {
 
       <Card className="w-full md:w-[605]">
         <CardHeader>
-          <CardTitle>Detalles de las citas</CardTitle>
-          <div className="flex gap-4 justify-around flex-col md:flex-row">
+          <CardTitle>Detalles de los pacientes</CardTitle>
+          <div className="flex gap-4 justify-around flex-col md:flex-row p-2">
             <Button
               className="w-full text-wrap p-2"
               onClick={cleanArray}

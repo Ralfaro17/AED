@@ -649,7 +649,7 @@ function ParishionersForm() {
                   <Input
                     placeholder="Id"
                     name="id"
-                    value={formData.id}
+                    value={parishioners.length + 1}
                     type="number"
                     {...register('id', {
                       required: 'El id es obligatorio',
