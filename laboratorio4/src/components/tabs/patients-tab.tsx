@@ -245,6 +245,15 @@ function PatientsTab() {
       }
     }
     if (!centinel) {
+      if (Number.parseInt(data.id) != lastPatientId + 1) {
+        Swal.fire({
+          title: 'Error',
+          text: 'El id de un nuevo paciente debe ser consecutivo',
+          icon: 'error',
+          confirmButtonText: 'ok',
+        });
+        return;
+      }
       const updatedPatientsArray = [...patientsArray, data].sort(
         (a, b) => Number.parseInt(a.id) - Number.parseInt(b.id)
       );
