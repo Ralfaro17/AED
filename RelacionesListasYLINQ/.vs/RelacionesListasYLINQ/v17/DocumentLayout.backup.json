@@ -1,0 +1,146 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|c:\\users\\abel\\source\\repos\\relacioneslistasylinq\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|c:\\users\\abel\\source\\repos\\relacioneslistasylinq\\declaraciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|solutionrelative:declaraciones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|c:\\users\\abel\\source\\repos\\relacioneslistasylinq\\profesoresmonografia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|solutionrelative:profesoresmonografia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|c:\\users\\abel\\source\\repos\\relacioneslistasylinq\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|c:\\users\\abel\\source\\repos\\relacioneslistasylinq\\profesor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|solutionrelative:profesor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|c:\\users\\abel\\source\\repos\\relacioneslistasylinq\\estudiantes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|solutionrelative:estudiantes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|c:\\users\\abel\\source\\repos\\relacioneslistasylinq\\monografia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}|RelacionesListasYLINQ.csproj|solutionrelative:monografia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProfesoresMonografia.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\ProfesoresMonografia.cs",
+              "RelativeDocumentMoniker": "ProfesoresMonografia.cs",
+              "ToolTip": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\ProfesoresMonografia.cs",
+              "RelativeToolTip": "ProfesoresMonografia.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-30T17:28:26.553Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Declaraciones.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Declaraciones.cs",
+              "RelativeDocumentMoniker": "Declaraciones.cs",
+              "ToolTip": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Declaraciones.cs",
+              "RelativeToolTip": "Declaraciones.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-30T16:54:28.415Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAgwEYAAAC2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-30T16:52:16.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Monografia.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Monografia.cs",
+              "RelativeDocumentMoniker": "Monografia.cs",
+              "ToolTip": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Monografia.cs",
+              "RelativeToolTip": "Monografia.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-30T16:49:06.346Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Profesor.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Profesor.cs",
+              "RelativeDocumentMoniker": "Profesor.cs",
+              "ToolTip": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Profesor.cs",
+              "RelativeToolTip": "Profesor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-30T16:47:48.18Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Estudiantes.cs",
+              "DocumentMoniker": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Estudiantes.cs",
+              "RelativeDocumentMoniker": "Estudiantes.cs",
+              "ToolTip": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Estudiantes.cs",
+              "RelativeToolTip": "Estudiantes.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwAsAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-30T16:45:50.656Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\Abel\\source\\repos\\RelacionesListasYLINQ\\Form1.cs [Design]",
+              "RelativeToolTip": "Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-30T16:45:26.08Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

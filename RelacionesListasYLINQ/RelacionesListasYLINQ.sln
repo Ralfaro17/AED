@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35219.272
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelacionesListasYLINQ", "RelacionesListasYLINQ.csproj", "{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E42FF78-D3B9-451E-B4C0-BC6D75C68309}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85074406-C9F9-40F9-A501-4530CFD01B02}
+	EndGlobalSection
+EndGlobal
