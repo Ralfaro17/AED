@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/table";
 
 type Teachers = {
-  idProfesor: number;
+  idProfesor: string;
   nombres: string;
   apellidos: string;
   direccion: string;
@@ -32,6 +32,7 @@ type Teachers = {
 };
 
 function TeacherTabs() {
+  let lastTeacherid: number= Number.parseInt(JSON.parse(localStorage.getItem('TeacherLastId') || '1'));
   const getArray = (): Teachers[] => {
     const array = localStorage.getItem("teachers");
     return array ? JSON.parse(array) : [];
@@ -50,16 +51,19 @@ function TeacherTabs() {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Eliminar citas',
+      confirmButtonText: 'Eliminar Profesores',
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem('teachers');
+        localStorage.setItem('TeacherLastId', '1');
         setTeachers([]);
         Swal.fire({
           title: 'Registros eliminados',
           icon: 'success',
           confirmButtonText: 'ok',
+        }).then(() => {
+          location.reload();
         });
       }
     });
@@ -69,10 +73,12 @@ function TeacherTabs() {
     register,
     handleSubmit,
     reset,
+    setFocus,
+    setValue,
     formState: { errors },
   } = useForm<Teachers>({
     defaultValues: {
-      idProfesor: 0,
+      idProfesor: (lastTeacherid + 1).toString(),
       nombres: "",
       apellidos: "",
       direccion: "",
@@ -83,11 +89,22 @@ function TeacherTabs() {
 
   const onSubmit = (data: Teachers) => {
     // Verificar si ya existe un estudiante con el mismo Carnet Usando Linq
-    const studentExists = Enumerable.from(teachers).any(
+    const TeacherExists = Enumerable.from(teachers).any(
       (teachers) => teachers.idProfesor === data.idProfesor
     );
+        // Verificar si el ID del profesor es consecutivo
+        if (Number.parseInt(data.idProfesor) !== lastTeacherid + 1 && !TeacherExists) {
+          Swal.fire({
+            title: 'Error',
+            text: 'El id de un nuevo estudiante debe ser consecutivo',
+            icon: 'error',
+            confirmButtonText: 'ok',
+          });
+          return;
+        }
+      
 
-    if (studentExists) {
+    if (TeacherExists) {
       Swal.fire({
         title: "Advertencia!",
         text: "El Id Profesor ya existe. ¿Deseas actualizar la información del Profesor?",
@@ -106,8 +123,9 @@ function TeacherTabs() {
           );
           setTeachers(updatedTeacher);
           saveArray(updatedTeacher);
+          setFocus("idProfesor");
           Swal.fire({
-            title: "Estudiante actualizado",
+            title: "Profesor actualizado",
             icon: "success",
             confirmButtonText: "ok",
           });
@@ -121,16 +139,19 @@ function TeacherTabs() {
         }
       });
     } else {
-
+      // si el id profesor no existe, agregar un nuevo profesor
       const updatedTeacher = [...teachers, data];
       setTeachers(updatedTeacher);
       saveArray(updatedTeacher);
+      localStorage.setItem('TeacherLastId', JSON.stringify(data.idProfesor));
+      lastTeacherid = Number.parseInt(data.idProfesor);
       Swal.fire({
         title: "Estudiante agregado",
         icon: "success",
         confirmButtonText: "ok",
       });
       reset();
+      setValue("idProfesor", (lastTeacherid + 1).toString());
     }
   };
 
@@ -272,7 +293,7 @@ function TeacherTabs() {
               onClick={cleanArray}
               variant={'destructive'}
             >
-              Borrar todas las citas
+              Borrar todos los profesores
             </Button>
         </CardHeader>
         <CardContent>

@@ -24,7 +24,7 @@ import {
   
 
 type Monografia = {
-  idMonografia: number;
+  idMonografia: string;
   titulo: string;
   fechaDeDefensa: Date;
   notaDeLaDefensa: number;
@@ -39,6 +39,7 @@ type ProfesorMonografia = {
 };
 
 function MonografiaTabs() {
+  let LastMonografiaId: number= Number.parseInt(JSON.parse(localStorage.getItem('MonografiaLastId') || '1'));
   const getArray = (): Monografia[] => {
     const array = localStorage.getItem("monografia");
     return array ? JSON.parse(array) : [];
@@ -54,10 +55,12 @@ function MonografiaTabs() {
     register,
     handleSubmit,
     reset,
+    setFocus,
+    setValue,
     formState: { errors },
   } = useForm<Monografia>({
     defaultValues: {
-      idMonografia: 0,
+      idMonografia: (LastMonografiaId + 1).toString(),
       titulo: "",
       fechaDeDefensa: new Date(),
       notaDeLaDefensa: 0,
@@ -74,25 +77,39 @@ function MonografiaTabs() {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Eliminar citas',
+      confirmButtonText: 'Eliminar Monografias',
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem('monografia');
+        localStorage.setItem('MonografiaLastId', '1');
         setMonografias([]);
         Swal.fire({
           title: 'Registros eliminados',
           icon: 'success',
           confirmButtonText: 'ok',
+        }).then(() => {
+          location.reload();
         });
       }
     });
   };
 
   const onSubmit = (data: Monografia) => {
+    //verificar si el id ya existe
     const monografiaExists = Enumerable.from(monografias).any(
       (monografia) => monografia.idMonografia === data.idMonografia
     );
+    // Verificar si el ID del carnet es consecutivo
+    if (Number.parseInt(data.idMonografia) !== LastMonografiaId + 1 && !monografiaExists) {
+      Swal.fire({
+        title: 'Error',
+        text: 'El id de una nueva monogriafia debe ser consecutivo',
+        icon: 'error',
+        confirmButtonText: 'ok',
+      });
+      return;
+    }
 
     if (monografiaExists) {
       Swal.fire({
@@ -106,23 +123,41 @@ function MonografiaTabs() {
         denyButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
+          // Actualizar monografía
           const updatedMonografias = monografias.map((monografia) =>
             monografia.idMonografia === data.idMonografia ? data : monografia
           );
           setMonografias(updatedMonografias);
           saveArray(updatedMonografias);
-          Swal.fire("Monografía actualizada", "", "success");
+          setFocus("idMonografia");
+          Swal.fire({
+            title: "Monografía actualizada",
+            icon: "success",
+            confirmButtonText: "ok",
+          }).then(() => {
+            reset();
+          });
           reset();
-        } else {
-          Swal.fire("Operación cancelada", "", "info");
+        } else if (result.isDenied) {
+          Swal.fire({
+            title: "Operación cancelada",
+            icon: "info",
+            confirmButtonText: "ok",
+          });
         }
       });
     } else {
       const updatedMonografias = [...monografias, data];
       setMonografias(updatedMonografias);
       saveArray(updatedMonografias);
-      Swal.fire("Monografía agregada", "", "success");
+      localStorage.setItem('MonografiaLastId', JSON.stringify(data.idMonografia));
+      Swal.fire({
+        title: "Monografía registrada",
+        icon: "success",
+        confirmButtonText: "ok",
+      });
       reset();
+      setValue("idMonografia", (LastMonografiaId + 1).toString());
     }
   };
 
@@ -182,7 +217,8 @@ function MonografiaTabs() {
                 <p className="text-red-500">{errors.fechaDeDefensa.message}</p>
               )}
             </div>
-
+          
+          <div className="grid grid-cols-2" >
             {/* Nota de la Defensa */}
             <div className="space-y-2">
               <Label htmlFor="notaDeLaDefensa">Nota de la Defensa</Label>
@@ -252,7 +288,7 @@ function MonografiaTabs() {
                 </p>
               )}
             </div>
-
+          </div>
             <CardFooter className="px-0 flex flex-col gap-4 justify-around">
               <Button type="submit" className="w-full">
                 Confirmar
@@ -268,17 +304,17 @@ function MonografiaTabs() {
           </form>
         </CardContent>
       </Card>
-      {/* Tabla de Profesores */}
+      {/* Tabla de Monografia */}
       <Card className="w-full md:w-[60%]">
         <CardHeader>
-          <CardTitle>profesores</CardTitle>
-          <CardDescription>Lista de Profesores</CardDescription>
+          <CardTitle>Monografias</CardTitle>
+          <CardDescription>Lista de Monografias</CardDescription>
           <Button
               className="w-full text-wrap p-2"
               onClick={cleanArray}
               variant={'destructive'}
             >
-              Borrar todas las citas
+              Borrar todas las Monografias
             </Button>
         </CardHeader>
         <CardContent>
