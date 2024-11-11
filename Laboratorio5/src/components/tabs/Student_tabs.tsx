@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import Swal from 'sweetalert2';
-import { useForm } from 'react-hook-form';
+import {useForm } from 'react-hook-form';
 import Enumerable from 'linq';
 import {
   Card,
@@ -23,8 +23,8 @@ import {
 } from '@/components/ui/table';
 
 type Student = {
-  Carnet: number;
-  Idmonografia: number;
+  Carnet: string;
+  Idmonografia: string;
   Nombres: string;
   Apellidos: string;
   Direccion: string;
@@ -33,6 +33,8 @@ type Student = {
 };
 
 function StudentForm() {
+
+  let lastStudentid: number= Number.parseInt(JSON.parse(localStorage.getItem('studentsLastId') || '1'));
   const getArray = (): Student[] => {
     const array = localStorage.getItem('students');
     return array ? JSON.parse(array) : [];
@@ -41,7 +43,7 @@ function StudentForm() {
   const [students, setStudents] = useState<Student[]>(getArray());
 
   const saveArray = (array: Student[]) => {
-    localStorage.setItem('student', JSON.stringify(array));
+    localStorage.setItem('students', JSON.stringify(array));
   };
   const cleanArray = () => {
     Swal.fire({
@@ -56,11 +58,14 @@ function StudentForm() {
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.removeItem('students');
+        localStorage.setItem('studentsLastId', '1');
         setStudents([]);
         Swal.fire({
           title: 'Registros eliminados',
           icon: 'success',
           confirmButtonText: 'ok',
+        }).then(() => {
+          location.reload();
         });
       }
     });
@@ -68,10 +73,12 @@ function StudentForm() {
     register,
     handleSubmit,
     reset,
+    setFocus,
+    setValue,
     formState: { errors },
   } = useForm<Student>({
     defaultValues: {
-      Carnet: 0,
+      Carnet: (lastStudentid + 1).toString(),
       
       Nombres: '',
       Apellidos: '',
@@ -82,9 +89,20 @@ function StudentForm() {
   });
 
   const onSubmit = (data: Student) => {
-    // Verificar si ya existe un estudiante con el mismo Carnet
-    const studentExists = Enumerable.from(students).any((student) => student.Carnet === data.Carnet);
-
+     // Verificar si ya existe un estudiante con el mismo Carnet
+     const studentExists = Enumerable.from(students).any((student) => student.Carnet === data.Carnet);
+    // Verificar si el ID del carnet es consecutivo
+    if (Number.parseInt(data.Carnet) !== lastStudentid + 1 && !studentExists) {
+      Swal.fire({
+        title: 'Error',
+        text: 'El id de un nuevo estudiante debe ser consecutivo',
+        icon: 'error',
+        confirmButtonText: 'ok',
+      });
+      return;
+    }
+  
+   
     if (studentExists) {
       Swal.fire({
         title: 'Advertencia!',
@@ -97,13 +115,13 @@ function StudentForm() {
         denyButtonText: 'Cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
-
           // Actualizar los datos del estudiante existente
           const updatedStudents = students.map((student) =>
             student.Carnet === data.Carnet ? data : student
           );
           setStudents(updatedStudents);
           saveArray(updatedStudents);
+          setFocus('Carnet');
           Swal.fire({
             title: 'Estudiante actualizado',
             icon: 'success',
@@ -119,16 +137,19 @@ function StudentForm() {
         }
       });
     } else {
-
+      // Si el carnet es nuevo, agregar el estudiante
       const updatedStudents = [...students, data];
       setStudents(updatedStudents);
       saveArray(updatedStudents);
+      localStorage.setItem('studentsLastId', JSON.stringify(data.Carnet));
+      lastStudentid = Number.parseInt(data.Carnet);
       Swal.fire({
         title: 'Estudiante agregado',
         icon: 'success',
         confirmButtonText: 'ok',
       });
       reset();
+      setValue('Carnet', (lastStudentid + 1).toString());
     }
   };
 
