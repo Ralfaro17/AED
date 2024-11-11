@@ -296,7 +296,7 @@ function StudentForm() {
               onClick={cleanArray}
               variant={'destructive'}
             >
-              Borrar todas las citas
+              Borrar todos ls registros
             </Button>
         </CardHeader>
         <CardContent>

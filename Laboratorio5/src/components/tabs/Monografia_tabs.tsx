@@ -32,11 +32,7 @@ type Monografia = {
   tiempoDefensa: number;
   tiempoDePreguntas: number;
 };
-type ProfesorMonografia = {
-    idprofesor: number;
-    idMonografia: number;
-    rol : string;
-};
+
 
 function MonografiaTabs() {
   let LastMonografiaId: number= Number.parseInt(JSON.parse(localStorage.getItem('MonografiaLastId') || '1'));
