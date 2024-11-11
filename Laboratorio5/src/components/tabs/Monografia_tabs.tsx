@@ -78,7 +78,7 @@ function MonografiaTabs() {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem('appointmentArray');
+        localStorage.removeItem('monografia');
         setMonografias([]);
         Swal.fire({
           title: 'Registros eliminados',

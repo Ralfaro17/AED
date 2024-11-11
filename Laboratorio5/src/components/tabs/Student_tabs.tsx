@@ -34,17 +34,37 @@ type Student = {
 
 function StudentForm() {
   const getArray = (): Student[] => {
-    const array = localStorage.getItem('appointmentArray');
+    const array = localStorage.getItem('students');
     return array ? JSON.parse(array) : [];
   };
 
   const [students, setStudents] = useState<Student[]>(getArray());
 
   const saveArray = (array: Student[]) => {
-    localStorage.setItem('appointmentArray', JSON.stringify(array));
+    localStorage.setItem('student', JSON.stringify(array));
   };
-
-  const {
+  const cleanArray = () => {
+    Swal.fire({
+      title: 'Advertencia!',
+      text: 'Estas seguro que deseas eliminar todos los estudiante?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar citas',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('students');
+        setStudents([]);
+        Swal.fire({
+          title: 'Registros eliminados',
+          icon: 'success',
+          confirmButtonText: 'ok',
+        });
+      }
+    });
+  };  const {
     register,
     handleSubmit,
     reset,
@@ -52,7 +72,7 @@ function StudentForm() {
   } = useForm<Student>({
     defaultValues: {
       Carnet: 0,
-      Idmonografia: 0,
+      
       Nombres: '',
       Apellidos: '',
       Direccion: '',
@@ -139,7 +159,7 @@ function StudentForm() {
               {errors.Carnet && <p className="text-red-500">{errors.Carnet.message}</p>}
             </div>
 
-            {/* Id Monografía */}
+            {/* Id Monografía 
             <div className="space-y-2">
               <Label htmlFor="idMonografia">Id Monografía</Label>
               <Input
@@ -152,6 +172,7 @@ function StudentForm() {
               />
               {errors.Idmonografia && <p className="text-red-500">{errors.Idmonografia.message}</p>}
             </div>
+            */}
 
             {/* Nombres */}
             <div className="space-y-2">
@@ -249,6 +270,13 @@ function StudentForm() {
         <CardHeader>
           <CardTitle>Estudiantes</CardTitle>
           <CardDescription>Lista de estudiantes</CardDescription>
+          <Button
+              className="w-full text-wrap p-2"
+              onClick={cleanArray}
+              variant={'destructive'}
+            >
+              Borrar todas las citas
+            </Button>
         </CardHeader>
         <CardContent>
           <Table>

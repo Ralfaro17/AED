@@ -42,6 +42,28 @@ function TeacherTabs() {
   const saveArray = (array: Teachers[]) => {
     localStorage.setItem("teachers", JSON.stringify(array));
   };
+  const cleanArray = () => {
+    Swal.fire({
+      title: 'Advertencia!',
+      text: 'Estas seguro que deseas eliminar todos los Profesores?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar citas',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('teachers');
+        setTeachers([]);
+        Swal.fire({
+          title: 'Registros eliminados',
+          icon: 'success',
+          confirmButtonText: 'ok',
+        });
+      }
+    });
+  };
 
   const {
     register,
@@ -245,6 +267,13 @@ function TeacherTabs() {
         <CardHeader>
           <CardTitle>profesores</CardTitle>
           <CardDescription>Lista de Profesores</CardDescription>
+          <Button
+              className="w-full text-wrap p-2"
+              onClick={cleanArray}
+              variant={'destructive'}
+            >
+              Borrar todas las citas
+            </Button>
         </CardHeader>
         <CardContent>
           <Table>
