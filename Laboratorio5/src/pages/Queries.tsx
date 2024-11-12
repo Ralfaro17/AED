@@ -12,16 +12,6 @@ import {
 } from '@/components/ui/table';
 import { useState } from 'react';
 import { Label } from '@/components/ui/label';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { Input } from '@/components/ui/input';
 import {
   Card,
@@ -30,8 +20,7 @@ import {
   CardContent,
 } from '@/components/ui/card.tsx';
 import Enumerable from 'linq';
-import { set } from 'react-hook-form';
-import { useEffect } from 'react';
+
 
 type Teachers = {
   idProfesor: string;
