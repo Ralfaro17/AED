@@ -11,6 +11,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useState } from 'react';
+import { Label } from '@/components/ui/label';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,6 +30,8 @@ import {
   CardContent,
 } from '@/components/ui/card.tsx';
 import Enumerable from 'linq';
+import { set } from 'react-hook-form';
+import { useEffect } from 'react';
 
 type Teachers = {
   idProfesor: string;
@@ -89,18 +92,20 @@ function Queries() {
   const [tableTitle, setTableTitle] = useState('Consultas de datos');
 
   const teachers = getArrayProfesores();
-  const monografias = getArrayMonografias();
+  let monografias = getArrayMonografias();
   const students = getArrayEstudiantes();
   const profesorMonografia = getArray();
 
-  const [openProfesor, setOpenProfesor] = useState(false);
-  const [valueProfesor, setValueProfesor] = useState('');
-
-  const [openMonografia, setOpenMonografia] = useState(false);
-  const [valueMonografia, setValueMonografia] = useState('');
-
   const [tableData, setTableData] = useState([]);
 
+  const newMonografias = monografias.map((x) => {
+    return {
+      ...x,
+      fechaDeDefensa: new Date(x.fechaDeDefensa),
+    }
+  })
+  monografias = newMonografias;
+  
   const monografiasPorTutor = (idProfesor: string) => {
     const esTutor = Enumerable.from(profesorMonografia)
       .where((x) => x.idprofesor === idProfesor && x.rol === 'Tutor')
@@ -115,8 +120,7 @@ function Queries() {
       return;
     }
 
-
-    const monografiasPorTutor = Enumerable.from(monografias)
+    const query = Enumerable.from(monografias)
       .join(
         profesorMonografia,
         (monografia) => monografia.idMonografia,
@@ -124,23 +128,32 @@ function Queries() {
         (monografia, profesor) => ({ ...monografia, ...profesor })
       )
       .where((x) => x.idprofesor === idProfesor)
-      .select((x) => x.titulo)
+      .select((x) => {return {titulo: x.titulo} })
       .toArray();
       setTableTitle(`Monografias por tutor con ID ${idProfesor}`);
-    return monografiasPorTutor;
+    return query;
   };
 
   const estudiantePorMonografia = (idMonografia: string) => {
-    const estudiantePorMonografia = Enumerable.from(students)
+    const query = Enumerable.from(students)
       .where((x) => x.Idmonografia === idMonografia)
-      .select((x) => x)
+      .select((x) => {
+        return {
+          carnet: x.Carnet,
+          nombres: x.Nombres,
+          apellidos: x.Apellidos,
+          direccion: x.Direccion,
+          telefono: x.Telefono,
+          añoDeNacimiento: x.AñoDenacimiento,
+        };
+      })
       .toArray();
     setTableTitle(`Estudiantes por monografía con ID ${idMonografia}`);
-    return estudiantePorMonografia;
+    return query;
   };
 
   const monografiasEnRango = (fechaInicio: Date, fechaFin: Date) => {
-    const monografiasEnRango = Enumerable.from(monografias)
+    const query = Enumerable.from(monografias)
       .where(
         (x) =>
           x.fechaDeDefensa >= fechaInicio && x.fechaDeDefensa <= fechaFin
@@ -176,11 +189,12 @@ function Queries() {
       })
       .toArray();
       setTableTitle(`Monografias en rango de fecha`);
-    return monografiasEnRango;
+      console.log(query)
+    return query;
   };
 
   const monografiaPorEstudiante = (carnet: string) => {
-    const monografiaPorEstudiante = Enumerable.from(students)
+    const query = Enumerable.from(students)
       .where((x) => x.Carnet === carnet)
       .join(
         monografias,
@@ -199,22 +213,23 @@ function Queries() {
       })
       .toArray();
     setTableTitle(`Monografias por estudiante con carnet ${carnet}`);
-    return monografiaPorEstudiante;
+    return query;
   }
 
   const totalMonografiasEnRango = (fechaInicio: Date, fechaFin: Date) => {
-    const monografiasEnRango = Enumerable.from(monografias)
+    const query = Enumerable.from(monografias)
       .where(
         (x) =>
           x.fechaDeDefensa >= fechaInicio && x.fechaDeDefensa <= fechaFin
       )
       .count();
+    console.log(query)
     setTableTitle(`Total de monografias en rango de fecha`);
-    return monografiasEnRango;
+    return query;
   };
 
   const countMonografiasPorTutor = (idProfesor: string) => {
-    const monografiasPorTutor = Enumerable.from(monografias)
+    const query = Enumerable.from(monografias)
       .join(
         profesorMonografia,
         (monografia) => monografia.idMonografia,
@@ -224,8 +239,243 @@ function Queries() {
       .where((x) => x.idprofesor === idProfesor)
       .count();
     setTableTitle(`Monografias por profesor con ID ${idProfesor}`);
-    return monografiasPorTutor;
+    return query;
   };
+
+  const handleMonografiasPorTutor = () => {
+    const input = document.createElement('input');
+    input.id = 'swal-input';
+    input.classList.add('swal2-input');
+    Swal.fire({
+      title: 'Selecciona el id del tutor',
+      html: input,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      focusConfirm: false,
+      preConfirm: () => {
+        const selectedOption = (document.getElementById('swal-input') as HTMLInputElement)?.value;
+        if (selectedOption === '' || selectedOption === null) {
+          Swal.showValidationMessage('Debes seleccionar un id');
+        } else {
+          return selectedOption;
+        }
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const selectedOption = (document.getElementById('swal-input') as HTMLInputElement)?.value;
+        const data = monografiasPorTutor(selectedOption);
+        if(data){
+          setTableData(data);
+          Swal.fire({
+            title: 'Éxito',
+            icon: 'success',
+            confirmButtonText: 'ok',
+          });
+        }
+        else{
+          return;
+        }
+      }
+    });
+  }
+
+  const handleMonografiasEnRango = () => {
+    console.log("waos")
+    const fechaInicio = (document.getElementById('fecha-inicial') as HTMLInputElement).valueAsDate;
+    const fechaFin = (document.getElementById('fecha-final') as HTMLInputElement).valueAsDate;
+    if (!fechaInicio || !fechaFin) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debes seleccionar un rango de fechas',
+      });
+      return;
+    }
+    if(fechaInicio > fechaFin){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'La fecha de inicio no puede ser mayor a la fecha final',
+      });
+      return;
+    }
+    const data = monografiasEnRango(fechaInicio, fechaFin);
+    if(data){
+      setTableData(data);
+      Swal.fire({
+        title: 'Éxito',
+        icon: 'success',
+        confirmButtonText: 'ok',
+      });
+    }
+    else{
+      return;
+    }
+  }
+
+  const handleEstudiantesPorMonografia = () => {
+    const input = document.createElement('input');
+    input.id = 'swal-input';
+    input.classList.add('swal2-input');
+    Swal.fire({
+      title: 'Selecciona el id de la monografía',
+      html: input,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      focusConfirm: false,
+      preConfirm: () => {
+        const selectedOption = (document.getElementById('swal-input') as HTMLInputElement)?.value;
+        if (selectedOption === '' || selectedOption === null) {
+          Swal.showValidationMessage('Debes seleccionar un id');
+        } else {
+          return selectedOption;
+        }
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const selectedOption = (document.getElementById('swal-input') as HTMLInputElement)?.value;
+        const data = estudiantePorMonografia(selectedOption);
+        if(data){
+          setTableData(data);
+          Swal.fire({
+            title: 'Éxito',
+            icon: 'success',
+            confirmButtonText: 'ok',
+          });
+        }
+        else{
+          return;
+        }
+      }
+    });
+  }
+
+  const handleMonografiaPorEstudiante = () => {
+    const input = document.createElement('input');
+    input.id = 'swal-input';
+    input.classList.add('swal2-input');
+    Swal.fire({
+      title: 'Selecciona el id de un estudiante',
+      html: input,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      focusConfirm: false,
+      preConfirm: () => {
+        const selectedOption = (document.getElementById('swal-input') as HTMLInputElement)?.value;
+        if (selectedOption === '' || selectedOption === null) {
+          Swal.showValidationMessage('Debes seleccionar un id');
+        } else {
+          return selectedOption;
+        }
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const selectedOption = (document.getElementById('swal-input') as HTMLInputElement)?.value;
+        const data = monografiaPorEstudiante(selectedOption);
+        if(data){
+          setTableData(data);
+          Swal.fire({
+            title: 'Éxito',
+            icon: 'success',
+            confirmButtonText: 'ok',
+          });
+        }
+        else{
+          return;
+        }
+      }
+    });
+  }
+
+  const handleCountMonografiasEnRangoDeFechas = () => {
+    const fechaInicio = (document.getElementById('fecha-inicial') as HTMLInputElement).valueAsDate;
+    const fechaFin = (document.getElementById('fecha-final') as HTMLInputElement).valueAsDate;
+    if (!fechaInicio || !fechaFin) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debes seleccionar un rango de fechas',
+      });
+      return;
+    }
+    if(fechaInicio > fechaFin){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'La fecha de inicio no puede ser mayor a la fecha final',
+      });
+      return;
+    }
+    const data = totalMonografiasEnRango(fechaInicio, fechaFin);
+    Swal.fire({
+      title: 'Éxito',
+      icon: 'success',
+      confirmButtonText: 'ok',
+      text: `Total de monografias en rango de fechas: ${data}`,
+    });
+  }
+
+  const handleCountMonografiasPorTutor = () => {
+    const fechaInicio = (document.getElementById('fecha-inicial') as HTMLInputElement).valueAsDate;
+    const fechaFin = (document.getElementById('fecha-final') as HTMLInputElement).valueAsDate;
+    if (!fechaInicio || !fechaFin) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Debes seleccionar un rango de fechas',
+      });
+      return;
+    }
+    if(fechaInicio > fechaFin){
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'La fecha de inicio no puede ser mayor a la fecha final',
+      });
+      return;
+    }
+    const input = document.createElement('input');
+    input.id = 'swal-input';
+    input.classList.add('swal2-input');
+    Swal.fire({
+      title: 'Selecciona el id del tutor',
+      html: input,
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      focusConfirm: false,
+      preConfirm: () => {
+        const selectedOption = (document.getElementById('swal-input') as HTMLInputElement)?.value;
+        if (selectedOption === '' || selectedOption === null) {
+          Swal.showValidationMessage('Debes seleccionar un id');
+        } else {
+          return selectedOption;
+        }
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const selectedOption = (document.getElementById('swal-input') as HTMLInputElement)?.value;
+        const data = countMonografiasPorTutor(selectedOption);
+        Swal.fire({
+          title: 'Éxito',
+          icon: 'success',
+          confirmButtonText: 'ok',
+          text: `Total de monografias por tutor con ID ${selectedOption}: ${data}`,
+        });
+      }
+    });
+  }
 
   return (
     <>
@@ -236,22 +486,71 @@ function Queries() {
         <ThemeChanger />
       </div>
       <Card className="w-full md:w-[60%] m-auto mt-12">
-        <CardHeader>
+        <CardHeader className='flex gap-2 flex-col'>
           <CardTitle>{tableTitle}</CardTitle>
+          <div className='flex items-center gap-4'>
+            <Label className='text-nowrap'>Rango de fechas</Label>
+            <Input type='date' id="fecha-inicial"/>
+            <Input type='date' id="fecha-final"/>
+          </div>
+          <div className='flex gap-4'>
+            <Button
+              className="w-full text-wrap p-2"
+              onClick={() => handleMonografiasPorTutor()}
+            >
+              Monografias por tutor
+            </Button>
+            <Button
+              className="w-full text-wrap p-2"
+              onClick={() => handleEstudiantesPorMonografia()}
+            >
+              Estudiantes por monografia
+            </Button>
+          </div>
+          <div className='flex gap-4'>
+            <Button
+              className="w-full text-wrap p-2"
+              onClick={() => handleMonografiasEnRango()}
+            >
+              Monografias en rango de fechas
+            </Button>
+            <Button
+              className="w-full text-wrap p-2"
+              onClick={() => handleMonografiaPorEstudiante()}
+            >
+              Monografia por estudiante
+            </Button>
+          </div>
+          <div className='flex gap-4'>
+            <Button
+              className="w-full text-wrap p-2"
+              onClick={() => handleCountMonografiasEnRangoDeFechas()}
+            >
+              Cantidad de monografias en rango de fechas
+            </Button>
+            <Button
+              className="w-full text-wrap p-2"
+              onClick={() => handleCountMonografiasPorTutor()}
+            >
+              Trabajos monográficos en rango de fechas
+            </Button>
+          </div>
         </CardHeader>
         <CardContent className="max-h-[28rem] overflow-auto">
           <Table>
             <TableHeader>
               <TableRow>
-                {tableData.map((element: Monografia | Student | ProfesorMonografia) => (
+                {tableData.map((element: Monografia | Student | ProfesorMonografia, index) => {
+                  if(index === 0)
+                  return (
                   Object.keys(element).map((key) => (
                     <TableHead key={key}>{key}</TableHead>
                   ))
-                ))}
+                )})}
               </TableRow>
             </TableHeader>
             <TableBody>
-              {tableData.map((element: Monografia | Student | ProfesorMonografia, index) => (
+              {tableData.map((element: Monografia | Student | ProfesorMonografia | Teachers, index) => (
                 <TableRow key={index}>
                   {Object.values(element).map((value) => (
                     <TableCell>{value instanceof Date ? value.toLocaleDateString() : value}</TableCell>
