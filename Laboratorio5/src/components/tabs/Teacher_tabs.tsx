@@ -32,7 +32,7 @@ type Teachers = {
 };
 
 function TeacherTabs() {
-  let lastTeacherid: number= Number.parseInt(JSON.parse(localStorage.getItem('TeacherLastId') || '1'));
+  let lastTeacherid: number= Number.parseInt(JSON.parse(localStorage.getItem('TeacherLastId') || '0'));
   const getArray = (): Teachers[] => {
     const array = localStorage.getItem("teachers");
     return array ? JSON.parse(array) : [];
@@ -88,7 +88,7 @@ function TeacherTabs() {
   });
 
   const onSubmit = (data: Teachers) => {
-    // Verificar si ya existe un estudiante con el mismo Carnet Usando Linq
+    // Verificar si ya existe un profesor con el mismo Carnet Usando Linq
     const TeacherExists = Enumerable.from(teachers).any(
       (teachers) => teachers.idProfesor === data.idProfesor
     );
@@ -96,7 +96,7 @@ function TeacherTabs() {
         if (Number.parseInt(data.idProfesor) !== lastTeacherid + 1 && !TeacherExists) {
           Swal.fire({
             title: 'Error',
-            text: 'El id de un nuevo estudiante debe ser consecutivo',
+            text: 'El id de un nuevo profesor debe ser consecutivo',
             icon: 'error',
             confirmButtonText: 'ok',
           });
@@ -117,7 +117,7 @@ function TeacherTabs() {
       }).then((result) => {
         if (result.isConfirmed) {
 
-          // Actualizar los datos del estudiante existente
+          // Actualizar los datos del profesor existente
           const updatedTeacher = teachers.map((teacher) =>
             teacher.idProfesor === data.idProfesor ? data : teacher
           );
@@ -146,7 +146,7 @@ function TeacherTabs() {
       localStorage.setItem('TeacherLastId', JSON.stringify(data.idProfesor));
       lastTeacherid = Number.parseInt(data.idProfesor);
       Swal.fire({
-        title: "Estudiante agregado",
+        title: "Profesor agregado",
         icon: "success",
         confirmButtonText: "ok",
       });

@@ -34,7 +34,7 @@ type Student = {
 
 function StudentForm() {
 
-  let lastStudentid: number= Number.parseInt(JSON.parse(localStorage.getItem('studentsLastId') || '1'));
+  let lastStudentid: number= Number.parseInt(JSON.parse(localStorage.getItem('studentsLastId') || '0'));
   const getArray = (): Student[] => {
     const array = localStorage.getItem('students');
     return array ? JSON.parse(array) : [];

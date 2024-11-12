@@ -21,7 +21,6 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table";
-  
 
 type Monografia = {
   idMonografia: string;
@@ -33,9 +32,8 @@ type Monografia = {
   tiempoDePreguntas: number;
 };
 
-
 function MonografiaTabs() {
-  let LastMonografiaId: number= Number.parseInt(JSON.parse(localStorage.getItem('MonografiaLastId') || '1'));
+  const LastMonografiaId: number= Number.parseInt(JSON.parse(localStorage.getItem('MonografiaLastId') || '0'));
   const getArray = (): Monografia[] => {
     const array = localStorage.getItem("monografia");
     return array ? JSON.parse(array) : [];

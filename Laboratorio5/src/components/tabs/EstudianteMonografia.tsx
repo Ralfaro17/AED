@@ -1,15 +1,13 @@
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import Swal from "sweetalert2";
+import { useState } from 'react';
+import { Label } from '@/components/ui/label';
+import Swal from 'sweetalert2';
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -17,7 +15,23 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
+import { Check, ChevronsUpDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 
 type Student = {
   Carnet: string;
@@ -29,19 +43,48 @@ type Student = {
   AñoDenacimiento: Date;
 };
 
+type Monografia = {
+  idMonografia: string;
+  titulo: string;
+  fechaDeDefensa: Date;
+  notaDeLaDefensa: number;
+  tiempoOtorgado: number;
+  tiempoDefensa: number;
+  tiempoDePreguntas: number;
+};
+
 function EstudianteMonografia() {
   const getStudents = (): Student[] => {
-    const students = localStorage.getItem("students");
+    const students = localStorage.getItem('students');
     return students ? JSON.parse(students) : [];
   };
 
+  const getArrayMonografias = (): Monografia[] => {
+    const array = localStorage.getItem('monografia');
+    return array ? JSON.parse(array) : [];
+  };
+
+  const [monografias] = useState<Monografia[]>(
+    getArrayMonografias()
+  );
+
   const [students, setStudents] = useState<Student[]>(getStudents());
-  const [selectedStudent, setSelectedStudent] = useState<string | null>(null);
-  const [monografiaId, setMonografiaId] = useState<string>("");
+
+  const [openEstudiante, setOpenEstudiante] = useState(false);
+  const [valueEstudiante, setValueEstudiante] = useState('');
+
+  const [openMonografia, setOpenMonografia] = useState(false);
+  const [valueMonografia, setValueMonografia] = useState('');
 
   const handleAssignMonografia = () => {
+    const selectedStudent = valueEstudiante;
+    const monografiaId = valueMonografia;
     if (!selectedStudent || !monografiaId) {
-      Swal.fire("Error", "Selecciona un estudiante y un Id de monografía", "error");
+      Swal.fire(
+        'Error',
+        'Selecciona un estudiante y un Id de monografía',
+        'error'
+      );
       return;
     }
 
@@ -52,7 +95,11 @@ function EstudianteMonografia() {
 
     // Validar si ya hay 3 estudiantes asignados a esta monografía
     if (assignedCount >= 3) {
-      Swal.fire("Error", "Esta monografía ya tiene 3 estudiantes asignados", "error");
+      Swal.fire(
+        'Error',
+        'Esta monografía ya tiene 3 estudiantes asignados',
+        'error'
+      );
       return;
     }
 
@@ -63,52 +110,138 @@ function EstudianteMonografia() {
     );
 
     setStudents(updatedStudents);
-    localStorage.setItem("students", JSON.stringify(updatedStudents));
+    localStorage.setItem('students', JSON.stringify(updatedStudents));
 
-    Swal.fire("Asignación Completa", "Id de monografía asignado correctamente", "success");
-
-    setSelectedStudent(null);
-    setMonografiaId("");
+    Swal.fire(
+      'Asignación Completa',
+      'Id de monografía asignado correctamente',
+      'success'
+    );
   };
 
   return (
     <>
-      <Card className="w-full md:w-1/2 rounded-lg">
+      <Card className="w-full md:w-1/2 rounded-lg mt-8">
         <CardHeader>
           <CardTitle>Asignación de Monografía</CardTitle>
-          <CardDescription>Asignar Id de Monografía a Estudiante</CardDescription>
+          <CardDescription>
+            Asignar Id de Monografía a Estudiante
+          </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
+        <CardContent className='flex flex-col justify-evenly items-center h-1/2'>
+          <div className="flex flex-col gap-2">
             <Label htmlFor="studentSelect">Selecciona un Estudiante</Label>
-            <select
-              id="studentSelect"
-              value={selectedStudent || ""}
-              onChange={(e) => setSelectedStudent(e.target.value)}
-              className="w-full p-2 border rounded"
-            >
-              <option value="" disabled>
-                -- Selecciona un estudiante --
-              </option>
-              {students.map((student) => (
-                <option key={student.Carnet} value={student.Carnet}>
-                  {student.Nombres} {student.Apellidos} (Carnet: {student.Carnet})
-                </option>
-              ))}
-            </select>
-
-            <Label htmlFor="monografiaId">Id de Monografía</Label>
-            <Input
-              id="monografiaId"
-              value={monografiaId}
-              onChange={(e) => setMonografiaId(e.target.value)}
-              placeholder="Ingresa el Id de monografía"
-            />
-
-            <Button onClick={handleAssignMonografia} className="w-full">
-              Asignar Monografía
-            </Button>
+            <Popover open={openEstudiante} onOpenChange={setOpenEstudiante}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={openEstudiante}
+                  className="justify-between"
+                >
+                  {valueEstudiante
+                    ? students.find((student) => student.Carnet === valueEstudiante)
+                        ?.Nombres + ' ' + students.find((student) => student.Carnet === valueEstudiante)?.Apellidos
+                    : 'Selecciona un estudiante'}
+                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="p-0">
+                <Command>
+                  <CommandInput placeholder="Buscar estudiante por id" />
+                  <CommandList>
+                    <CommandEmpty>No se ha podido encontrar el estudiante</CommandEmpty>
+                    <CommandGroup>
+                      {students.map((student) => (
+                        <CommandItem
+                          key={student.Carnet}
+                          value={student.Carnet}
+                          onSelect={(currentValue) => {
+                            setValueEstudiante(
+                              currentValue === valueEstudiante ? '' : currentValue
+                            );
+                            setOpenEstudiante(false);
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              'mr-2 h-4 w-4',
+                              valueEstudiante === student.Carnet
+                                ? 'opacity-100'
+                                : 'opacity-0'
+                            )}
+                          />
+                          {student.Carnet} - {student.Nombres} {student.Apellidos}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
           </div>
+          
+          <div className="flex flex-col gap-2 my-4">
+            <Label htmlFor="monografiaId">Id de Monografía</Label>
+            <Popover open={openMonografia} onOpenChange={setOpenMonografia}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={openMonografia}
+                    className="justify-between"
+                  >
+                    {valueMonografia
+                      ? monografias.find(
+                          (monografia) =>
+                            monografia.idMonografia === valueMonografia
+                        )?.titulo
+                      : 'Selecciona una monografia'}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="p-0">
+                  <Command>
+                    <CommandInput placeholder="Buscar monografia por id" />
+                    <CommandList>
+                      <CommandEmpty>
+                        No se ha encontrado ninguna monografia
+                      </CommandEmpty>
+                      <CommandGroup>
+                        {monografias.map((monografia) => (
+                          <CommandItem
+                            key={monografia.idMonografia}
+                            value={monografia.idMonografia}
+                            onSelect={(currentValue) => {
+                              setValueMonografia(
+                                currentValue === valueMonografia
+                                  ? ''
+                                  : currentValue
+                              );
+                              setOpenMonografia(false);
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                'mr-2 h-4 w-4',
+                                valueMonografia === monografia.idMonografia
+                                  ? 'opacity-100'
+                                  : 'opacity-0'
+                              )}
+                            />
+                            {monografia.titulo + ' ' + monografia.fechaDeDefensa}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+          </div>
+
+          <Button onClick={handleAssignMonografia} className="w-full">
+            Asignar Monografía
+          </Button>
         </CardContent>
       </Card>
 
@@ -134,7 +267,7 @@ function EstudianteMonografia() {
                   <TableCell>{student.Carnet}</TableCell>
                   <TableCell>{student.Nombres}</TableCell>
                   <TableCell>{student.Apellidos}</TableCell>
-                  <TableCell>{student.Idmonografia || "No asignado"}</TableCell>
+                  <TableCell>{student.Idmonografia || 'No asignado'}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
