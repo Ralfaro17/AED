@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import ThemeChanger from '@/components/theme-changer';
+import Swal from 'sweetalert2';
 import {
   Table,
   TableBody,
@@ -38,7 +39,6 @@ type Teachers = {
   añoDeNacimiento: Date;
 };
 
-
 type Monografia = {
   idMonografia: string;
   titulo: string;
@@ -62,11 +62,10 @@ type Student = {
 type ProfesorMonografia = {
   idprofesor: string;
   idMonografia: string;
-  rol : string;
+  rol: string;
 };
 
 function Queries() {
-
   const getArray = (): ProfesorMonografia[] => {
     const array = localStorage.getItem('ProfesorMonografia');
     return array ? JSON.parse(array) : [];
@@ -87,9 +86,12 @@ function Queries() {
     return array ? JSON.parse(array) : [];
   };
 
+  const [tableTitle, setTableTitle] = useState('');
+
   const teachers = getArrayProfesores();
   const monografias = getArrayMonografias();
   const students = getArrayEstudiantes();
+  const profesorMonografia = getArray();
 
   const [openProfesor, setOpenProfesor] = useState(false);
   const [valueProfesor, setValueProfesor] = useState('');
@@ -98,6 +100,126 @@ function Queries() {
   const [valueMonografia, setValueMonografia] = useState('');
 
   const [tableData, setTableData] = useState([]);
+
+  const monografiasPorTutor = (idProfesor: string) => {
+    const esTutor = Enumerable.from(profesorMonografia)
+      .where((x) => x.idprofesor === idProfesor && x.rol === 'Tutor')
+      .toArray();
+
+    if (esTutor.length === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El profesor no es tutor de ninguna monografía',
+      });
+      return;
+    }
+
+
+    const monografiasPorTutor = Enumerable.from(monografias)
+      .join(
+        profesorMonografia,
+        (monografia) => monografia.idMonografia,
+        (profesor) => profesor.idMonografia,
+        (monografia, profesor) => ({ ...monografia, ...profesor })
+      )
+      .where((x) => x.idprofesor === idProfesor)
+      .select((x) => x.titulo)
+      .toArray();
+    return monografiasPorTutor;
+  };
+
+  const estudiantePorMonografia = (idMonografia: string) => {
+    const estudiantePorMonografia = Enumerable.from(students)
+      .where((x) => x.Idmonografia === idMonografia)
+      .select((x) => x)
+      .toArray();
+    return estudiantePorMonografia;
+  };
+
+  const monografiasEnRango = (fechaInicio: Date, fechaFin: Date) => {
+    const monografiasEnRango = Enumerable.from(monografias)
+      .where(
+        (x) =>
+          x.fechaDeDefensa >= fechaInicio && x.fechaDeDefensa <= fechaFin
+      )
+      .join(
+        students,
+        (monografia) => monografia.idMonografia,
+        (student) => student.Idmonografia,
+        (monografia, student) => ({ ...monografia, ...student })
+      )
+      .join(
+        profesorMonografia,
+        (monografia) => monografia.idMonografia,
+        (profesor) => profesor.idMonografia,
+        (monografia, profesor) => ({ ...monografia, ...profesor })
+      )
+      .join(
+        teachers,
+        (monografia) => monografia.idprofesor,
+        (teacher) => teacher.idProfesor,
+        (monografia, teacher) => ({
+          ...monografia,
+          ...teacher,
+        })
+      )
+      .where((x) => x.rol === 'Tutor')
+      .select((x) => {
+        return {
+          titulo: x.titulo,
+          estudiante: x.Carnet + ' ' + x.Nombres + ' ' + x.Apellidos,
+          tutor: x.nombres + ' ' + x.apellidos,
+        };
+      })
+      .toArray();
+    return monografiasEnRango;
+  };
+
+  const monografiaPorEstudiante = (carnet: string) => {
+    const monografiaPorEstudiante = Enumerable.from(students)
+      .where((x) => x.Carnet === carnet)
+      .join(
+        monografias,
+        (student) => student.Idmonografia,
+        (monografia) => monografia.idMonografia,
+        (student, monografia) => ({ ...student, ...monografia })
+      )
+      .select((x) => {
+        return {
+          titulo: x.titulo,
+          fechaDeDefensa: x.fechaDeDefensa,
+          notaDeLaDefensa: x.notaDeLaDefensa,
+          tiempoOtorgado: x.tiempoOtorgado,
+          tiempoDefensa: x.tiempoDefensa,
+        };
+      })
+      .toArray();
+    return monografiaPorEstudiante;
+  }
+
+  const totalMonografiasEnRango = (fechaInicio: Date, fechaFin: Date) => {
+    const monografiasEnRango = Enumerable.from(monografias)
+      .where(
+        (x) =>
+          x.fechaDeDefensa >= fechaInicio && x.fechaDeDefensa <= fechaFin
+      )
+      .count();
+    return monografiasEnRango;
+  };
+
+  const countMonografiasPorTutor = (idProfesor: string) => {
+    const monografiasPorTutor = Enumerable.from(monografias)
+      .join(
+        profesorMonografia,
+        (monografia) => monografia.idMonografia,
+        (profesor) => profesor.idMonografia,
+        (monografia, profesor) => ({ ...monografia, ...profesor })
+      )
+      .where((x) => x.idprofesor === idProfesor)
+      .count();
+    return monografiasPorTutor;
+  };
 
   return (
     <>
@@ -109,83 +231,7 @@ function Queries() {
       </div>
       <Card className="w-full md:w-[60%]">
         <CardHeader>
-          <CardTitle>Detalles de las citas</CardTitle>
-          <div className="flex gap-4 justify-around flex-col md:flex-row">
-            <AlertDialog open={openMonth} onOpenChange={setOpenMonth}>
-              <AlertDialogTrigger asChild>
-                <Button
-                  className="w-full text-wrap"
-                  onClick={listMonthAppointments}
-                >
-                  Listar citas de un mes
-                </Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle className="text-black absolute left-8 top-4 md:right-0">
-                    Citas del mes {month}
-                  </AlertDialogTitle>
-                  <AlertDialogDescription>
-                    <Card className="w-[70%] md:w-[90%] mt-8">
-                      <CardContent className="overflow-auto">
-                        <Table>
-                          <TableHeader>
-                            <TableRow>
-                              <TableHead className="text-nowrap">
-                                Id cita
-                              </TableHead>
-                              <TableHead className="text-nowrap">
-                                Paciente
-                              </TableHead>
-                              <TableHead className="text-nowrap">
-                                Nombre del servicio
-                              </TableHead>
-                              <TableHead className="text-nowrap">
-                                Fecha programada
-                              </TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {monthAppointments.map((appointment) => (
-                              <TableRow key={appointment.id}>
-                                <TableCell className="text-nowrap">
-                                  {appointment.id}
-                                </TableCell>
-                                <TableCell className="text-nowrap">
-                                  {appointment.patientId}
-                                </TableCell>
-                                <TableCell>{appointment.service}</TableCell>
-                                <TableCell>{appointment.date}</TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </CardContent>
-                    </Card>
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter className="flex justify-center items-center">
-                  <AlertDialogAction className="w-[4rem] md:w-[4rem] absolute top-3 right-4">
-                    ok
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-            <Input
-              type="number"
-              placeholder="Mes a listar"
-              id="listedMonth"
-              min="1"
-              max="12"
-            />
-            <Button
-              className="w-full text-wrap p-2"
-              onClick={cleanArray}
-              variant={'destructive'}
-            >
-              Borrar todas las citas
-            </Button>
-          </div>
+          <CardTitle>{tableTitle}</CardTitle>
         </CardHeader>
         <CardContent className="max-h-[28rem] overflow-auto">
           <Table>
@@ -202,9 +248,7 @@ function Queries() {
             <TableBody>
               {tableData.map((element: Appointment) => (
                 <TableRow key={element.id}>
-                  <TableCell className="text-nowrap">
-                    {element.id}
-                  </TableCell>
+                  <TableCell className="text-nowrap">{element.id}</TableCell>
                   <TableCell className="text-nowrap">
                     {element.patientId}
                   </TableCell>
