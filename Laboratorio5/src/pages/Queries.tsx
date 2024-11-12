@@ -86,7 +86,7 @@ function Queries() {
     return array ? JSON.parse(array) : [];
   };
 
-  const [tableTitle, setTableTitle] = useState('');
+  const [tableTitle, setTableTitle] = useState('Consultas de datos');
 
   const teachers = getArrayProfesores();
   const monografias = getArrayMonografias();
@@ -126,6 +126,7 @@ function Queries() {
       .where((x) => x.idprofesor === idProfesor)
       .select((x) => x.titulo)
       .toArray();
+      setTableTitle(`Monografias por tutor con ID ${idProfesor}`);
     return monografiasPorTutor;
   };
 
@@ -134,6 +135,7 @@ function Queries() {
       .where((x) => x.Idmonografia === idMonografia)
       .select((x) => x)
       .toArray();
+    setTableTitle(`Estudiantes por monografía con ID ${idMonografia}`);
     return estudiantePorMonografia;
   };
 
@@ -173,6 +175,7 @@ function Queries() {
         };
       })
       .toArray();
+      setTableTitle(`Monografias en rango de fecha`);
     return monografiasEnRango;
   };
 
@@ -195,6 +198,7 @@ function Queries() {
         };
       })
       .toArray();
+    setTableTitle(`Monografias por estudiante con carnet ${carnet}`);
     return monografiaPorEstudiante;
   }
 
@@ -205,6 +209,7 @@ function Queries() {
           x.fechaDeDefensa >= fechaInicio && x.fechaDeDefensa <= fechaFin
       )
       .count();
+    setTableTitle(`Total de monografias en rango de fecha`);
     return monografiasEnRango;
   };
 
@@ -218,18 +223,19 @@ function Queries() {
       )
       .where((x) => x.idprofesor === idProfesor)
       .count();
+    setTableTitle(`Monografias por profesor con ID ${idProfesor}`);
     return monografiasPorTutor;
   };
 
   return (
     <>
       <div className="absolute top-4 left-4 gap-4 flex">
-        <Link to="/queries">
-          <Button variant="secondary">Consultar datos</Button>
+        <Link to="/">
+          <Button variant="secondary">Insertar datos</Button>
         </Link>
         <ThemeChanger />
       </div>
-      <Card className="w-full md:w-[60%]">
+      <Card className="w-full md:w-[60%] m-auto mt-12">
         <CardHeader>
           <CardTitle>{tableTitle}</CardTitle>
         </CardHeader>
@@ -237,23 +243,19 @@ function Queries() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Id cita</TableHead>
-                <TableHead className="text-nowrap">Paciente</TableHead>
-                <TableHead className="text-nowrap">
-                  Nombre del servicio
-                </TableHead>
-                <TableHead className="text-nowrap">Fecha programada</TableHead>
+                {tableData.map((element: Monografia | Student | ProfesorMonografia) => (
+                  Object.keys(element).map((key) => (
+                    <TableHead key={key}>{key}</TableHead>
+                  ))
+                ))}
               </TableRow>
             </TableHeader>
             <TableBody>
-              {tableData.map((element: Appointment) => (
-                <TableRow key={element.id}>
-                  <TableCell className="text-nowrap">{element.id}</TableCell>
-                  <TableCell className="text-nowrap">
-                    {element.patientId}
-                  </TableCell>
-                  <TableCell>{element.service}</TableCell>
-                  <TableCell>{element.date}</TableCell>
+              {tableData.map((element: Monografia | Student | ProfesorMonografia, index) => (
+                <TableRow key={index}>
+                  {Object.values(element).map((value) => (
+                    <TableCell>{value instanceof Date ? value.toLocaleDateString() : value}</TableCell>
+                  ))}
                 </TableRow>
               ))}
             </TableBody>
