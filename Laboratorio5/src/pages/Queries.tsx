@@ -85,7 +85,8 @@ function Queries() {
   const students = getArrayEstudiantes();
   const profesorMonografia = getArray();
 
-  const [tableData, setTableData] = useState([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [tableData, setTableData] = useState<{ [key: string]: any }[]>([]);
 
   const newMonografias = monografias.map((x) => {
     return {
@@ -529,7 +530,7 @@ function Queries() {
           <Table>
             <TableHeader>
               <TableRow>
-                {tableData.map((element: Monografia | Student | ProfesorMonografia, index) => {
+                {tableData.map((element, index) => {
                   if(index === 0)
                   return (
                   Object.keys(element).map((key) => (
@@ -539,7 +540,7 @@ function Queries() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {tableData.map((element: Monografia | Student | ProfesorMonografia | Teachers, index) => (
+              {tableData.map((element, index) => (
                 <TableRow key={index}>
                   {Object.values(element).map((value) => (
                     <TableCell>{value instanceof Date ? value.toLocaleDateString() : value}</TableCell>
