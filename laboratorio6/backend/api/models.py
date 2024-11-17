@@ -24,6 +24,12 @@ class Student(models.Model):
     
     def __str__(self):
         return self.Nombres + " " + self.Apellidos
+    
+    # Validates that the monograph doesn't have a more than 3 students assigned
+    def save(self, *args, **kwargs):
+        if self.Idmonografia and Student.objects.filter(Idmonografia=self.Idmonografia).count() == 3:
+            raise ValueError("Ya no pueden haber mas estudiantes en esta monografia")
+        super(Student, self).save(*args, **kwargs)
 
 class Teachers(models.Model):
     idProfesor = models.AutoField(primary_key=True)
@@ -48,3 +54,11 @@ class ProfesorMonografia(models.Model):
     
     def __str__(self):
         return self.idProfesor + " " + self.idMonografia
+    
+    # Validates that there is only one tutor for each monograph and 3 jurors at most
+    def save(self, *args, **kwargs):
+        if self.rol == 'Tutor' and ProfesorMonografia.objects.filter(idMonografia=self.idMonografia, rol='Tutor').exists():
+            raise ValueError("Ya existe un tutor para esta monografía")
+        if self.rol == 'Jurado' and ProfesorMonografia.objects.filter(idMonografia=self.idMonografia, rol='Jurado').count() == 3:
+            raise ValueError("Ya no pueden haber mas jurados en esta monografia")
+        super(ProfesorMonografia, self).save(*args, **kwargs)
