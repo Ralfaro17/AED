@@ -60,5 +60,7 @@ class ProfesorMonografia(models.Model):
         if self.rol == 'Tutor' and ProfesorMonografia.objects.filter(idMonografia=self.idMonografia, rol='Tutor').exists():
             raise ValueError("Ya existe un tutor para esta monografía")
         if self.rol == 'Jurado' and ProfesorMonografia.objects.filter(idMonografia=self.idMonografia, rol='Jurado').count() == 3:
-            raise ValueError("Ya no pueden haber mas jurados en esta monografia")
+            raise ValueError("Ya no pueden haber mas jurados en esta monografía")
+        if ProfesorMonografia.objects.filter(idProfesor=self.idProfesor, idMonografia=self.idMonografia).exists():
+            raise ValueError("Este profesor ya está asignado a esta monografía")
         super(ProfesorMonografia, self).save(*args, **kwargs)
